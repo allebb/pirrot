@@ -1,0 +1,157 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9ad1b3b4e74f674bbbbb90d8f5634c4e",
+    "packages": [
+        {
+            "name": "ballen/clip",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allebb/clip.git",
+                "reference": "9cb01ac8c0f257c0536548b012d4c6679807ad62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allebb/clip/zipball/9cb01ac8c0f257c0536548b012d4c6679807ad62",
+                "reference": "9cb01ac8c0f257c0536548b012d4c6679807ad62",
+                "shasum": ""
+            },
+            "require": {
+                "ballen/collection": "^1.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "suggest": {
+                "ext-posix": "Enables execution as super user (root) checking."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ballen\\Clip\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bobby Allen",
+                    "email": "ballen@bobbyallen.me",
+                    "homepage": "http://bobbyallen.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package for speeding up development of PHP console (CLI) applications.",
+            "keywords": [
+                "cli",
+                "command",
+                "commands",
+                "console"
+            ],
+            "time": "2016-02-28T16:12:02+00:00"
+        },
+        {
+            "name": "ballen/collection",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allebb/collection.git",
+                "reference": "07aae5f12b1950d98921b78a64c08c5b97e4943e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allebb/collection/zipball/07aae5f12b1950d98921b78a64c08c5b97e4943e",
+                "reference": "07aae5f12b1950d98921b78a64c08c5b97e4943e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ballen\\Collection\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bobby Allen",
+                    "email": "ballen@bobbyallen.me",
+                    "homepage": "http://bobbyallen.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Collection library which provides OOP replacement for the traditional array data structure.",
+            "keywords": [
+                "array",
+                "collection",
+                "list"
+            ],
+            "time": "2016-12-04T19:00:15+00:00"
+        },
+        {
+            "name": "piphp/gpio",
+            "version": "v0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PiPHP/GPIO.git",
+                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PiPHP/GPIO/zipball/5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
+                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PiPHP\\GPIO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Carter",
+                    "email": "andrewcarter1992@gmail.com"
+                }
+            ],
+            "description": "A library for accessing the GPIO pins on a Raspberry Pi",
+            "keywords": [
+                "GPIO",
+                "pi",
+                "pin",
+                "pins",
+                "raspberry"
+            ],
+            "time": "2016-07-09T11:38:12+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.0.0"
+    },
+    "platform-dev": []
+}
