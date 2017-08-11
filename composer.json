@@ -1,0 +1,29 @@
+{
+  "name": "ballen/piplex",
+  "description": "A Simplex Repeater controller for RaspberryPi",
+  "type": "project",
+  "keywords": ["repeater", "simplex", "ham", "radio", "controller"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bobby Allen",
+      "email": "ballen@bobbyallen.me",
+      "homepage": "http://bobbyallen.me",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "ballen@bobbyallen.me",
+    "issues": "https://github.com/bobsta63/piplex/issues"
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "ballen/clip": "^2.0",
+    "piphp/gpio": "^0.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ballen\\Piplex\\": "app/"
+    }
+  }
+}
