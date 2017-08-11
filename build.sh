@@ -2,6 +2,13 @@
 
 echo "Building/installing Piplex..."
 
+echo " # Checking for Piplex configuration..."
+if [ ! -f /etc/piplex.conf ]; then
+    echo " - Creating new piplex.conf from template..."
+    sudo cp /opt/piplex/build/configs/piplex_default.conf /etc/piplex.conf
+    sudo chmod 0644 /etc/piplex.conf
+fi
+
 echo " # Checking if log files exist..."
 if [ ! -f /var/log/piplex.log ]; then
     echo " - Creating log file and setting permissions..."
