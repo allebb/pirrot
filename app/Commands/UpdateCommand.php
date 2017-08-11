@@ -2,7 +2,6 @@
 
 namespace Ballen\Piplex\Commands;
 
-use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 
@@ -11,7 +10,7 @@ use Ballen\Clip\Interfaces\CommandInterface;
  *
  * @package Ballen\Piplex\Commands
  */
-class UpdateCommand extends ConsoleApplication implements CommandInterface
+class UpdateCommand extends PiplexBaseCommand implements CommandInterface
 {
     use RecievesArgumentsTrait;
 

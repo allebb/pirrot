@@ -2,7 +2,6 @@
 
 namespace Ballen\Piplex\Commands;
 
-use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
@@ -12,7 +11,7 @@ use Ballen\Clip\Utilities\ArgumentsParser;
  *
  * @package Ballen\Piplex\Commands
  */
-class DaemonCommand extends ConsoleApplication implements CommandInterface
+class DaemonCommand extends PiplexBaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;
@@ -46,8 +45,9 @@ class DaemonCommand extends ConsoleApplication implements CommandInterface
     public function handle()
     {
 
+        var_dump(die($this->config));
         // Set the timezone...
-        $this->setTimezone();
+        $this->setTimezone($this->config['general']['timezone']);
 
         // Output some debug information.
         $this->writeln("Piplex server is running...");
