@@ -13,3 +13,7 @@ The simplest hardware requirements are:
 3. A USB audio interface (EasyDigit as per example)
 
 The radio should be setup to use VOX
+
+## Audio Out
+
+The radio should broadcast sound using the VOX functionality for simplicity.
