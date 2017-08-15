@@ -68,7 +68,7 @@ PLAY=/usr/local/sox/play
 while true
 do
   echo "Starting RX..."
-  $REC -t coreaudio default buffer.wav -V0 silence 1 0.1 5% 1 1.0 5%
+  $SOX -t coreaudio default buffer.wav -V0 silence 1 0.1 5% 1 1.0 5%
   DATE=`date +%Y%m%d%H%M%S`
   DPATH=`date +%Y/%m/%d/`
   mkdir -p ./spectro/$DPATH
@@ -105,3 +105,19 @@ echo "Starting TX..."
 $PLAY pre.wav ./voice/$DPATH/$DATE.wav post.wav
 ./repeater.sh
 ```
+
+Bash seems to behave rather strange, but instead I came up with this using PHP and works great:
+
+```php
+#!/usr/bin/env php
+<?php
+while(true){
+	echo "Starting RX...";
+	system('/usr/local/sox/sox -t coreaudio default buffer.wav -V0 silence 1 0.1 5% 1 1.0 5%');
+
+	echo "Starting TX...";
+	system('/usr/local/sox/play buffer.wav RC210_Number_11.wav');
+}
+```
+
+My plan would be to use a main service script that forks two processes, firstly would be the main repeater code and secondly the identification loop.
