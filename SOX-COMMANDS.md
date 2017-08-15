@@ -116,8 +116,37 @@ while(true){
 	system('/usr/local/sox/sox -t coreaudio default buffer.wav -V0 silence 1 0.1 5% 1 1.0 5%');
 
 	echo "Starting TX...";
-	system('/usr/local/sox/play buffer.wav RC210_Number_11.wav');
+	system('/usr/local/sox/play buffer.wav RC210_Number_10.wav');
 }
+```
+
+An extended example is as follows, this includes storing files and optimising data etc...
+
+```php
+#!/usr/bin/env php
+<?php
+while(true){
+	//system('say \"We can also say stuff!\"');
+	updateCli("Starting RX...");
+	system('/usr/local/sox/sox -q -t coreaudio default buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
+
+	// Generate some graphs etc.
+	$DATE = date('YmdHis');
+	$DPATH=date('Y').'/'.date('M').'/'.date('d');
+	system('mkdir -p ./spectro/'.$DPATH);
+  	system('mkdir -p ./voice/' .$DPATH);
+	system('/usr/local/sox/sox buffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.ogg -o ./spectro/'.$DPATH.'/'.$DATE.'.png');
+  	system('/usr/local/sox/sox buffer.ogg normbuffer.ogg gain -n -2');
+  	system('/usr/local/sox/sox normbuffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.norm.ogg -o ./spectro/'.$DPATH.'/'.$DATE.'.norm.png');
+  	system('mv normbuffer.ogg ./voice/' .$DPATH.'/'.$DATE.'.ogg');
+	updateCli("Starting TX...");
+	system('/usr/local/sox/play -q ./voice/' .$DPATH.'/'.$DATE.'.ogg RC210_Number_03.wav');
+}
+
+function updateCli($text){
+	  	echo "{$text}   \r"; // Updates the text line dynamically...  See: https://stackoverflow.com/questions/5265288/update-command-line-output-i-e-for-progress
+}
+
 ```
 
 My plan would be to use a main service script that forks two processes, firstly would be the main repeater code and secondly the identification loop.
