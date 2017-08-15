@@ -82,3 +82,26 @@ do
   $PLAY pre.wav ./voice/$DPATH/$DATE.wav post.wav
 done
 ```
+
+You can also use:
+
+```shell
+#!/bin/bash
+SOX=/usr/local/sox/sox
+REC=/usr/local/sox/rec
+PLAY=/usr/local/sox/play
+echo "Starting RX..."
+$REC -t coreaudio default buffer.wav -V0 silence 1 0.1 5% 1 1.0 5%
+DATE=`date +%Y%m%d%H%M%S`
+DPATH=`date +%Y/%m/%d/`
+mkdir -p ./spectro/$DPATH
+mkdir -p ./voice/$DPATH
+echo Renaming buffer file to $DATE
+$SOX buffer.wav -n spectrogram -x 300 -y 200 -z 100 -t $DATE.wav -o ./spectro/$DPATH/$DATE.png
+$SOX buffer.wav normbuffer.wav gain -n -2
+$SOX normbuffer.wav -n spectrogram -x 300 -y 200 -z 100 -t $DATE.norm.wav -o ./spectro/$DPATH/$DATE.wav.png
+mv normbuffer.wav ./voice/$DPATH/$DATE.wav
+echo "Starting TX..."
+$PLAY pre.wav ./voice/$DPATH/$DATE.wav post.wav
+./repeater.sh
+```
