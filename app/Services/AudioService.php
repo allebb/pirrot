@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Ballen\Piplex\Services;
 
 
 class AudioService
@@ -103,7 +103,7 @@ class AudioService
         if ($withTime) {
             $speakArray[] = $this->soundPath . 'core/the_time_is.wav';
             $speakArray = array_merge($speakArray,
-                $this->speak(date(hi))); // Could update this later to include "AM" or "PM"
+                $this->speak(date('hi'))); // Could update this later to include "AM" or "PM"
         }
         if ($withMorse) {
             $speakArray[] = $this->morse($callsign);
@@ -134,6 +134,7 @@ class AudioService
     public function speak($string)
     {
         $speakArray = [];
+        $string = (array)$string;
         foreach ($string as $character) {
             if (isset($this->pheonetics[$character])) {
                 $speakArray[] = $this->soundPath . 'pheonetics/' . $this->pheonetics[$character];
