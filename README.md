@@ -17,3 +17,10 @@ The radio should be setup to use VOX
 ## Audio Out
 
 The radio should broadcast sound using the VOX functionality for simplicity.
+
+
+## Features
+
+* RaspberryPi3 WiFi setup as an access point (provides DNS, DHCP etc.)
+* RaspberyPi3 NIC provides access for the Pi to be configured on the network.
+* 
