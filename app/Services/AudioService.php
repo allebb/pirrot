@@ -95,20 +95,21 @@ class AudioService
     {
         $speakArray = [];
         $speakArray[] = $this->soundPath . 'core/repeater.wav';
-        $speakArray = array_merge($speakArray, $this->speak($callsign));
+        $speakArray = array_merge($speakArray, [$this->speak($callsign)]);
         if ($pl) {
             $speakArray[] = $this->soundPath . 'core/pl_is.wav';
-            $speakArray = array_merge($speakArray, $this->speak($pl));
+            $speakArray = array_merge($speakArray, [$this->speak($pl)]);
         }
         if ($withTime) {
             $speakArray[] = $this->soundPath . 'core/the_time_is.wav';
             $speakArray = array_merge($speakArray,
-                $this->speak(date('hi'))); // Could update this later to include "AM" or "PM"
+                [$this->speak(date('Hi'))]); // Could update this later to include "AM" or "PM"
         }
         if ($withMorse) {
             $speakArray[] = $this->morse($callsign);
         }
-        $this->sequenceOutput($speakArray);
+
+        $this->play($this->sequenceOutput($speakArray));
     }
 
     /**
@@ -126,41 +127,52 @@ class AudioService
     }
 
     /**
+     * Reads the given string in the pheonetic alphabet.
+     *
+     * @param $string The string of characters to read.
+     * @return void
+     */
+    public function say($string)
+    {
+        $this->play($this->speak($string));
+    }
+
+    /**
      * Converts text characters to file array.
      *
      * @param string $string The input string
      * @return void
      */
-    public function speak($string)
+    private function speak($string)
     {
         $speakArray = [];
-        $string = (array)$string;
-        foreach ($string as $character) {
+        foreach (str_split($string) as $character) {
+            $character = strtolower($character);
             if (isset($this->pheonetics[$character])) {
                 $speakArray[] = $this->soundPath . 'pheonetics/' . $this->pheonetics[$character];
             }
         }
-        $this->sequenceOutput($speakArray);
+        return $this->sequenceOutput($speakArray);
     }
 
     /**
-     * Plays a sequence of audio files.
+     * Returns sequence of audio files.
      *
      * @param array $files
-     * @return void
+     * @return array
      */
     private function sequenceOutput($files)
     {
         if (is_array($files)) {
             $cliArgs = '';
             foreach ($files as $file) {
-                $cliArgs += ' ' . $file;
+                $cliArgs .= ' ' . $file;
             }
         } else {
-            $cliArgs = $files;
+            $cliArgs = ' ' . $files;
         }
         // Now play the sequence audio...
-        $this->play($cliArgs);
+        return $cliArgs;
     }
 
     /**
