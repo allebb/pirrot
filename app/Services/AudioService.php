@@ -78,7 +78,7 @@ class AudioService
     public function tone($tone)
     {
         if (file_exists($this->soundPath . 'courtesy_tones/' . $tone . '.wav')) {
-            $this->play($this->soundPath . 'courtesy_tones/' . $tone . '.wav');
+            $this->play(' ' . $this->soundPath . 'courtesy_tones/' . $tone . '.wav');
         }
     }
 
@@ -171,7 +171,7 @@ class AudioService
      */
     private function play($files)
     {
-        system($this->audioPlayerBin . ' ' . $files);
+        system($this->audioPlayerBin . $files);
     }
 
 }

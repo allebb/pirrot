@@ -28,7 +28,7 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
     {
         $this->setTimezone();
         $this->audioService = new AudioService();
-        $this->audioService->soundPath = realpath(__DIR__) . 'resources/sound/';
+        $this->audioService->soundPath = rtrim(realpath(__DIR__), 'app/Commands') . '/resources/sound/';
         $this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
         parent::__construct($argv);
     }
@@ -40,8 +40,8 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
     {
         while (true) {
             $this->audioService->tone('3up');
-            $this->audioService->speak('bobby06');
-            //$this->audioService->ident('W123', '110.9', true, false);
+            //$this->audioService->speak('bobby06');
+            $this->audioService->ident('W123', '110.9', true, false);
             sleep(5);
         }
     }
