@@ -25,6 +25,8 @@ The radio should broadcast sound using the VOX functionality for simplicity.
 * RaspberyPi3 NIC provides access for the Pi to be configured on the network.
 * Saving recordings of voice optional (set in the system configuration) - Disabled by default.
 * Browsable list of recording (and graphs) if recording are enabled.
+* Ability to set a courtesy tone.
+* Ability to configure the server ident.
 * Enable to purge recordings after a set time (eg. 30 days) - A Cron job will run and delete recordings old than that.
 * Ability to enable or disable repeater identifier. - Disabled by default.
 * Ability to upload recordings to Amazon S3 on a cron job (only works if connected to the LAN)
