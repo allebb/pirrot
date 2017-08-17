@@ -22,6 +22,11 @@ class PiplexBaseCommand extends ConsoleApplication
      */
     public $basePath;
 
+    /**
+     * PiplexBaseCommand constructor.
+     *
+     * @param ArgumentsParser $argv
+     */
     public function __construct(ArgumentsParser $argv)
     {
         $this->getBasePath();
@@ -29,11 +34,21 @@ class PiplexBaseCommand extends ConsoleApplication
         parent::__construct($argv);
     }
 
+    /**
+     * Retrieve and merge the software configuration.
+     *
+     * @return void
+     */
     private function retrieveConfiguration()
     {
         $this->config = new Config($this->basePath . '/build/configs/piplex_default.conf');
     }
 
+    /**
+     * Computes the base path of the applicaiton.
+     *
+     * @return void
+     */
     private function getBasePath()
     {
         $path = rtrim(realpath(__DIR__), 'app/Commands');
