@@ -198,41 +198,7 @@ class AudioService
      */
     public function sayNumber($number)
     {
-        $speakArray = []; // Temporary storage for the file playlist.
-        $length = strlen($number); // Get the number of character for the number...
-
-
-        // Number is direct and we'll just convert to the sound path...
-        if (in_array($number, $this->pheoneticNumbers)) {
-            return $this->play($this->sequenceOutput($this->soundPath . 'pheonetics/' . $number . '.wav'));
-        }
-
-        // Number is a variation of multiples...
-        if ($length > 3) {
-            // Number is greater then 999 - Speak it individually...
-            return $this->play($this->sequenceOutput($this->speak($number)));
-        }
-
-        // Number is a XXX number, get the first number and output that and the decode and output the second part...
-        if ($length > 2) {
-            $number = str_split($number);
-            $speakArray[] = $this->sequenceOutput($this->soundPath . 'pheonetics/' . $number[0] . '00.wav');
-            $length = 2; // Set to 2 to enforce the ten's computation...
-            $number = $number[1] . $number[2];
-        }
-
-        // Number is just a two digit number but did not match a pre-recorded value, we'll compute and return...
-        if ($length = 2) {
-            str_split($number);
-            $tenDigit = $number[0];
-            $lowerDigit = $number[1];
-            if ($tenDigit == '0') {
-                $speakArray[] = $this->sequenceOutput($this->soundPath . 'pheonetics/0.wav');
-            } else {
-                $speakArray[] = $this->sequenceOutput($this->soundPath . 'pheonetics/' . $tenDigit . 'X.wav');
-            }
-        }
-        return $this->play($this->sequenceOutput($speakArray));
+        $this->play($this->speakNumber($number));
     }
 
     /**
@@ -254,13 +220,60 @@ class AudioService
     }
 
     /**
+     * Converts number characters to file array.
+     *
+     * @param int $number The input number
+     * @return array
+     */
+    private function speakNumber($number)
+    {
+        $speakArray = []; // Temporary storage for the file playlist.
+        $length = strlen($number); // Get the number of character for the number...
+
+
+        // Number is direct and we'll just convert to the sound path...
+        if (in_array($number, $this->pheoneticNumbers)) {
+            return $this->sequenceOutput($this->soundPath . 'pheonetics/' . $number . '.wav');
+        }
+
+        // Number is a variation of multiples...
+        if ($length > 3) {
+            // Number is greater then 999 - Speak it individually...
+            return $this->sequenceOutput($this->speak($number));
+        }
+
+        // Number is a XXX number, get the first number and output that and the decode and output the second part...
+        if ($length > 2) {
+            $number = str_split($number);
+            $speakArray[] = $this->soundPath . 'pheonetics/' . $number[0] . '00.wav';
+            $number = $number[1] . $number[2];
+        }
+
+        // Number is just a two digit number but did not match a pre-recorded value, we'll compute and return...
+        if ($length = 2) {
+            $number = str_split($number);
+            $tenDigit = $number[0];
+            $lowerDigit = $number[1];
+            if (count($speakArray) > 0) {
+                // Add an 'and' speak
+                $speakArray[] = $this->soundPath . 'pheonetics/and.wav';
+            }
+            if ($tenDigit != '0') {
+                $speakArray[] = $this->soundPath . 'pheonetics/' . $tenDigit . 'X.wav';
+            }
+        }
+        $speakArray[] = $this->soundPath . 'pheonetics/' . $lowerDigit . '.wav';
+        return $this->sequenceOutput($speakArray);
+    }
+
+    /**
      * Returns sequence of audio files.
      *
      * @param array $files
      * @return array
      */
-    private function sequenceOutput($files
-    ) {
+    private function sequenceOutput($files)
+    {
         if (is_array($files)) {
             $cliArgs = '';
             foreach ($files as $file) {
@@ -269,7 +282,6 @@ class AudioService
         } else {
             $cliArgs = ' ' . $files;
         }
-        // Now play the sequence audio...
         return $cliArgs;
     }
 
@@ -279,8 +291,8 @@ class AudioService
      * @param $files The string of audio files to play in order.
      * @return void
      */
-    private function play($files
-    ) {
+    private function play($files)
+    {
         system($this->audioPlayerBin . $files);
     }
 

@@ -42,9 +42,14 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
             //$this->audioService->tone('3up');
             //$this->audioService->say('bobby06');
             //$this->audioService->ident('W123', '110.9', true, false);
-            $this->audioService->sayNumber(109);
-            $this->audioService->say('.');
-            $this->audioService->sayNumber(23);
+            //$this->audioService->sayNumber(109);
+            //$this->audioService->say('.');
+            //$this->audioService->sayNumber(23);
+
+            $this->audioService->sayNumber(6);
+            $this->audioService->sayNumber(29);
+            $this->audioService->sayNumber(123);
+            $this->audioService->sayNumber(4355);
             sleep(5);
         }
     }
