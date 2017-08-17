@@ -24,11 +24,11 @@ class Config
     public function __construct($config, $defaultConfig = null)
     {
 
-        $this->config = $this->loadConfig($config);
+        $this->config = $this->parseConfig($config);
         if ($defaultConfig) {
             $this->config = array_merge(
-                $this->loadConfig($defaultConfig),
-                $this->loadConfig($config)
+                $this->parseConfig($defaultConfig),
+                $this->parseConfig($config)
             );
         }
 
@@ -40,9 +40,18 @@ class Config
      * @param $config The path to the configuration file.
      * @return array
      */
-    private function loadConfig($config)
+    private function parseConfig($config)
     {
-        return parse_ini_file($config);
+        $configArray = parse_ini_file($config);
+        var_dump($configArray);
+        $parsed = [];
+        foreach ($configArray as $key => $value) {
+            $parsed[$key] = $value;
+            if (is_integer($value)) {
+                $parsed[$key] = (int)$value;
+            }
+        }
+        return $parsed;
     }
 
     /**
@@ -52,8 +61,10 @@ class Config
      * @param mixed $default The default value to return if not set.
      * @return mixed
      */
-    public function get($key, $default = null)
-    {
+    public
+    function get($key,
+        $default = null
+    ) {
         if (!isset($this->config[$key])) {
             return $default;
         }
@@ -65,8 +76,24 @@ class Config
      *
      * @return array
      */
-    public function all()
+    public
+    function all()
     {
         return $this->config;
+    }
+
+    /**
+     * Magic method for accessing configuration items as a property.
+     *
+     * @param $name The configuration property name.
+     * @return mixed|null
+     */
+    public
+    function __get($name
+    ) {
+        if (isset($this->config[$name])) {
+            return $this->config[$name];
+        }
+        return null;
     }
 }

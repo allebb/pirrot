@@ -40,21 +40,25 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
     {
         var_dump($this->config->all());
         var_dump($this->config->get('timezone', false));
+        var_dump($this->config->callsign);
 
+        $this->audioService->announce('online.wav');
         while (true) {
+            if ($this->config->get('auto_ident')) {
+                $this->audioService->ident(
+                    $this->config->get('callsign'),
+                    $this->config->get('pl_tone'),
+                    $this->config->get('ident_time'),
+                    $this->config->get('ident_morse')
+                );
+            }
+            sleep($this->config->get('ident_interval'));
+            // After transmission we can call the tone like so:
             //$this->audioService->tone('3up');
-            //$this->audioService->say('bobby06');
-            $this->audioService->ident('W123', '112.09', true, false);
-            //$this->audioService->sayNumber(109);
-            //$this->audioService->say('.');
-            //$this->audioService->sayNumber(23);
 
-            //$this->audioService->sayNumber(6);
-            //$this->audioService->sayNumber(29);
-            //$this->audioService->sayNumber(123);
-            //$this->audioService->sayNumber(4355);
-            sleep(5);
+
         }
+        $this->audioService->announce('deactivating.wav');
     }
 
     /**

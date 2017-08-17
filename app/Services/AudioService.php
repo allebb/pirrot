@@ -123,6 +123,19 @@ class AudioService
     ];
 
     /**
+     * Play a recorded message from the 'core' directory.
+     *
+     * @param $file The file name (including the extension)
+     * @return void
+     */
+    public function announce($file)
+    {
+        if (file_exists($this->soundPath . 'core/' . $file)) {
+            $this->play(' ' . $this->soundPath . 'core/' . $file);
+        }
+    }
+
+    /**
      * Play the specified courtesy tone.
      *
      * @param $tone The tone filename (without the file extenion)
