@@ -38,6 +38,8 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
      */
     public function handle()
     {
+        var_dump($this->config->get('timezone', false));
+
         while (true) {
             //$this->audioService->tone('3up');
             //$this->audioService->say('bobby06');

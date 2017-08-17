@@ -4,10 +4,16 @@ namespace Ballen\Piplex\Commands;
 
 use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
+use Ballen\Piplex\Foundation\Config;
 
 class PiplexBaseCommand extends ConsoleApplication
 {
-    public $config = [];
+    /**
+     * The software configuration.
+     *
+     * @var Config
+     */
+    public $config;
 
     public function __construct(ArgumentsParser $argv)
     {
@@ -17,7 +23,6 @@ class PiplexBaseCommand extends ConsoleApplication
 
     private function retrieveConfiguration()
     {
-        // To be merged with the user defined one (living in /etc/piplex.conf) later!!
-        $this->config = parse_ini_file('build/configs/piplex_default.conf');
+        $this->config = new Config('/Users/ballen/Code/piplex/build/configs/piplex_default.conf');
     }
 }
