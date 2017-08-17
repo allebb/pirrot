@@ -48,7 +48,7 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
             if ($this->config->get('auto_ident')) {
                 $this->audioService->ident(
                     $this->config->get('callsign'),
-                    $this->config->get('pl_tone'),
+                    $this->config->get('pl_tone', null),
                     $this->config->get('ident_time'),
                     $this->config->get('ident_morse')
                 );
