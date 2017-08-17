@@ -18,34 +18,29 @@ class Config
     /**
      * Config constructor.
      *
-     * @param $config
+     * @param $config The user/working configuration file (eg. /etc/myapp.conf)
+     * @param null $defaultConfig Optional 'default' configuration to merge with.
      */
-    public function __construct($config)
+    public function __construct($config, $defaultConfig = null)
     {
-        $this->config = array_merge(
-            //$this->loadDefault(),
-            $this->loadCustom($config)
-        );
+
+        $this->config = $this->loadConfig($config);
+        if ($defaultConfig) {
+            $this->config = array_merge(
+                $this->loadConfig($defaultConfig),
+                $this->loadConfig($config)
+            );
+        }
+
     }
 
     /**
-     * Loads the default (shipped) configuration.
+     * Loads a configuration file.
      *
      * @param $config The path to the configuration file.
      * @return array
      */
-    private function loadDefault($config)
-    {
-        return parse_ini_file($config);
-    }
-
-    /**
-     * Loads and merges the user configuration.
-     *
-     * @param $config The path to the configuration file.
-     * @return array
-     */
-    private function loadCustom($config)
+    private function loadConfig($config)
     {
         return parse_ini_file($config);
     }
@@ -63,5 +58,15 @@ class Config
             return $default;
         }
         return $this->config[$key];
+    }
+
+    /**
+     * Returns the in-memory configuration array.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->config;
     }
 }
