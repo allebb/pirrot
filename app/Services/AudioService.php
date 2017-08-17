@@ -262,13 +262,10 @@ class AudioService
                 $parts = str_split($number);
                 $tenDigit = $parts[0];
                 $lowerDigit = $parts[1];
-                //die(var_dump($parts[1]));
-                if (count($speakArray) > 0) {
-                    // Add an 'and' speak
-                    $speakArray[] = $this->soundPath . 'pheonetics/and.wav';
-                }
-                if (($tenDigit != '0') && ($tenDigit != '1')) {
+                if ($tenDigit > 0) {
                     $speakArray[] = $this->soundPath . 'pheonetics/' . $tenDigit . 'X.wav';
+                } else {
+                    $speakArray[] = $this->soundPath . 'pheonetics/0.wav';
                 }
                 $number = $lowerDigit;
                 $speakArray[] = $this->soundPath . 'pheonetics/' . $number . '.wav'; // Finally add the lowest digit.
