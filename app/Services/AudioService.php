@@ -154,7 +154,6 @@ class AudioService
         if ($pl) {
             $speakArray[] = $this->soundPath . 'core/pl_is.wav';
             $parts = explode('.', $pl);
-            //die(var_dump($parts));
             $speakArray = array_merge($speakArray, [$this->speakNumber($parts[0])]);
             $speakArray = array_merge($speakArray, [$this->speak('.')]);
             $speakArray = array_merge($speakArray, [$this->speakNumber($parts[1])]);
@@ -253,22 +252,27 @@ class AudioService
             $number = str_split($number);
             $speakArray[] = $this->soundPath . 'pheonetics/' . $number[0] . '00.wav';
             $number = $number[1] . $number[2];
+            $length = 2;
         }
 
-        // Number is just a two digit number but did not match a pre-recorded value, we'll compute and return...
-        if ($length = 2) {
-            $number = str_split($number);
-            $tenDigit = $number[0];
-            $lowerDigit = $number[1];
-            if (count($speakArray) > 0) {
-                // Add an 'and' speak
-                $speakArray[] = $this->soundPath . 'pheonetics/and.wav';
+        if (in_array($number, $this->pheoneticNumbers)) {
+            $speakArray[] = $this->soundPath . 'pheonetics/' . $number . '.wav';
+        } else {
+            // Number is just a two digit number but did not match a pre-recorded value, we'll compute and return...
+            if ($length = 2) {
+                $parts = str_split($number);
+                $tenDigit = $parts[0];
+                $lowerDigit = $parts[1];
+                if (count($speakArray) > 0) {
+                    // Add an 'and' speak
+                    $speakArray[] = $this->soundPath . 'pheonetics/and.wav';
+                }
+                if ($tenDigit != '0') {
+                    $speakArray[] = $this->soundPath . 'pheonetics/' . $tenDigit . 'X.wav';
+                }
             }
-            if ($tenDigit != '0') {
-                $speakArray[] = $this->soundPath . 'pheonetics/' . $tenDigit . 'X.wav';
-            }
+            $speakArray[] = $this->soundPath . 'pheonetics/' . $lowerDigit . '.wav';
         }
-        $speakArray[] = $this->soundPath . 'pheonetics/' . $lowerDigit . '.wav';
         return $this->sequenceOutput($speakArray);
     }
 
