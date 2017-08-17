@@ -82,6 +82,7 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
             $this->counter++;
             $this->writeln('[' . $this->counter . '] Pin ' . $pin->getNumber() . ' changed to: ' . $value);
             // Returning false will make the watcher return false immediately
+            usleep(100); // prevent debouncing on the button.
             return true;
         });
 
