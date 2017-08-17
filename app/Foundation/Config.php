@@ -31,9 +31,10 @@ class Config
     /**
      * Loads the default (shipped) configuration.
      *
+     * @param $config The path to the configuration file.
      * @return array
      */
-    private function loadDefault()
+    private function loadDefault($config)
     {
         return parse_ini_file();
     }
@@ -41,8 +42,8 @@ class Config
     /**
      * Loads and merges the user configuration.
      *
-     * @param $config
-     * @return arrayx
+     * @param $config The path to the configuration file.
+     * @return array
      */
     private function loadCustom($config)
     {

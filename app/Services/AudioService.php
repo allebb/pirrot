@@ -284,9 +284,8 @@ class AudioService
      * @param array $files
      * @return array
      */
-    private
-    function sequenceOutput($files
-    ) {
+    private function sequenceOutput($files)
+    {
         if (is_array($files)) {
             $cliArgs = '';
             foreach ($files as $file) {
@@ -304,9 +303,8 @@ class AudioService
      * @param $files The string of audio files to play in order.
      * @return void
      */
-    private
-    function play($files
-    ) {
+    private function play($files)
+    {
         system($this->audioPlayerBin . $files);
     }
 
