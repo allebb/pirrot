@@ -11,7 +11,7 @@ class AudioService
      *
      * @var string
      */
-    public $audioPlayerBin = '/usr/bin/play';
+    public $audioPlayerBin = '/usr/bin/play -q';
 
     /**
      * The sound path (with trailing slash)
