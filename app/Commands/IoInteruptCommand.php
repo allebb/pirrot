@@ -7,6 +7,8 @@ use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use PiPHP\GPIO\GPIO;
 use PiPHP\GPIO\Pin\PinInterface;
+use PiPHP\GPIO\Pin\InputPinInterface;
+use PiPHP\GPIO\Pin\OutputPinInterface;
 
 /**
  * Class IoCommand
