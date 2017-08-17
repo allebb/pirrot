@@ -20,6 +20,11 @@ class IoCommand extends PiplexBaseCommand implements CommandInterface
 
     use RecievesArgumentsTrait;
 
+    /**
+     * The GPIO Driver
+     *
+     * @var GPIO
+     */
     private $gpio;
 
     /**

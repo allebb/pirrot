@@ -18,6 +18,11 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
 
     use RecievesArgumentsTrait;
 
+    /**
+     * The GPIO Driver
+     *
+     * @var GPIO
+     */
     private $gpio;
 
     /**
@@ -39,6 +44,7 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
         // Disable GPIO.
         if ($argv->options()->has('disable-gpio')) {
             $this->disableGPIO = true;
+        } else {
             $this->gpio = new GPIO();
         }
 
@@ -59,7 +65,7 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
         $this->writeln('Starting test IO runner...');
 
         // Set pin types...
-        $pin = $this->gpio->getInputPin(18);
+        $pin = $this->gpio->getInputPin(23);
 
         // Configure interrupts for both rising and falling edges
         $pin->setEdge(InputPinInterface::EDGE_BOTH);
