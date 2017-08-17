@@ -27,6 +27,8 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
      */
     private $gpio;
 
+    private $counter = 0;
+
     /**
      * Disables GPIO functionality (great for dev/testing purposes.)
      *
@@ -76,10 +78,9 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
         $interruptWatcher = $this->gpio->createWatcher();
 
         // Register a callback to be triggered on pin interrupts
-        $c = 0;
-        $interruptWatcher->register($pin, function (InputPinInterface $pin, $value) use ($c){
-            $c++;
-            $this->writeln('[' .$c.'] Pin ' . $pin->getNumber() . ' changed to: ' . $value);
+        $interruptWatcher->register($pin, function (InputPinInterface $pin, $value) {
+            $this->counter++;
+            $this->writeln('[' . $this->counter . '] Pin ' . $pin->getNumber() . ' changed to: ' . $value);
             // Returning false will make the watcher return false immediately
             return true;
         });
