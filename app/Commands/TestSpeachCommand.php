@@ -39,9 +39,12 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
     public function handle()
     {
         while (true) {
-            $this->audioService->tone('3up');
-            $this->audioService->say('bobby06');
-            $this->audioService->ident('W123', '110.9', true, false);
+            //$this->audioService->tone('3up');
+            //$this->audioService->say('bobby06');
+            //$this->audioService->ident('W123', '110.9', true, false);
+            $this->audioService->sayNumber(109);
+            $this->audioService->say('.');
+            $this->audioService->sayNumber(23);
             sleep(5);
         }
     }
