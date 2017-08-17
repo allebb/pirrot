@@ -148,20 +148,26 @@ class AudioService
     {
         $speakArray = [];
         $speakArray[] = $this->soundPath . 'core/repeater.wav';
-        $speakArray = array_merge($speakArray, [$this->speak($callsign)]);
+        $speakArray = array_merge($speakArray, [
+            $this->speak($callsign),
+        ]);
         if ($pl) {
             $speakArray[] = $this->soundPath . 'core/pl_is.wav';
-            $speakArray = array_merge($speakArray, [$this->speak($pl)]);
+            $parts = explode('.', $pl);
+            //die(var_dump($parts));
+            $speakArray = array_merge($speakArray, [$this->speakNumber($parts[0])]);
+            $speakArray = array_merge($speakArray, [$this->speak('.')]);
+            $speakArray = array_merge($speakArray, [$this->speakNumber($parts[1])]);
         }
         if ($withTime) {
             $speakArray[] = $this->soundPath . 'core/the_time_is.wav';
-            $speakArray = array_merge($speakArray,
-                [$this->speak(date('Hi'))]); // Could update this later to include "AM" or "PM"
+            $speakArray = array_merge($speakArray, [$this->speakNumber(date('H'))]);
+            $speakArray = array_merge($speakArray, [$this->speakNumber(date('i'))]);
+            // Could update this later to include "AM" or "PM" but at the moment uses 24 hour clock format.
         }
         if ($withMorse) {
             $speakArray[] = $this->morse($callsign);
         }
-
         $this->play($this->sequenceOutput($speakArray));
     }
 
@@ -239,7 +245,7 @@ class AudioService
         // Number is a variation of multiples...
         if ($length > 3) {
             // Number is greater then 999 - Speak it individually...
-            return $this->sequenceOutput($this->speak($number));
+            return $this->speak($number);
         }
 
         // Number is a XXX number, get the first number and output that and the decode and output the second part...
