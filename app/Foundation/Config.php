@@ -36,7 +36,7 @@ class Config
      */
     private function loadDefault($config)
     {
-        return parse_ini_file();
+        return parse_ini_file($config);
     }
 
     /**

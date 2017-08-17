@@ -236,8 +236,8 @@ class AudioService
         $length = strlen($number); // Get the number of character for the number...
 
         // Number is direct and we'll just convert to the sound path...
-        if (in_array($number, $this->pheoneticNumbers)) {
-            return $this->sequenceOutput($this->soundPath . 'pheonetics/' . $number . '.wav');
+        if (isset($this->pheoneticNumbers[$number])) {
+            return $this->sequenceOutput($this->soundPath . 'pheonetics/' . $this->pheoneticNumbers[$number]);
         }
 
         // Number is a variation of multiples...
@@ -256,8 +256,8 @@ class AudioService
 
         // Number is just a two digit number but did not match a pre-recorded value, we'll compute and return...
         if ($length = 2) {
-            if (in_array($number, $this->pheoneticNumbers)) {
-                $speakArray[] = $this->soundPath . 'pheonetics/' . $number . '.wav';
+            if (isset($this->pheoneticNumbers[$number])) {
+                $speakArray[] = $this->soundPath . 'pheonetics/' . $this->pheoneticNumbers[$number];
             } else {
                 $parts = str_split($number);
                 $tenDigit = $parts[0];
