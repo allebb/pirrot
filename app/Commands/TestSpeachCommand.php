@@ -2,6 +2,7 @@
 
 namespace Ballen\Piplex\Commands;
 
+use Ballen\Piplex\Interfaces\TransmittableInterface;
 use Ballen\Piplex\Services\AudioService;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
@@ -26,11 +27,12 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
      */
     public function __construct(ArgumentsParser $argv)
     {
-        $this->setTimezone();
+        parent::__construct($argv);
+
+        $this->setTimezone($this->config->get('timezone', 'UTC'));
         $this->audioService = new AudioService();
         $this->audioService->soundPath = rtrim(realpath(__DIR__), 'app/Commands') . '/resources/sound/';
         $this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
-        parent::__construct($argv);
     }
 
     /**
@@ -38,11 +40,10 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
      */
     public function handle()
     {
-        var_dump($this->config->all());
-        var_dump($this->config->get('timezone', false));
-        var_dump($this->config->callsign);
-
-        $this->audioService->announce('online.wav');
+        //var_dump($this->config->all());
+        //var_dump($this->config->get('timezone', false));
+        //var_dump($this->config->callsign);
+        $this->audioService->announce('connected.wav');
         while (true) {
             if ($this->config->get('auto_ident')) {
                 $this->audioService->ident(
@@ -55,8 +56,6 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
             sleep($this->config->get('ident_interval'));
             // After transmission we can call the tone like so:
             //$this->audioService->tone('3up');
-
-
         }
         $this->audioService->announce('deactivating.wav');
     }
@@ -66,9 +65,8 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
      *
      * @param string $timezone
      */
-    private function setTimezone($timezone = 'Europe/London')
+    private function setTimezone($timezone)
     {
         date_default_timezone_set($timezone);
     }
-
 }

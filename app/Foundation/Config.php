@@ -42,9 +42,8 @@ class Config
      */
     private function parseConfig($config)
     {
-        $configArray = parse_ini_file($config);
-        var_dump($configArray);
         $parsed = [];
+        $configArray = parse_ini_file($config);
         foreach ($configArray as $key => $value) {
             $parsed[$key] = $value;
             if (is_integer($value)) {
