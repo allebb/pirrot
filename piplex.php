@@ -7,6 +7,7 @@ use Ballen\Piplex\Commands\UpdateCommand;
 use Ballen\Piplex\Commands\TestSpeachCommand;
 use Ballen\Piplex\Commands\IoCommand;
 use Ballen\Piplex\Commands\IoInteruptCommand;
+use Ballen\Piplex\Commands\HelpCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);

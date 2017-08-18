@@ -31,7 +31,7 @@ class PiplexBaseCommand extends ConsoleApplication
     {
         $this->getBasePath();
         $this->retrieveConfiguration();
-        $this->setTimezone($this->config['general']['timezone']);
+        $this->setTimezone($this->config->get('timezone'));
         parent::__construct($argv);
     }
 
