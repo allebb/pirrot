@@ -28,8 +28,6 @@ class TestSpeachCommand extends PiplexBaseCommand implements CommandInterface
     public function __construct(ArgumentsParser $argv)
     {
         parent::__construct($argv);
-
-        $this->setTimezone($this->config->get('timezone', 'UTC'));
         $this->audioService = new AudioService();
         $this->audioService->soundPath = rtrim(realpath(__DIR__), 'app/Commands') . '/resources/sound/';
         $this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
