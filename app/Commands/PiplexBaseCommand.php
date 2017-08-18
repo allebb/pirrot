@@ -31,6 +31,7 @@ class PiplexBaseCommand extends ConsoleApplication
     {
         $this->getBasePath();
         $this->retrieveConfiguration();
+        $this->setTimezone($this->config['general']['timezone']);
         parent::__construct($argv);
     }
 
@@ -53,5 +54,16 @@ class PiplexBaseCommand extends ConsoleApplication
     {
         $path = rtrim(realpath(__DIR__), 'app/Commands');
         $this->basePath = $path;
+    }
+
+    /**
+     * Sets the default timezone for the application.
+     *
+     * @param string $timezone
+     * @return void
+     */
+    private function setTimezone($timezone = 'Europe/London')
+    {
+        date_default_timezone_set($timezone);
     }
 }

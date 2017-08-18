@@ -17,25 +17,12 @@ class DaemonCommand extends PiplexBaseCommand implements CommandInterface
     use RecievesArgumentsTrait;
 
     /**
-     * Disables GPIO functionality (great for dev/testing purposes.)
-     *
-     * @var bool
-     */
-    private $disableGPIO = false;
-
-    /**
      * DaemonCommand constructor.
      *
      * @param ArgumentsParser $argv
      */
     public function __construct(ArgumentsParser $argv)
     {
-
-        // Disable GPIO.
-        if ($argv->options()->has('disable-gpio')) {
-            $this->disableGPIO = true;
-        }
-
         parent::__construct($argv);
     }
 
@@ -45,37 +32,6 @@ class DaemonCommand extends PiplexBaseCommand implements CommandInterface
     public function handle()
     {
 
-        var_dump(die($this->config));
-        // Set the timezone...
-        $this->setTimezone($this->config['general']['timezone']);
-
-        // Output some debug information.
-        $this->writeln("Piplex server is running...");
-
-        // The main application service loop...
-        while (true) {
-
-            $this->mainLoop();
-        }
-
-    }
-
-    /**
-     * The main application loop.
-     */
-    private function mainLoop()
-    {
-
-    }
-
-    /**
-     * Sets the default timezone for the application.
-     *
-     * @param string $timezone
-     */
-    private function setTimezone($timezone = 'Europe/London')
-    {
-        date_default_timezone_set($timezone);
     }
 
 }
