@@ -2,7 +2,7 @@
 <?php
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
-use Ballen\Piplex\Commands\DaemonCommand;
+use Ballen\Piplex\Commands\IdentCommand;
 use Ballen\Piplex\Commands\UpdateCommand;
 use Ballen\Piplex\Commands\TestSpeachCommand;
 use Ballen\Piplex\Commands\IoCommand;
@@ -18,7 +18,7 @@ require_once $bindir . '/vendor/autoload.php';
 $app = new CommandRouter($argv);
 
 // Add our commands and their handler class mappings
-$app->add('daemon', DaemonCommand::class);
+$app->add('ident', IdentCommand::class);
 $app->add('test', TestSpeachCommand::class);
 $app->add('io', IoCommand::class);
 $app->add('ioi', IoInteruptCommand::class);
