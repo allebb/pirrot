@@ -8,11 +8,11 @@ use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Piplex\Services\AudioService;
 
 /**
- * Class DaemonCommand
+ * Class VoiceCommand
  *
  * @package Ballen\Piplex\Commands
  */
-class IdentCommand extends PiplexBaseCommand implements CommandInterface
+class VoiceCommand extends PiplexBaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;
@@ -25,13 +25,14 @@ class IdentCommand extends PiplexBaseCommand implements CommandInterface
     private $audioService;
 
     /**
-     * DaemonCommand constructor.
+     * VoiceCommand constructor.
      *
      * @param ArgumentsParser $argv
      */
     public function __construct(ArgumentsParser $argv)
     {
         parent::__construct($argv);
+
         /**
          * @todo Make this part of a higher-level class and have this and the ident class extend that (in addition to the base class)
          */

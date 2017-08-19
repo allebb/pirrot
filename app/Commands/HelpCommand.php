@@ -22,14 +22,13 @@ class HelpCommand extends PiplexBaseCommand implements CommandInterface
         $this->writeln();
         $this->writeln('Piplex - A simplex repeater controller for RaspberryPi');
         $this->writeln();
-        $this->writeln('Usage: piplex [OPTIONS]');
+        $this->writeln('Usage: piplex [COMMAND]');
         $this->writeln();
         $this->writeln('Commands:');
         $this->writeln('  help       - This information screen');
-        $this->writeln('  daemon     - Runs the service daemon.');
-        $this->writeln();
-        $this->writeln('Options:');
-        $this->writeln('  daemon --disable-gpio=true     - Disables the GPIO transmission.');
+        $this->writeln('  ident      - Repeater Ident service daemon.');
+        $this->writeln('  voice      - Repeater Voice I/O service daemon.');
+        $this->writeln('  update     - Runs the software updater.');
         $this->writeln();
         $this->exitWithSuccess();
     }
