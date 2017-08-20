@@ -2,7 +2,11 @@
 
 namespace Ballen\Piplex\Services;
 
-
+/**
+ * Class AudioService
+ *
+ * @package Ballen\Piplex\Services
+ */
 class AudioService
 {
 

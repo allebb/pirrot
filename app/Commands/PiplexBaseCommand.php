@@ -6,6 +6,11 @@ use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Piplex\Foundation\Config;
 
+/**
+ * Class PiplexBaseCommand
+ *
+ * @package Ballen\Piplex\Commands
+ */
 class PiplexBaseCommand extends ConsoleApplication
 {
     /**
