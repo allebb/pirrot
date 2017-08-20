@@ -5,24 +5,16 @@ namespace Ballen\Piplex\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\Piplex\Services\AudioService;
 
 /**
  * Class VoiceCommand
  *
  * @package Ballen\Piplex\Commands
  */
-class VoiceCommand extends PiplexBaseCommand implements CommandInterface
+class VoiceCommand extends AudioBaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;
-
-    /**
-     * The Audio service class
-     *
-     * @var AudioService
-     */
-    private $audioService;
 
     /**
      * VoiceCommand constructor.
@@ -32,16 +24,6 @@ class VoiceCommand extends PiplexBaseCommand implements CommandInterface
     public function __construct(ArgumentsParser $argv)
     {
         parent::__construct($argv);
-
-        /**
-         * @todo Make this part of a higher-level class and have this and the ident class extend that (in addition to the base class)
-         */
-        $this->audioService = new AudioService();
-        $this->audioService->soundPath = $this->basePath . '/resources/sound/';
-        /**
-         * @todo Make the audioPlayerBin path read from a system config of load using 'which sox/play'
-         */
-        $this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
     }
 
     /**
