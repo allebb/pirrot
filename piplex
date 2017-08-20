@@ -7,7 +7,6 @@ use Ballen\Piplex\Commands\VoiceCommand;
 use Ballen\Piplex\Commands\UpdateCommand;
 use Ballen\Piplex\Commands\HelpCommand;
 // Test classes...
-use Ballen\Piplex\Commands\TestSpeachCommand;
 use Ballen\Piplex\Commands\IoCommand;
 use Ballen\Piplex\Commands\IoInteruptCommand;
 
@@ -26,7 +25,6 @@ $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 
 // Test commands - will be removed in future!!
-$app->add('test', TestSpeachCommand::class);
 $app->add('io', IoCommand::class);
 $app->add('ioi', IoInteruptCommand::class);
 
