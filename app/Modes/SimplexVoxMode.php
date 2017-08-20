@@ -2,13 +2,16 @@
 
 namespace Ballen\Piplex\Modes;
 
-use Ballen\Piplex\Interfaces\TransmittableInterface;
+use Ballen\Piplex\Interfaces\RepeatableInterface;
 
-class SimplexVoxMode implements TransmittableInterface
+class SimplexVoxMode implements RepeatableInterface
 {
 
-    public function transmit()
+    /**
+     * @inheritdoc
+     */
+    public function initialise()
     {
-        // TODO: Implement transmit() method.
+        // TODO: Implement initialise() method.
     }
 }
