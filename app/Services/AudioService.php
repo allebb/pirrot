@@ -18,6 +18,13 @@ class AudioService
     public $audioPlayerBin = '/usr/bin/play -q';
 
     /**
+     * The audio record binary path (with trailing slash)
+     *
+     * @var string
+     */
+    public $audioRecordBin = '/usr/bin/sox -q';
+
+    /**
      * The sound path (with trailing slash)
      *
      * @var string

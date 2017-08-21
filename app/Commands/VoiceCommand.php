@@ -65,35 +65,20 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
     private function mainVox()
     {
         while (true) {
+            updateCli("Starting RX...");
+            system($this->audioService->audioRecordBin . ' -t coreaudio default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
 
-            $recorder = $this->executioner->setApplication('/usr/local/sox/sox');
-            $recorder->addArgument('-q');
-            $recorder->addArgument('-t coreaudio');
-            $recorder->addArgument('default');
-            $recorder->addArgument('buffer.ogg');
-            $recorder->addArgument('-V0');
-            $recorder->addArgument('silence');
-            $recorder->addArgument('1 0.1 5% 1 1.0 5%');
-            $recorder->execute();
-
-            /**
-             * @todo Enable ability to generate graphs and store the audio for later playback...
-             */
-            //$DATE = date('YmdHis');
-            //$DPATH = date('Y') . '/' . date('M') . '/' . date('d');
-            //system('mkdir -p ./spectro/' . $DPATH);
-            //system('mkdir -p ./voice/' . $DPATH);
-            //system('/usr/local/sox/sox buffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.png');
-            //system('/usr/local/sox/sox buffer.ogg normbuffer.ogg gain -n -2');
-            //system('/usr/local/sox/sox normbuffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.norm.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.norm.png');
-            //system('mv normbuffer.ogg ./voice/' . $DPATH . '/' . $DATE . '.ogg');
-            //updateCli("Starting TX...");
-
-            $playback = $this->executioner->setApplication('/usr/local/sox/play');
-            $playback->addArgument('-q');
-            $playback->addArgument('./voice/' . $DPATH . '/' . $DATE . '.ogg');
-            $playback->addArgument('RC2103.wav');
-            $playback->execute();
+            // Generate some graphs etc.
+            $DATE = date('YmdHis');
+            $DPATH = date('Y') . '/' . date('M') . '/' . date('d');
+            system('mkdir -p ./spectro/' . $DPATH);
+            system('mkdir -p ./voice/' . $DPATH);
+            system('/usr/local/sox/sox buffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.png');
+            system('/usr/local/sox/sox buffer.ogg normbuffer.ogg gain -n -2');
+            system('/usr/local/sox/sox normbuffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.norm.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.norm.png');
+            system('mv normbuffer.ogg ./voice/' . $DPATH . '/' . $DATE . '.ogg');
+            updateCli("Starting TX...");
+            system($this->audioService->audioPlayerBin . ' ' . $this->basePath . '/storage/input/' . $DPATH . '/' . $DATE . '.ogg ' . $this->basePath . '/storage/resources/sound/courtesy_tones/RC2103.wav');
         }
     }
 
