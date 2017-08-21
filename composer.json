@@ -19,7 +19,8 @@
   "require": {
     "php": ">=7.0.0",
     "ballen/clip": "^2.0",
-    "piphp/gpio": "^0.3.3"
+    "piphp/gpio": "^0.3.3",
+    "ballen/executioner": "^3.0"
   },
   "autoload": {
     "psr-4": {

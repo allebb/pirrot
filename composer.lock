@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ad1b3b4e74f674bbbbb90d8f5634c4e",
+    "content-hash": "332ba48e8526aa77c893450f6e4e0cd9",
     "packages": [
         {
             "name": "ballen/clip",
@@ -102,6 +102,54 @@
                 "list"
             ],
             "time": "2016-12-04T19:00:15+00:00"
+        },
+        {
+            "name": "ballen/executioner",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allebb/executioner.git",
+                "reference": "a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allebb/executioner/zipball/a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0",
+                "reference": "a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0",
+                "shasum": ""
+            },
+            "require": {
+                "ballen/collection": "^1.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ballen\\Executioner\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bobby Allen",
+                    "email": "ballen@bobbyallen.me",
+                    "homepage": "http://bobbyallen.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Executioner is a PHP library for executing system processes and applications with the ability to pass extra arguments and read CLI output results.",
+            "keywords": [
+                "cli",
+                "exec",
+                "execute",
+                "execution",
+                "passthru",
+                "process",
+                "run"
+            ],
+            "time": "2015-12-25T09:21:30+00:00"
         },
         {
             "name": "piphp/gpio",
