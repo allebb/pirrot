@@ -36,6 +36,7 @@ class AudioBaseCommand extends PiplexBaseCommand
          * @todo Make the audioPlayerBin path read from a system config of load using 'which sox/play'
          */
         $this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
+        $this->audioService->audioRecordBin = '/usr/local/sox/sox -q';
     }
 
 }
