@@ -313,7 +313,7 @@ class AudioService
                 $cliArgs .= ' ' . $file;
             }
         } else {
-            $cliArgs = ' ' . $files;
+            $cliArgs = $files;
         }
         return $cliArgs;
     }
@@ -324,9 +324,9 @@ class AudioService
      * @param $files The string of audio files to play in order.
      * @return void
      */
-    private function play($files)
+    public function play($files)
     {
-        system($this->audioPlayerBin . $files);
+        system($this->audioPlayerBin . ' ' . $files);
     }
 
 }

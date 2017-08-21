@@ -44,7 +44,7 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
         // Create a new instance of executioner
         $this->executioner = new Executioner();
 
-        // Sets the transmit/recieve mode
+        // Sets the transmit/receive mode
         $this->mode = ucwords($this->config->get('transmit_mode'));
     }
 
@@ -53,8 +53,15 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
      */
     public function handle()
     {
+
+        // Detect if the repeater is enabled/disabled...
+        if (!$this->config->get('enabled', false)) {
+            $this->writeln('Repeater disabled!');
+            $this->exitWithSuccess();
+        }
+
+        // Detect and handle the current RX/TX mode...
         $modeHandler = "main{$this->mode}";
-        var_dump($modeHandler);
         if (method_exists($this, $modeHandler)) {
             return $this->{$modeHandler}();
         }
@@ -66,7 +73,8 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
     {
         while (true) {
             $this->writeln("Starting RX...");
-            system($this->audioService->audioRecordBin . ' -t coreaudio default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
+            system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
+                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
 
             // Generate some graphs etc.
             $DATE = date('YmdHis');
@@ -79,7 +87,12 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
             //system('mv normbuffer.ogg ./voice/' . $DPATH . '/' . $DATE . '.ogg');
             $this->write("Starting TX...");
             //system($this->audioService->audioPlayerBin . ' ' . $this->basePath . '/storage/input/' . $DPATH . '/' . $DATE . '.ogg ' . $this->basePath . '/storage/resources/sound/courtesy_tones/RC2103.wav');
-            system($this->audioService->audioPlayerBin . ' ' . $this->basePath . '/storage/input/buffer.ogg ' . $this->basePath . '/resources/sound/courtesy_tones/RC210_3.wav');
+            $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+
+            // If a courtesy tone is enabled, lets play that now...
+            if ($this->config->get('courtesy_tone', false)) {
+                $this->audioService->tone($this->config->get('courtesy_tone', 'Beep'));
+            }
         }
     }
 
