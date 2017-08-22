@@ -197,46 +197,6 @@
                 "rpi"
             ],
             "time": "2017-08-22T10:31:51+00:00"
-        },
-        {
-            "name": "piphp/gpio",
-            "version": "v0.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PiPHP/GPIO.git",
-                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PiPHP/GPIO/zipball/5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
-                "reference": "5d2c5b8f6fa7b3327b29ed88fcee0e89a3ca398b",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PiPHP\\GPIO\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Carter",
-                    "email": "andrewcarter1992@gmail.com"
-                }
-            ],
-            "description": "A library for accessing the GPIO pins on a Raspberry Pi",
-            "keywords": [
-                "GPIO",
-                "pi",
-                "pin",
-                "pins",
-                "raspberry"
-            ],
-            "time": "2016-07-09T11:38:12+00:00"
         }
     ],
     "packages-dev": [],
