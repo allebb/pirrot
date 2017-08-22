@@ -66,7 +66,7 @@ class IoCommand extends PiplexBaseCommand implements CommandInterface
         // Set pin types...
         $pin = $this->gpio->pin(18, GPIO::OUT);
         // Set the value of the pin high (turn it on)
-        $pin->setValue(PinInterface::VALUE_LOW);
+        $pin->setValue(GPIO::LOW);
 
         // Turn LED's on and off 10 mins...
         for ($i = 0; $i < 10; $i++) {
