@@ -74,6 +74,7 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
                 $this->previousState = $val;
                 $this->writeln('Switch state changed to ' . $val);
             }
+            usleep(50000); // Half a second
         }
         $this->exitWithSuccess();
     }
