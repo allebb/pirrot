@@ -5,10 +5,7 @@ namespace Ballen\Piplex\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use PiPHP\GPIO\GPIO;
-use PiPHP\GPIO\Pin\PinInterface;
-use PiPHP\GPIO\Pin\InputPinInterface;
-use PiPHP\GPIO\Pin\OutputPinInterface;
+use Ballen\GPIO\GPIO;
 
 /**
  * Class IoCommand
@@ -27,14 +24,14 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
      */
     private $gpio;
 
-    private $counter = 0;
-
     /**
      * Disables GPIO functionality (great for dev/testing purposes.)
      *
      * @var bool
      */
     private $disableGPIO = false;
+
+    private $previousState = 0;
 
     /**
      * DaemonCommand constructor.
@@ -65,34 +62,19 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
             $this->exitWithError();
         }
 
+        $switch = $this->gpio->pin(23, GPIO::IN);
+
         // Output some debug information...
         $this->writeln('Starting test IO runner...');
 
-        // Set pin types...
-        $pin = $this->gpio->getInputPin(23);
 
-        // Configure interrupts for both rising and falling edges
-        $pin->setEdge(InputPinInterface::EDGE_BOTH);
-
-        // Create an interrupt watcher
-        $interruptWatcher = $this->gpio->createWatcher();
-
-        // Register a callback to be triggered on pin interrupts
-        $interruptWatcher->register($pin, function (InputPinInterface $pin, $value) {
-            $this->counter++;
-            $this->writeln('[' . $this->counter . '] Pin ' . $pin->getNumber() . ' changed to: ' . $value);
-            // Returning false will make the watcher return false immediately
-            //usleep(300); // prevent debouncing on the button.
-            return true;
-        });
-
-        // Watch for interrupts, timeout after 5000ms (5 seconds)
-        while ($interruptWatcher->watch(5000)) {
-            // Looping...
-            ;
+        while (true) {
+            $val = $switch->getValue();
+            if ($val != $this->previousState) {
+                $this->previousState = $val;
+                $this->writeln('Switch state changed to ' . $val);
+            }
         }
-        // Output that we've finished the loop...
-        $this->writeln('Completed the test IO runner!');
         $this->exitWithSuccess();
     }
 
