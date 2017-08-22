@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "332ba48e8526aa77c893450f6e4e0cd9",
+    "content-hash": "a9793bf17b45401d49284efa1f88b306",
     "packages": [
         {
             "name": "ballen/clip",
@@ -150,6 +150,53 @@
                 "run"
             ],
             "time": "2015-12-25T09:21:30+00:00"
+        },
+        {
+            "name": "ballen/gpio",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/allebb/gpio.git",
+                "reference": "0340dda8cc60093d331f04c935e1d0e6cecf1896"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/allebb/gpio/zipball/0340dda8cc60093d331f04c935e1d0e6cecf1896",
+                "reference": "0340dda8cc60093d331f04c935e1d0e6cecf1896",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ballen\\GPIO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Bobby Allen",
+                    "email": "ballen@bobbyallen.me",
+                    "homepage": "http://bobbyallen.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A RaspberryPi GPIO library written in PHP.",
+            "keywords": [
+                "GPIO",
+                "RaspberryPi",
+                "io",
+                "rpi"
+            ],
+            "time": "2017-08-22T10:31:51+00:00"
         },
         {
             "name": "piphp/gpio",

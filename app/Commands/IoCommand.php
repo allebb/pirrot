@@ -5,10 +5,7 @@ namespace Ballen\Piplex\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use PiPHP\GPIO\GPIO;
-use PiPHP\GPIO\Pin\PinInterface;
-use PiPHP\GPIO\Pin\InputPinInterface;
-use PiPHP\GPIO\Pin\OutputPinInterface;
+use Ballen\GPIO\GPIO;
 
 /**
  * Class IoCommand
@@ -67,7 +64,7 @@ class IoCommand extends PiplexBaseCommand implements CommandInterface
         $this->writeln('Starting test IO runner...');
 
         // Set pin types...
-        $pin = $this->gpio->getOutputPin(18);
+        $pin = $this->gpio->pin(18, GPIO::OUT);
         // Set the value of the pin high (turn it on)
         $pin->setValue(PinInterface::VALUE_LOW);
 
@@ -76,10 +73,10 @@ class IoCommand extends PiplexBaseCommand implements CommandInterface
             $this->writeln('Running: ' . $i);
             // Turn on...
             sleep(2);
-            $pin->setValue(PinInterface::VALUE_HIGH);
+            $pin->setValue(GPIO::HIGH);
             // Turn off...
             sleep(2);
-            $pin->setValue(PinInterface::VALUE_LOW);
+            $pin->setValue(GPIO::LOW);
         }
 
         // Output that we've finished the loop...
