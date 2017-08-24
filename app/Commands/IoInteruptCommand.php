@@ -73,48 +73,50 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
         $rx = $this->gpio->pin(27, GPIO::OUT);
         $tx = $this->gpio->pin(22, GPIO::OUT);
 
-        // Turn the power LED on...
-        $power->setValue(GPIO::HIGH);
+        // Turn the power LED on (and set other defaults to off)...
+        $power->setValue(GPIO::LOW);
+        $rx->setValue(GPIO::HIGH);
+        $tx->setValue(GPIO::HIGH);
+        $ptt->setValue(GPIO::HIGH);
 
         // Output some debug information...
-        $this->writeln('Starting test IO runner...');
+        $this->writeln('Starting test Repeater Card Tool...');
 
         // Record how long the communication was for (then transmit that long!)
         $cosTimer = 0;
 
-        try {
-            while (true) {
+        while (true) {
 
-                // Get the COS value (are we recieving?)
-                $val = $cos->getValue();
+            $cosInput = $cos->getValue(); // Get the COS value (are we receiving?)
 
-                if ($cosTimer > 0 && $val == GPIO::LOW) {
-                    // We're simply playing back the message and then resetting the counter and returning to the start...
-                    $tx->setValue(GPIO::HIGH);
-                    usleep(50000 * $cosTimer);
-                    $cosTimer = 0;
-                    $tx->setValue(GPIO::LOW);
-                    continue; // Restart the loop again.
-                }
-
-                // If the COS is high we turn on the RX led otherwise we turn if off!
-                if ($val == GPIO::HIGH) {
-                    $cosTimer++; // Count the comminication time (we'll transmit for this long!)
-                    $rx->setValue(GPIO::HIGH);
-                } else {
-                    $rx->setValue(GPIO::LOW);
-                }
-
-                // If the state has changed, we'll output it to the display!
-                if ($val != $this->previousState) {
-                    $this->previousState = $val;
-                    $this->writeln($val);
-                }
-                usleep(50000); // Half a second to wait for new input...
+            // Do we have an unplayed "message" and is the PTT button now depressed?
+            if ($cosTimer > 0 && $cosInput == GPIO::LOW) {
+                // We're simply playing back the message and then resetting the counter and returning to the start...
+                $rx->setValue(GPIO::HIGH); // Turn OFF the receive LED
+                $tx->setValue(GPIO::LOW); // Turn ON the transmit LED
+                $ptt->setValue(GPIO::LOW); // Turn ON the PTT relay (start transmitting!)
+                $messageTime = (50000 * $cosTimer); // Multiple the "ticks" by the number of times we had pressed the COS input
+                usleep($messageTime); // Basically dummy load for replaying the message! (this would normally be SOX playing the message back!)
+                $ptt->setValue(GPIO::HIGH); // Turn the PTT output to OFF
+                $tx->setValue(GPIO::HIGH); // Turn the TX led to OFF
+                $cosTimer = 0; // Reset the cos timer after we've replayed the message!
+                continue; // Restart the loop again.
             }
-        } finally {
-            // The try/catch loop helps us do stuff if we quit out of the loop!
-            $power->setValue(GPIO::LOW);
+
+            // If the COS is high we turn on the RX led otherwise we turn if off!
+            if ($cosInput == GPIO::HIGH) {
+                $cosTimer++; // Increment the communication time (we'll transmit for this long!)
+                $rx->setValue(GPIO::LOW); // Keep setting the RX led to ON!
+            } else {
+                $rx->setValue(GPIO::HIGH); // The COS input is LOW, turn OFF the RX LED!
+            }
+
+            // If the state has changed, we'll output it to the display!
+            if ($cosInput != $this->previousState) {
+                $this->previousState = $cosInput; // Set the new state!
+                $this->writeln($cosInput); // Just output the new state of the COS signal!
+            }
+            usleep(50000); // Half a second to wait for new input...
         }
         $this->exitWithSuccess();
     }
