@@ -153,16 +153,16 @@
         },
         {
             "name": "ballen/gpio",
-            "version": "1.0.1",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allebb/gpio.git",
-                "reference": "24b8a9b8d76fef0e0fa156347392f597369092a2"
+                "reference": "93cf9ed84c926b174988259014363be9634cf6fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allebb/gpio/zipball/24b8a9b8d76fef0e0fa156347392f597369092a2",
-                "reference": "24b8a9b8d76fef0e0fa156347392f597369092a2",
+                "url": "https://api.github.com/repos/allebb/gpio/zipball/93cf9ed84c926b174988259014363be9634cf6fa",
+                "reference": "93cf9ed84c926b174988259014363be9634cf6fa",
                 "shasum": ""
             },
             "require": {
@@ -196,7 +196,7 @@
                 "io",
                 "rpi"
             ],
-            "time": "2017-08-22T12:35:47+00:00"
+            "time": "2017-08-25T12:13:21+00:00"
         }
     ],
     "packages-dev": [],

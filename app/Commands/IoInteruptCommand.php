@@ -66,18 +66,18 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
         $cos = $this->gpio->pin(18, GPIO::IN);
 
         // PTT (Transmit relay)
-        $ptt = $this->gpio->pin(23, GPIO::OUT);
+        $ptt = $this->gpio->pin(23, GPIO::OUT, true);
 
         // Device LEDS
-        $power = $this->gpio->pin(17, GPIO::OUT);
-        $rx = $this->gpio->pin(27, GPIO::OUT);
-        $tx = $this->gpio->pin(22, GPIO::OUT);
+        $power = $this->gpio->pin(17, GPIO::OUT, true);
+        $rx = $this->gpio->pin(27, GPIO::OUT, true);
+        $tx = $this->gpio->pin(22, GPIO::OUT, true);
 
         // Turn the power LED on (and set other defaults to off)...
-        $power->setValue(GPIO::LOW);
-        $rx->setValue(GPIO::HIGH);
-        $tx->setValue(GPIO::HIGH);
-        $ptt->setValue(GPIO::HIGH);
+        $power->setValue(GPIO::HIGH);
+        $rx->setValue(GPIO::LOW);
+        $tx->setValue(GPIO::LOW);
+        $ptt->setValue(GPIO::LOW);
 
         // Output some debug information...
         $this->writeln('Starting test Repeater Card Tool...');
@@ -92,13 +92,13 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
             // Do we have an unplayed "message" and is the PTT button now depressed?
             if ($cosTimer > 0 && $cosInput == GPIO::LOW) {
                 // We're simply playing back the message and then resetting the counter and returning to the start...
-                $rx->setValue(GPIO::HIGH); // Turn OFF the receive LED
-                $tx->setValue(GPIO::LOW); // Turn ON the transmit LED
-                $ptt->setValue(GPIO::LOW); // Turn ON the PTT relay (start transmitting!)
+                $rx->setValue(GPIO::LOW); // Turn OFF the receive LED
+                $tx->setValue(GPIO::HIGH); // Turn ON the transmit LED
+                $ptt->setValue(GPIO::HIGH); // Turn ON the PTT relay (start transmitting!)
                 $messageTime = (50000 * $cosTimer); // Multiple the "ticks" by the number of times we had pressed the COS input
                 usleep($messageTime); // Basically dummy load for replaying the message! (this would normally be SOX playing the message back!)
-                $ptt->setValue(GPIO::HIGH); // Turn the PTT output to OFF
-                $tx->setValue(GPIO::HIGH); // Turn the TX led to OFF
+                $ptt->setValue(GPIO::LOW); // Turn the PTT output to OFF
+                $tx->setValue(GPIO::LOW); // Turn the TX led to OFF
                 $cosTimer = 0; // Reset the cos timer after we've replayed the message!
                 continue; // Restart the loop again.
             }
@@ -106,9 +106,9 @@ class IoInteruptCommand extends PiplexBaseCommand implements CommandInterface
             // If the COS is high we turn on the RX led otherwise we turn if off!
             if ($cosInput == GPIO::HIGH) {
                 $cosTimer++; // Increment the communication time (we'll transmit for this long!)
-                $rx->setValue(GPIO::LOW); // Keep setting the RX led to ON!
+                $rx->setValue(GPIO::HIGH); // Keep setting the RX led to ON!
             } else {
-                $rx->setValue(GPIO::HIGH); // The COS input is LOW, turn OFF the RX LED!
+                $rx->setValue(GPIO::LOW); // The COS input is LOW, turn OFF the RX LED!
             }
 
             // If the state has changed, we'll output it to the display!
