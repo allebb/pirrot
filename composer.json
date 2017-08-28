@@ -1,8 +1,8 @@
 {
-  "name": "ballen/piplex",
-  "description": "A Simplex Repeater controller for RaspberryPi",
+  "name": "ballen/pirrot",
+  "description": "A parrot (Simplex) repeater controller for RaspberryPi",
   "type": "project",
-  "keywords": ["repeater", "simplex", "ham", "radio", "controller"],
+  "keywords": ["repeater", "simplex", "ham", "radio", "controller", "parrot", "pirrot"],
   "license": "MIT",
   "authors": [
     {
@@ -14,7 +14,7 @@
   ],
   "support": {
     "email": "ballen@bobbyallen.me",
-    "issues": "https://github.com/bobsta63/piplex/issues"
+    "issues": "https://github.com/bobsta63/pirrot/issues"
   },
   "require": {
     "php": ">=7.0.0",
@@ -24,7 +24,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ballen\\Piplex\\": "app/"
+      "Ballen\\Pirrot\\": "app/"
     }
   }
 }

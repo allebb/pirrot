@@ -1,17 +1,17 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Executioner\Executioner;
-use Ballen\Piplex\Interfaces\RepeatableInterface;
+//use Ballen\Pirrot\Interfaces\RepeatableInterface;
 
 /**
  * Class VoiceCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
 class VoiceCommand extends AudioBaseCommand implements CommandInterface
 {

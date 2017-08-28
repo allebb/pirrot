@@ -2,13 +2,13 @@
 <?php
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
-use Ballen\Piplex\Commands\IdentCommand;
-use Ballen\Piplex\Commands\VoiceCommand;
-use Ballen\Piplex\Commands\UpdateCommand;
-use Ballen\Piplex\Commands\HelpCommand;
+use Ballen\Pirrot\Commands\IdentCommand;
+use Ballen\Pirrot\Commands\VoiceCommand;
+use Ballen\Pirrot\Commands\UpdateCommand;
+use Ballen\Pirrot\Commands\HelpCommand;
 // Test classes...
-use Ballen\Piplex\Commands\IoCommand;
-use Ballen\Piplex\Commands\IoInteruptCommand;
+use Ballen\Pirrot\Commands\IoCommand;
+use Ballen\Pirrot\Commands\IoInteruptCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);

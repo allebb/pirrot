@@ -1,16 +1,16 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\Piplex\Services\AudioService;
+use Ballen\Pirrot\Services\AudioService;
 
 /**
  * Class AudioBaseCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
-class AudioBaseCommand extends PiplexBaseCommand
+class AudioBaseCommand extends PirrotBaseCommand
 {
 
     /**

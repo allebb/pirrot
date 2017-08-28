@@ -1,6 +1,6 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
@@ -8,9 +8,9 @@ use Ballen\Clip\Interfaces\CommandInterface;
 /**
  * Class HelpCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
-class HelpCommand extends PiplexBaseCommand implements CommandInterface
+class HelpCommand extends PirrotBaseCommand implements CommandInterface
 {
     use RecievesArgumentsTrait;
 
@@ -20,9 +20,9 @@ class HelpCommand extends PiplexBaseCommand implements CommandInterface
     public function handle()
     {
         $this->writeln();
-        $this->writeln('Piplex - A simplex repeater controller for RaspberryPi');
+        $this->writeln('Pirrot - A simplex repeater controller for RaspberryPi');
         $this->writeln();
-        $this->writeln('Usage: piplex [COMMAND]');
+        $this->writeln('Usage: pirrot [COMMAND]');
         $this->writeln();
         $this->writeln('Commands:');
         $this->writeln('  help       - This information screen');

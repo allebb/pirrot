@@ -1,6 +1,6 @@
 <?php
 
-namespace Ballen\Piplex\Foundation;
+namespace Ballen\Pirrot\Foundation;
 
 /**
  * Class Config

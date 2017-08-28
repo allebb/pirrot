@@ -1,11 +1,11 @@
 <?php
 
-namespace Ballen\Piplex\Services;
+namespace Ballen\Pirrot\Services;
 
 /**
  * Class AudioService
  *
- * @package Ballen\Piplex\Services
+ * @package Ballen\Pirrot\Services
  */
 class AudioService
 {

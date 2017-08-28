@@ -1,6 +1,6 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
@@ -9,7 +9,7 @@ use Ballen\Clip\Utilities\ArgumentsParser;
 /**
  * Class DaemonCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
 class IdentCommand extends AudioBaseCommand implements CommandInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
@@ -10,9 +10,9 @@ use Ballen\GPIO\GPIO;
 /**
  * Class IoCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
-class IoCommand extends PiplexBaseCommand implements CommandInterface
+class IoCommand extends PirrotBaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;

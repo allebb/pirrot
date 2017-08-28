@@ -1,17 +1,17 @@
 <?php
 
-namespace Ballen\Piplex\Commands;
+namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\Piplex\Foundation\Config;
+use Ballen\Pirrot\Foundation\Config;
 
 /**
- * Class PiplexBaseCommand
+ * Class PirrotxBaseCommand
  *
- * @package Ballen\Piplex\Commands
+ * @package Ballen\Pirrot\Commands
  */
-class PiplexBaseCommand extends ConsoleApplication
+class PirrotBaseCommand extends ConsoleApplication
 {
     /**
      * The software configuration.
@@ -28,7 +28,7 @@ class PiplexBaseCommand extends ConsoleApplication
     public $basePath;
 
     /**
-     * PiplexBaseCommand constructor.
+     * PirrotBaseCommand constructor.
      *
      * @param ArgumentsParser $argv
      */
