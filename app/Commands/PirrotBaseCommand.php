@@ -28,6 +28,13 @@ class PirrotBaseCommand extends ConsoleApplication
     public $basePath;
 
     /**
+     * Used to determine if the computer/device that Pirrot is running on is GPIO enabled or not.
+     *
+     * @var bool
+     */
+    public $gpioEnabledDevice = false;
+
+    /**
      * PirrotBaseCommand constructor.
      *
      * @param ArgumentsParser $argv
@@ -37,6 +44,7 @@ class PirrotBaseCommand extends ConsoleApplication
         $this->getBasePath();
         $this->retrieveConfiguration();
         $this->setTimezone($this->config->get('timezone'));
+        $this->gpioEnabledDevice = $this->detectGpioFilesystem();
         parent::__construct($argv);
     }
 
@@ -70,5 +78,18 @@ class PirrotBaseCommand extends ConsoleApplication
     private function setTimezone($timezone = 'Europe/London')
     {
         date_default_timezone_set($timezone);
+    }
+
+    /**
+     * Used to determine if the machine is GPIO enabled.
+     *
+     * @return false
+     */
+    private function detectGpioFilesystem()
+    {
+        if (file_exists('/sys/class/gpio')) {
+            return true;
+        }
+        return false;
     }
 }
