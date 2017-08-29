@@ -11,7 +11,7 @@ use Ballen\Pirrot\Foundation\Config;
  *
  * @package Ballen\Pirrot\Commands
  */
-class PirrotBaseCommand extends ConsoleApplication
+class BaseCommand extends ConsoleApplication
 {
     /**
      * The software configuration.
@@ -35,7 +35,7 @@ class PirrotBaseCommand extends ConsoleApplication
     public $gpioEnabledDevice = false;
 
     /**
-     * PirrotBaseCommand constructor.
+     * BaseCommand constructor.
      *
      * @param ArgumentsParser $argv
      */

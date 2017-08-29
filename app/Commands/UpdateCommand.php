@@ -10,7 +10,7 @@ use Ballen\Clip\Interfaces\CommandInterface;
  *
  * @package Ballen\Pirrot\Commands
  */
-class UpdateCommand extends PirrotBaseCommand implements CommandInterface
+class UpdateCommand extends BaseCommand implements CommandInterface
 {
     use RecievesArgumentsTrait;
 

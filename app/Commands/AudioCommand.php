@@ -8,11 +8,11 @@ use Ballen\Executioner\Executioner;
 use Ballen\Pirrot\Services\AudioService;
 
 /**
- * Class AudioBaseCommand
+ * Class AudioCommand
  *
  * @package Ballen\Pirrot\Commands
  */
-class AudioBaseCommand extends PirrotBaseCommand
+class AudioCommand extends BaseCommand
 {
 
     /**
@@ -30,7 +30,7 @@ class AudioBaseCommand extends PirrotBaseCommand
     protected $binPaths = [];
 
     /**
-     * AudioBaseCommand constructor.
+     * AudioCommand constructor.
      *
      * @param ArgumentsParser $argv
      */

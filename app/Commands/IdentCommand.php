@@ -11,7 +11,7 @@ use Ballen\Clip\Utilities\ArgumentsParser;
  *
  * @package Ballen\Pirrot\Commands
  */
-class IdentCommand extends AudioBaseCommand implements CommandInterface
+class IdentCommand extends AudioCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;

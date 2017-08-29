@@ -12,7 +12,7 @@ use Ballen\GPIO\GPIO;
  *
  * @package Ballen\Pirrot\Commands
  */
-class IoCommand extends PirrotBaseCommand implements CommandInterface
+class IoCommand extends BaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;
