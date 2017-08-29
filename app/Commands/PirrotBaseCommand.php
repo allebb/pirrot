@@ -92,4 +92,5 @@ class PirrotBaseCommand extends ConsoleApplication
         }
         return false;
     }
+
 }

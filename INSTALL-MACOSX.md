@@ -20,13 +20,22 @@ sudo cp -R ~/Desktop/sox-14.4.2/* /usr/local/sox
 ```shell
 /usr/local/sox/sox
 ```
-5) Great, that's all we need for now!
+
+5) Now we need to link the binaries to our ``/usr/local/bin`` path so that they can be detected and used by Pirrot:
+
+```shell
+sudo ln -s /usr/local/sox/sox /usr/local/bin/sox
+sudo ln -s /usr/local/sox/play /usr/local/bin/play
+sudo ln -s /usr/local/sox/rec /usr/local/bin/rec
+```
+
+6) Great, that's all we need for now!
 
 If you wish to manually test SOX recording, you can use the following commands, this will start recording and keep creating new files as required:
 
 ```shell
 cd /usr/local/sox
-/rec -c1 -r 192000 ~/Desktop/record.wav silence 1 0.1 1% 1 5.0 1% : newfile : restart
+./rec -c1 -r 192000 ~/Desktop/record.wav silence 1 0.1 1% 1 5.0 1% : newfile : restart
 ```
 
 This is a really good video that demonstrates SOX functionality and the automated recording of sound: https://www.youtube.com/watch?v=Q5ntlKE0ze4
