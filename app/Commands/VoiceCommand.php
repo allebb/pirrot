@@ -5,9 +5,6 @@ namespace Ballen\Pirrot\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\Executioner\Executioner;
-
-//use Ballen\Pirrot\Interfaces\RepeatableInterface;
 
 /**
  * Class VoiceCommand
@@ -75,7 +72,10 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
 
     private function mainCos()
     {
-        $this->writeln('Running COS main loop!');
+        while (true) {
+            $this->writeln('Running COS main loop!');
+            sleep(10); // Temp until i've implemented the logic for handling the I/O.
+        }
     }
 
     /**
