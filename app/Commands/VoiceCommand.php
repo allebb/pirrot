@@ -27,13 +27,6 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
     private $mode;
 
     /**
-     * The system executioner library.
-     *
-     * @var Executioner
-     */
-    private $executioner;
-
-    /**
      * VoiceCommand constructor.
      *
      * @param ArgumentsParser $argv
@@ -41,9 +34,6 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
     public function __construct(ArgumentsParser $argv)
     {
         parent::__construct($argv);
-
-        // Create a new instance of executioner
-        $this->executioner = new Executioner();
 
         // Sets the transmit/receive mode
         $this->mode = ucwords($this->config->get('transmit_mode'));
@@ -76,25 +66,41 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
             $this->writeln("Starting RX...");
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
-
-            if ($this->config->get('store_recordings')) {
-                $date = date('YmdHis');
-                system('mv ' . $this->basePath . '/storage/input/buffer.ogg ' . $this->basePath . '/storage/recordings/' . $date . '.ogg');
-            }
-
+            $this->storeRecording();
             $this->write("Starting TX...");
-            $this->audioService->play($this->basePath . ' / storage / input / buffer . ogg');
-
-            // If a courtesy tone is enabled, lets play that now...
-            if ($this->config->get('courtesy_tone', false)) {
-                $this->audioService->tone($this->config->get('courtesy_tone', 'Beep'));
-            }
+            $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+            $this->sendCourtesyTone();
         }
     }
 
     private function mainCos()
     {
         $this->writeln('Running COS main loop!');
+    }
+
+    /**
+     * If enabled, archives/stores the audio transmission.
+     *
+     * @return void
+     */
+    private function storeRecording()
+    {
+        if ($this->config->get('store_recordings')) {
+            $date = date('YmdHis');
+            system('cp ' . $this->basePath . '/storage/input/buffer.ogg ' . $this->basePath . '/storage/recordings/' . $date . '.ogg');
+        }
+    }
+
+    /**
+     * If enabled, plays the courtesy tone.
+     *
+     * @return void
+     */
+    private function sendCourtesyTone()
+    {
+        if ($this->config->get('courtesy_tone', false)) {
+            $this->audioService->tone($this->config->get('courtesy_tone', 'Beep'));
+        }
     }
 
 
