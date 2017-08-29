@@ -6,6 +6,7 @@ use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Executioner\Executioner;
+
 //use Ballen\Pirrot\Interfaces\RepeatableInterface;
 
 /**
@@ -56,7 +57,7 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
 
         // Detect if the repeater is enabled/disabled...
         if (!$this->config->get('enabled', false)) {
-            $this->writeln('Repeater disabled!');
+            $this->writeln('Repeater disabled in the configuration file!');
             $this->exitWithSuccess();
         }
 
@@ -65,7 +66,7 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
         if (method_exists($this, $modeHandler)) {
             return $this->{$modeHandler}();
         }
-        $this->writeln("RX/TX mode ({$this->mode}) now supported!");
+        $this->writeln("RX/TX mode ({$this->mode}) not supported!");
         $this->exitWithError();
     }
 

@@ -31,6 +31,13 @@ class IdentCommand extends AudioBaseCommand implements CommandInterface
      */
     public function handle()
     {
+
+        // Detect if the repeater is enabled/disabled...
+        if (!$this->config->get('enabled', false)) {
+            $this->writeln('Repeater disabled in the configuration file!');
+            $this->exitWithSuccess();
+        }
+
         while (true) {
             if ($this->config->get('auto_ident')) {
                 $this->audioService->ident(
