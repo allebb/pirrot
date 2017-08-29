@@ -73,8 +73,16 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function mainCos()
     {
         while (true) {
-            $this->writeln('Running COS main loop!');
-            sleep(10); // Temp until i've implemented the logic for handling the I/O.
+            $this->writeln("Starting RX...");
+            $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
+                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
+            $this->writeln("Started recording, PID is {$pid}.");
+            sleep(30); // Temp until i've implemented the logic for handling the I/O.
+            system('kill ' . $pid);
+            $this->storeRecording();
+            $this->write("Starting TX...");
+            $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+            $this->sendCourtesyTone();
         }
     }
 
