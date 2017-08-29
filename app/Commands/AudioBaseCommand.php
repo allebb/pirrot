@@ -39,12 +39,14 @@ class AudioBaseCommand extends PirrotBaseCommand
 
         parent::__construct($argv);
 
-        $this->detectExternalBinaries(['sox', 'play']);
+        $this->detectExternalBinaries([
+            'sox',
+            'play',
+            //'rec',
+        ]);
 
         $this->audioService = new AudioService();
         $this->audioService->soundPath = $this->basePath . '/resources/sound/';
-        //$this->audioService->audioPlayerBin = '/usr/local/sox/play -q';
-        //$this->audioService->audioRecordBin = '/usr/local/sox/sox -q';
         $this->audioService->audioPlayerBin = $this->binPaths['play'] . ' -q';
         $this->audioService->audioRecordBin = $this->binPaths['sox'] . ' -q';
     }
