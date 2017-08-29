@@ -47,7 +47,7 @@ class PirrotBaseCommand extends ConsoleApplication
      */
     private function retrieveConfiguration()
     {
-        $this->config = new Config($this->basePath . '/build/configs/piplex_default.conf');
+        $this->config = new Config($this->basePath . '/build/configs/pirrot_default.conf');
     }
 
     /**
