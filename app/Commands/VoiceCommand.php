@@ -77,18 +77,13 @@ class VoiceCommand extends AudioBaseCommand implements CommandInterface
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
 
-            // Generate some graphs etc.
-            $DATE = date('YmdHis');
-            $DPATH = date('Y') . '/' . date('M') . '/' . date('d');
-            //system('mkdir -p ./spectro/' . $DPATH);
-            //system('mkdir -p ./voice/' . $DPATH);
-            //system($this->audioService->audioRecordBin . ' ' . $this->basePath . '/storage/input/buffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.png');
-            //system($this->audioService->audioRecordBin . ' ' . $this->basePath . '/storage/input/buffer.ogg normbuffer.ogg gain -n -2');
-            //system($this->audioService->audioPlayerBin . ' ' . $this->basePath . '/storage/input/normbuffer.ogg -n spectrogram -x 300 -y 200 -z 100 -t $DATE.norm.ogg -o ./spectro/' . $DPATH . '/' . $DATE . '.norm.png');
-            //system('mv normbuffer.ogg ./voice/' . $DPATH . '/' . $DATE . '.ogg');
+            if ($this->config->get('store_recordings')) {
+                $date = date('YmdHis');
+                system('mv ' . $this->basePath . '/storage/input/buffer.ogg ' . $this->basePath . '/storage/recordings/' . $date . '.ogg');
+            }
+
             $this->write("Starting TX...");
-            //system($this->audioService->audioPlayerBin . ' ' . $this->basePath . '/storage/input/' . $DPATH . '/' . $DATE . '.ogg ' . $this->basePath . '/storage/resources/sound/courtesy_tones/RC2103.wav');
-            $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+            $this->audioService->play($this->basePath . ' / storage / input / buffer . ogg');
 
             // If a courtesy tone is enabled, lets play that now...
             if ($this->config->get('courtesy_tone', false)) {
