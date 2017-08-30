@@ -147,8 +147,7 @@ class BaseCommand extends ConsoleApplication
         $this->outputLedPwr = $gpio->pin($this->config->get('out_ready_led_pin'), GPIO::OUT, true);
         $this->outputLedRx = $gpio->pin($this->config->get('out_rx_led_pin'), GPIO::OUT, true);
         $this->outputLedTx = $gpio->pin($this->config->get('out_tx_led_pin'), GPIO::OUT, true);
-
-        $this->outputLedPwr = GPIO::HIGH;
+        $this->outputLedPwr->setValue(GPIO::HIGH);
     }
 
 }

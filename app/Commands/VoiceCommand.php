@@ -42,6 +42,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         // Sets the transmit/receive mode
         $this->mode = ucwords($this->config->get('transmit_mode'));
+
+        // Sets the default LED's and outputs
+        $this->outputPtt->setValue(GPIO::LOW);
+        $this->outputLedRx->setValue(GPIO::LOW);
+        $this->outputLedTx->setValue(GPIO::LOW);
     }
 
     /**
@@ -119,26 +124,26 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function processCosRecording()
     {
         if (!$this->cosRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
-            $this->cosRecording == true;
             $this->outputLedRx->setValue(GPIO::HIGH);
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
-            //$this->writeln("Started recording, PID is {$pid}.");
-            while ($this->inputCos->getValue() == GPIO::HIGH) {
-                system('kill ' . $pid);
-                $this->outputLedTx->setValue(GPIO::LOW);
-                $this->storeRecording();
-                //$this->write("Starting TX...");
-                $this->outputLedTx->setValue(GPIO::HIGH);
-                $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
-                $this->sendCourtesyTone();
-                $this->outputLedTx->setValue(GPIO::LOW);
-                $this->cosRecording = false;
-                break;
+            $this->cosRecording == true;
+            while (true) {
+                usleep(10000); // Sleep a tenth of a second...
+                if ($this->inputCos->getValue() == GPIO::LOW) {
+                    system('kill ' . $pid);
+                    $this->outputLedRx->setValue(GPIO::LOW);
+                    $this->storeRecording();
+                    $this->outputLedTx->setValue(GPIO::HIGH);
+                    $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+                    $this->sendCourtesyTone();
+                    $this->outputLedTx->setValue(GPIO::LOW);
+                    $this->cosRecording = false;
+                    break;
+                }
             }
         }
         usleep(10000); // Sleep a tenth of a second...
     }
-
 
 }
