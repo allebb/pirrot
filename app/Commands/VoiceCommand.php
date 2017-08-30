@@ -134,9 +134,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
+                    $this->outputPtt->setValue(GPIO::HIGH);
                     $this->outputLedTx->setValue(GPIO::HIGH);
                     $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
                     $this->sendCourtesyTone();
+                    $this->outputLedTx->setValue(GPIO::LOW);
                     $this->outputLedTx->setValue(GPIO::LOW);
                     $this->cosRecording = false;
                     break;
