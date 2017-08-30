@@ -18,7 +18,10 @@ fi
 
 # Chmod it...
 echo " # Setting execution bit on /opt/pirrot/pirrot..."
-sudo chmod +x /opt/piplex/piplex
+sudo chmod +x /opt/pirrot/pirrot
+
+# Chmod storage directories
+chmod 666 -Rf /opt/pirrot/storage
 
 # Copy the init.d script...
 echo " # Installing the daemon..."
