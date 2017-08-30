@@ -5,6 +5,7 @@ namespace Ballen\Pirrot\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
+use Ballen\GPIO\GPIO;
 
 /**
  * Class VoiceCommand
@@ -22,6 +23,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      * @var string
      */
     private $mode;
+
+    /**
+     * Stores value of the COS recording state.
+     *
+     * @var bool
+     */
+    private $cosRecording = false;
 
     /**
      * VoiceCommand constructor.
@@ -60,29 +68,21 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function mainVox()
     {
         while (true) {
-            $this->writeln("Starting RX...");
+            //$this->writeln("Starting RX...");
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
-            $this->write("Starting TX...");
+            $this->outputLedTx->setValue(GPIO::HIGH);
             $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
             $this->sendCourtesyTone();
+            $this->outputLedTx->setValue(GPIO::LOW);
         }
     }
 
     private function mainCos()
     {
         while (true) {
-            $this->writeln("Starting RX...");
-            $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
-            $this->writeln("Started recording, PID is {$pid}.");
-            sleep(30); // Temp until i've implemented the logic for handling the I/O.
-            system('kill ' . $pid);
-            $this->storeRecording();
-            $this->write("Starting TX...");
-            $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
-            $this->sendCourtesyTone();
+            $this->processCosRecording();
         }
     }
 
@@ -109,6 +109,38 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         if ($this->config->get('courtesy_tone', false)) {
             $this->audioService->tone($this->config->get('courtesy_tone', 'Beep'));
         }
+    }
+
+    /**
+     * Handles the COS recording logic
+     *
+     * @return void
+     */
+    private function processCosRecording()
+    {
+        if (!$this->cosRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+            $this->outputLedRx->setValue(GPIO::HIGH);
+            $this->cosRecording == true;
+            $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
+                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
+            //$this->writeln("Started recording, PID is {$pid}.");
+            while (true) {
+                if ($this->inputCos->getValue() == GPIO::LOW) {
+                    system('kill ' . $pid);
+                    $this->outputLedTx->setValue(GPIO::LOW);
+                    $this->storeRecording();
+                    //$this->write("Starting TX...");
+                    $this->outputLedTx->setValue(GPIO::HIGH);
+                    $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
+                    $this->sendCourtesyTone();
+                    $this->outputLedTx->setValue(GPIO::LOW);
+                    $this->cosRecording = false;
+                    break;
+                }
+                usleep(10000); // Sleep a tenth of a second...
+            }
+        }
+        usleep(10000); // Sleep a tenth of a second...
     }
 
 
