@@ -4,6 +4,9 @@ namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
+use Ballen\GPIO\Adapters\VfsAdapter;
+use Ballen\GPIO\GPIO;
+use Ballen\GPIO\Pin;
 use Ballen\Pirrot\Foundation\Config;
 
 /**
@@ -28,11 +31,46 @@ class BaseCommand extends ConsoleApplication
     public $basePath;
 
     /**
-     * Used to determine if the computer/device that Pirrot is running on is GPIO enabled or not.
+     * GPIO object
      *
-     * @var bool
+     * @var GPIO
      */
-    public $gpioEnabledDevice = false;
+    public $gpio;
+
+    /**
+     * COS Input Pin
+     *
+     * @var Pin
+     */
+    private $inputCos;
+
+    /**
+     * PTT/TX Relay Pin
+     *
+     * @var Pin
+     */
+    private $outputPtt;
+
+    /**
+     * Power LED Pin
+     *
+     * @var Pin
+     */
+    private $outputLedPwr;
+
+    /**
+     * Receive LED Pin
+     *
+     * @var Pin
+     */
+    private $outputLedRx;
+
+    /**
+     * Transmit LED Pin
+     *
+     * @var Pin
+     */
+    private $outputLedTx;
 
     /**
      * BaseCommand constructor.
@@ -44,7 +82,7 @@ class BaseCommand extends ConsoleApplication
         $this->getBasePath();
         $this->retrieveConfiguration();
         $this->setTimezone($this->config->get('timezone'));
-        $this->gpioEnabledDevice = $this->detectGpioFilesystem();
+        $this->gpio = $this->initGpio();
         parent::__construct($argv);
     }
 
@@ -91,6 +129,26 @@ class BaseCommand extends ConsoleApplication
             return true;
         }
         return false;
+    }
+
+    /**
+     * Initialise the GPIO handler object.
+     *
+     * @return GPIO
+     */
+    private function initGpio()
+    {
+        $gpio = GPIO(VfsAdapter::class);
+        if ($this->detectGpioFilesystem()) {
+            $gpio = new GPIO();
+        }
+        $this->inputCos = $gpio->pin($this->config->get('in_cos_pin'), GPIO::IN);
+        $this->outputPtt = $gpio->pin($this->config->get('out_ptt_pin'), GPIO::OUT);
+        $this->outputLedPwr = $gpio->pin($this->config->get('out_ready_led_pin'), GPIO::OUT, true);
+        $this->outputLedRx = $gpio->pin($this->config->get('out_rx_led_pin'), GPIO::OUT, true);
+        $this->outputLedTx = $gpio->pin($this->config->get('out_tx_led_pin'), GPIO::OUT, true);
+
+        $this->outputLedPwr = GPIO::HIGH;
     }
 
 }
