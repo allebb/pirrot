@@ -75,7 +75,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         while (true) {
             //$this->writeln("Starting RX...");
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
+                    'alsa') . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
             $this->outputLedTx->setValue(GPIO::HIGH);
             $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
@@ -126,7 +126,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         if (!$this->cosRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
+                    'alsa') . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->cosRecording == true;
             while (true) {
                 usleep(10000); // Sleep a tenth of a second...
@@ -138,7 +138,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     $this->outputLedTx->setValue(GPIO::HIGH);
                     $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
                     $this->sendCourtesyTone();
-                    $this->outputLedTx->setValue(GPIO::LOW);
+                    $this->outputPtt->setValue(GPIO::LOW);
                     $this->outputLedTx->setValue(GPIO::LOW);
                     $this->cosRecording = false;
                     break;
