@@ -138,7 +138,7 @@ class BaseCommand extends ConsoleApplication
      */
     private function initGpio()
     {
-        $gpio = GPIO(VfsAdapter::class);
+        $gpio = new GPIO(new VfsAdapter());
         if ($this->detectGpioFilesystem()) {
             $gpio = new GPIO();
         }
