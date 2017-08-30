@@ -42,35 +42,35 @@ class BaseCommand extends ConsoleApplication
      *
      * @var Pin
      */
-    private $inputCos;
+    protected $inputCos;
 
     /**
      * PTT/TX Relay Pin
      *
      * @var Pin
      */
-    private $outputPtt;
+    protected $outputPtt;
 
     /**
      * Power LED Pin
      *
      * @var Pin
      */
-    private $outputLedPwr;
+    protected $outputLedPwr;
 
     /**
      * Receive LED Pin
      *
      * @var Pin
      */
-    private $outputLedRx;
+    protected $outputLedRx;
 
     /**
      * Transmit LED Pin
      *
      * @var Pin
      */
-    private $outputLedTx;
+    protected $outputLedTx;
 
     /**
      * BaseCommand constructor.
