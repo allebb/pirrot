@@ -128,14 +128,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->cosRecording == true;
             while (true) {
-                //usleep(10000); // Sleep a tenth of a second...
                 if ($this->inputCos->getValue() == GPIO::LOW) {
+                    sleep(1); // Sleep for a second to get the end of the transmission!
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
                     $this->outputPtt->setValue(GPIO::HIGH);
                     $this->outputLedTx->setValue(GPIO::HIGH);
-                    $this->writeln($this->basePath . '/storage/input/buffer.ogg');
                     $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
                     $this->sendCourtesyTone();
                     $this->outputPtt->setValue(GPIO::LOW);
