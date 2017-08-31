@@ -89,7 +89,7 @@ class BaseCommand extends ConsoleApplication
      */
     private function retrieveConfiguration()
     {
-        $this->config = new Config($this->basePath . '/build/configs/pirrot_default.conf');
+        $this->config = new Config('/etc/pirrot.conf', $this->basePath . '/build/configs/pirrot_default.conf');
     }
 
     /**
