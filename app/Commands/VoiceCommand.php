@@ -77,9 +77,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
             $this->outputLedTx->setValue(GPIO::HIGH);
+            $this->outputPtt->setValue(GPIO::HIGH);
             $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
             $this->sendCourtesyTone();
             $this->outputLedTx->setValue(GPIO::LOW);
+            $this->outputPtt->setValue(GPIO::LOW);
         }
     }
 
