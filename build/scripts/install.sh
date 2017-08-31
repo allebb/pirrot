@@ -2,7 +2,7 @@
 
 echo "Installing Pirrot..."
 
-PACKAGES=$(grep -vE "^\s*#" filename  | tr "\n" " ")
+PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
 xargs -a <(awk '! /^ *(#|$)/' "$PACKAGES") -r -- sudo apt-get install
 
 echo " # Checking for Pirrot configuration..."
