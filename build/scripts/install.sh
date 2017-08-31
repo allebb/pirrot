@@ -30,6 +30,7 @@ chmod 666 -Rf /opt/pirrot/storage
 echo " - Installing the daemon..."
 sudo cp /opt/pirrot/build/init.d/pirrot /etc/init.d/pirrot
 sudo chmod +x /etc/init.d/pirrot
+sudo update-rc.d pirrot defaults
 
 # Installing composer
 echo " - Installing Composer..."
