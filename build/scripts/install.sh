@@ -8,7 +8,7 @@ xargs -a <(awk '! /^ *(#|$)/' "$PACKAGES") -r -- sudo apt-get install
 echo " # Checking for Pirrot configuration..."
 if [ ! -f /etc/pirrot.conf ]; then
     echo " - Creating new pirrot.conf from template..."
-    sudo cp /opt/piplex/build/configs/pirrot_default.conf /etc/pirrot.conf
+    sudo cp /opt/pirrot/build/configs/pirrot_default.conf /etc/pirrot.conf
     sudo chmod 0644 /etc/pirrot.conf
 fi
 
