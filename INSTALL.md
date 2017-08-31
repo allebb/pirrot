@@ -4,9 +4,15 @@ Pirrot is designed and tested to be run on the RaspberryPi, during development a
 
 The following steps are required to install Pirrot on your RaspberryPi:
 
-1. Download the [latest release](#)
-2. Extract the files as follows using ``sudo tar xf pirrot-X.X.X.tar.gz -C /opt/pirrot``
-3. Run the installed as follows ``cd /opt/pirrot && make install``
+```shell
+cd ~
+wget https://github.com/allebb/pirrot/archive/X.X.X.tar.gz
+sudo mkdir /opt/pirrot
+sudo tar xf pirrot-X.X.X.tar.gz -C /opt/pirrot --strip 1
+cd /opt/pirrot
+sudo make install
+```
+
 4. Now reboot your RaspberryPi using ``reboot``.
 
 Following the reboot, your repeater will be active and ready to run!
