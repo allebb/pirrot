@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# /etc/init.d/pirrot
+
+### BEGIN INIT INFO
+# Provides:          pirrot
+# Required-Start:    $remote_fs $syslog networking
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: The Pirrot Repeater Daemon
+# Description:       This service is used to run the Pirrot Repeater System.
+### END INIT INFO
+
+
+case "$1" in
+    start)
+        if [[ $EUID -ne 0 ]]; then
+           echo "Must be root to interact with this service!" 1>&2
+           exit 1
+        fi
+        echo "Setting working directory to /opt/pirrot"
+        cd /opt/pirrot
+        echo "Starting Pirrot Daemon"
+        /opt/pirrot/pirrot voice >> /var/log/pirrot.log &
+        /opt/pirrot/pirrot ident >> /var/log/pirrot.log &
+        ;;
+    stop)
+        if [[ $EUID -ne 0 ]]; then
+          echo "Must be root to interact with this service!" 1>&2
+          exit 1
+        fi
+        echo "Stopping Pirrot daemon"
+        ps -efw | grep pirrot | grep -v grep | awk '{print $2}' | xargs kill
+        ;;
+    restart)
+        if [[ $EUID -ne 0 ]]; then
+          echo "Must be root to interact with this service!" 1>&2
+          exit 1
+        fi
+        /etc/init.d/pirrot stop
+        /etc/init.d/pirrot start
+        ;;
+    *)
+        echo "Usage: /etc/init.d/pirrot start|stop|restart"
+        exit 1
+        ;;
+esac
+
+exit 0
