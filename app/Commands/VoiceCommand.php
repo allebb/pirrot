@@ -73,7 +73,6 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function mainVox()
     {
         while (true) {
-            //$this->writeln("Starting RX...");
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
@@ -125,13 +124,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     {
         if (!$this->cosRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
-            $this->writeln($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->cosRecording == true;
             while (true) {
-                usleep(10000); // Sleep a tenth of a second...
+                //usleep(10000); // Sleep a tenth of a second...
                 if ($this->inputCos->getValue() == GPIO::LOW) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
