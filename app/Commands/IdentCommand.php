@@ -40,6 +40,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
         }
 
         while (true) {
+            $this->outputPtt->setValue(GPIO::HIGH);
             $this->outputLedTx->setValue(GPIO::HIGH);
             $this->audioService->ident(
                 $this->config->get('callsign'),
@@ -47,6 +48,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
                 $this->config->get('ident_time'),
                 $this->config->get('ident_morse')
             );
+            $this->outputPtt->setValue(GPIO::LOW);
             $this->outputLedTx->setValue(GPIO::LOW);
             sleep($this->config->get('ident_interval'));
         }

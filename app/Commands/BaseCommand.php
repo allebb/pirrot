@@ -4,9 +4,6 @@ namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\GPIO\Adapters\VfsAdapter;
-use Ballen\GPIO\GPIO;
-use Ballen\GPIO\Pin;
 use Ballen\Pirrot\Foundation\Config;
 
 /**
@@ -82,7 +79,6 @@ class BaseCommand extends ConsoleApplication
         $this->getBasePath();
         $this->retrieveConfiguration();
         $this->setTimezone($this->config->get('timezone'));
-        $this->gpio = $this->initGpio();
         parent::__construct($argv);
     }
 
@@ -116,38 +112,6 @@ class BaseCommand extends ConsoleApplication
     private function setTimezone($timezone = 'Europe/London')
     {
         date_default_timezone_set($timezone);
-    }
-
-    /**
-     * Used to determine if the machine is GPIO enabled.
-     *
-     * @return false
-     */
-    private function detectGpioFilesystem()
-    {
-        if (file_exists('/sys/class/gpio')) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Initialise the GPIO handler object.
-     *
-     * @return GPIO
-     */
-    private function initGpio()
-    {
-        $gpio = new GPIO(new VfsAdapter());
-        if ($this->detectGpioFilesystem()) {
-            $gpio = new GPIO();
-        }
-        $this->inputCos = $gpio->pin($this->config->get('in_cos_pin'), GPIO::IN);
-        $this->outputPtt = $gpio->pin($this->config->get('out_ptt_pin'), GPIO::OUT, true);
-        $this->outputLedPwr = $gpio->pin($this->config->get('out_ready_led_pin'), GPIO::OUT, true);
-        $this->outputLedRx = $gpio->pin($this->config->get('out_rx_led_pin'), GPIO::OUT, true);
-        $this->outputLedTx = $gpio->pin($this->config->get('out_tx_led_pin'), GPIO::OUT, true);
-        $this->outputLedPwr->setValue(GPIO::HIGH);
     }
 
 }
