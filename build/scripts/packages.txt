@@ -1,0 +1,3 @@
+# Pirrot dependencies (installed via. Aptitude)
+sox
+wget

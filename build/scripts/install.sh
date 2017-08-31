@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-echo "Building/installing Pirrot..."
+echo "Installing Pirrot..."
+
+PACKAGES=$(grep -vE "^\s*#" filename  | tr "\n" " ")
+xargs -a <(awk '! /^ *(#|$)/' "$PACKAGES") -r -- sudo apt-get install
 
 echo " # Checking for Pirrot configuration..."
-if [ ! -f /etc/piplex.conf ]; then
+if [ ! -f /etc/pirrot.conf ]; then
     echo " - Creating new pirrot.conf from template..."
     sudo cp /opt/piplex/build/configs/pirrot_default.conf /etc/pirrot.conf
     sudo chmod 0644 /etc/pirrot.conf
@@ -17,19 +20,28 @@ if [ ! -f /var/log/pirrot.log ]; then
 fi
 
 # Chmod it...
-echo " # Setting execution bit on /opt/pirrot/pirrot..."
+echo " - Setting execution bit on /opt/pirrot/pirrot..."
 sudo chmod +x /opt/pirrot/pirrot
 
 # Chmod storage directories
 chmod 666 -Rf /opt/pirrot/storage
 
 # Copy the init.d script...
-echo " # Installing the daemon..."
-sudo cp /opt/pirrot/init.d/pirrot /etc/init.d/pirrot
+echo " - Installing the daemon..."
+sudo cp /opt/pirrot/build/init.d/pirrot /etc/init.d/pirrot
 sudo chmod +x /etc/init.d/pirrot
 
+# Installing composer
+echo " - Installing Composer..."
+wget https://getcomposer.org/composer.phar
+mv composer.phar /usr/bin/composer
+chmod +x /usr/bin/composer
+
 # Run composer install...
-echo " # Installing Composer "
+echo " - Installing Pirrot Dependencies..."
 sudo composer install --working-dir /opt/pirrot
 
-echo "All done!"
+# Finished!
+echo ""
+echo "Please reboot your RaspberryPi now to enable Pirrot!"
+echo ""

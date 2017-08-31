@@ -1,4 +1,4 @@
 /.idea
 /vendor
-/storage/input
+/storage/input/*
 /storage/recordings/*.ogg
