@@ -42,7 +42,20 @@ chmod +x /usr/bin/composer
 echo " - Installing Pirrot Dependencies..."
 sudo composer install --working-dir /opt/pirrot
 
+# Disable onboard audio device (to enable USB device)
+echo " - Disabling on-board audio device"
+sudo sed -i "s|options snd-usb-audio index=-2|#options snd-usb-audio index=-2|" /lib/modprobe.d/aliases.conf
+echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
+
 # Finished!
 echo ""
 echo "Please reboot your RaspberryPi now to enable Pirrot!"
 echo ""
+while true; do
+    read -e -p "Restart your server now to complete the install (y/n)? " r
+    case $r in
+    [Yy]* ) break;;
+    [Nn]* ) exit;
+    esac
+done
+shutdown -r now
