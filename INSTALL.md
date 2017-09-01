@@ -1,6 +1,6 @@
 # Installation
 
-Pirrot is designed and tested to be run on the RaspberryPi, during development and testing I used the Raspbian Stretch.
+Pirrot is designed and tested to be run on the RaspberryPi, during development and testing I used the Raspbian Stretch and Raspbian Stretch Lite.
 
 The following steps are required to install Pirrot on your RaspberryPi:
 
@@ -37,6 +37,4 @@ cd /opt/pirrot
 sudo make uninstall
 ```
 
-You'll then be prompted to run: ``sudo /tmp/pirrot-uninstall``, do that now!
-
-Pirrot is now successfully removed from your RaspberryPi.
+Pirrot is now successfully removed from your RaspberryPi, reboot it in order to re-enable your on-board audio driver.
