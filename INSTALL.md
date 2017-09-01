@@ -18,7 +18,7 @@ __alternatively, you can download the latest version directly from Git:__
 Please make sure that you have first installed ``git`` on your RaspberryPi, you can do this by running ``sudo apt-get install -y git``
 
 ```shell
-sudo git clone https://github.com/allebb/pirrot /opt
+sudo git clone https://github.com/allebb/pirrot /opt/pirrot
 cd /opt/pirrot
 sudo make install
 ```
