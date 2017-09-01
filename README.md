@@ -14,9 +14,9 @@ The simplest hardware requirements are:
 
 The radio should be setup to use VOX
 
-## Audio Out
+## Sound adjustment
 
-The radio should broadcast sound using the VOX functionality for simplicity.
+Using the ``alsamixer`` command you can adjust your microphone and speaker volumes as required.
 
 ## Features
 
@@ -38,35 +38,3 @@ The radio should broadcast sound using the VOX functionality for simplicity.
 * Output - LED (Online) - Shows that the repeater program is running.
 * Output - Relay - PTT  - Triggers the PTT on the radio to re-transmit
 * Input - Relay - COS - Triggered when COS is opened on the radio/
-
-## Setting default Audio device on RaspberryPi
-
-The following needs to be done in order to enable the external audion sound card, without this the user will get errors about unable to detect the default adapter
-
-This disables the onboard audio card!
-
-```shell
-sudo nano /etc/modprobe.d/raspi-blacklist.conf
-```
-
-Now add the following line and then save the file:
-
-```
-blacklist snd_bcm2835
-```
-
-Next, we need to open this file:
-
-```shell
-sudo nano /lib/modprobe.d/aliases.conf
-```
-
-And comment out this line (prefix it with a hash "#"): ``options snd-usb-audio index=-2``
-
-Now reboot the system like so:
-
-```shell
-reboot
-```
-
-All should now work fine and the errors around unable to open the default driver should no longer be an issue.
