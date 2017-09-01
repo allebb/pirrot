@@ -3,7 +3,7 @@
 echo "Installing Pirrot..."
 
 PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
-sudo apt-get install $PACKAGES
+sudo apt-get install -y $PACKAGES
 
 echo " # Checking for Pirrot configuration..."
 if [ ! -f /etc/pirrot.conf ]; then
