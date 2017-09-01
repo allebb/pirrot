@@ -3,7 +3,7 @@ install:
 
 uninstall:
 	@cp /opt/pirrot/build/scripts/uninstall.sh /tmp/pirrot-uninstall
-	@echo "Run 'sudo /tmp/pirrot-uninstall' to remove Pirrot"
+	@/tmp/pirrot-uninstall
 
 clean:
 	rm -f /opt/pirrot/storage/input/*.ogg
