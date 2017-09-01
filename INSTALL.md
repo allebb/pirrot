@@ -13,6 +13,15 @@ cd /opt/pirrot
 sudo make install
 ```
 
+__alternatively, you can download the latest version directly from Git:__
+
+```shell
+sudo git clone https://github.com/allebb/pirrot /opt
+cd /opt/pirrot
+sudo make install
+```
+
+
 4. Now reboot your RaspberryPi using ``reboot``.
 
 Following the reboot, your repeater will be active and ready to run!
@@ -23,6 +32,9 @@ If you wish to uninstall Pirrot at a later date, you can run:
 
 ```shell
 cd /opt/pirrot
-make uninstall
+sudo make uninstall
 ```
 
+You'll then be prompted to run: ``sudo /tmp/pirrot-uninstall``, do that now!
+
+Pirrot is now successfully removed from your RaspberryPi.

@@ -19,3 +19,15 @@ sudo rm -f /usr/bin/composer
 echo ""
 echo "Done!"
 echo ""
+# Finished!
+echo ""
+echo "Please reboot your RaspberryPi now to complete the uninstallation!"
+echo ""
+while true; do
+    read -e -p "Restart your device now (y/n)? " r
+    case $r in
+    [Yy]* ) break;;
+    [Nn]* ) exit;
+    esac
+done
+shutdown -r now

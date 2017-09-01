@@ -52,7 +52,7 @@ echo ""
 echo "Please reboot your RaspberryPi now to enable Pirrot!"
 echo ""
 while true; do
-    read -e -p "Restart your server now to complete the install (y/n)? " r
+    read -e -p "Restart your device now (y/n)? " r
     case $r in
     [Yy]* ) break;;
     [Nn]* ) exit;
