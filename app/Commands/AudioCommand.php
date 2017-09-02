@@ -7,7 +7,6 @@ use Ballen\Executioner\Exceptions\ExecutionException;
 use Ballen\Executioner\Executioner;
 use Ballen\GPIO\Adapters\VfsAdapter;
 use Ballen\GPIO\GPIO;
-use Ballen\GPIO\Pin;
 use Ballen\Pirrot\Services\AudioService;
 
 /**
@@ -45,7 +44,6 @@ class AudioCommand extends BaseCommand
         $this->detectExternalBinaries([
             'sox',
             'play',
-            //'rec',
         ]);
 
         $this->audioService = new AudioService();
@@ -100,11 +98,34 @@ class AudioCommand extends BaseCommand
         if ($this->detectGpioFilesystem()) {
             $gpio = new GPIO();
         }
-        $this->inputCos = $gpio->pin($this->config->get('in_cos_pin'), GPIO::IN);
-        $this->outputPtt = $gpio->pin($this->config->get('out_ptt_pin'), GPIO::OUT, true);
-        $this->outputLedPwr = $gpio->pin($this->config->get('out_ready_led_pin'), GPIO::OUT, true);
-        $this->outputLedRx = $gpio->pin($this->config->get('out_rx_led_pin'), GPIO::OUT, true);
-        $this->outputLedTx = $gpio->pin($this->config->get('out_tx_led_pin'), GPIO::OUT, true);
+
+        // Configure GPIO pin types.
+        $this->inputCos = $gpio->pin(
+            $this->config->get('in_cos_pin'),
+            GPIO::IN,
+            $this->config->get('cos_pin_invert', false)
+        );
+        $this->outputPtt = $gpio->pin(
+            $this->config->get('out_ptt_pin'),
+            GPIO::OUT,
+            $this->config->get('ptt_pin_invert', false)
+        );
+        $this->outputLedPwr = $gpio->pin(
+            $this->config->get('out_ready_led_pin'),
+            GPIO::OUT,
+            $this->config->get('ready_pin_invert', false)
+        );
+        $this->outputLedRx = $gpio->pin(
+            $this->config->get('out_rx_led_pin'),
+            GPIO::OUT,
+            $this->config->get('rx_pin_invert', false)
+        );
+        $this->outputLedTx = $gpio->pin(
+            $this->config->get('out_tx_led_pin'),
+            GPIO::OUT,
+            $this->config->get('tx_pin_invert', false)
+        );
+
         // Set I/O defaults
         $this->outputLedPwr->setValue(GPIO::HIGH);
         $this->outputLedRx->setValue(GPIO::LOW);
