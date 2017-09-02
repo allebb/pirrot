@@ -2,7 +2,17 @@
   "name": "ballen/pirrot",
   "description": "A parrot (Simplex) repeater controller for RaspberryPi",
   "type": "project",
-  "keywords": ["repeater", "simplex", "ham", "radio", "controller", "parrot", "pirrot"],
+  "keywords": [
+    "repeater",
+    "simplex",
+    "ham",
+    "radio",
+    "parrot",
+    "pirrot",
+    "ham",
+    "vhf",
+    "uhf"
+  ],
   "license": "MIT",
   "authors": [
     {
@@ -14,7 +24,10 @@
   ],
   "support": {
     "email": "ballen@bobbyallen.me",
-    "issues": "https://github.com/bobsta63/pirrot/issues"
+    "docs": "https://pirrot.bobbyallen.me",
+    "source": "https://github.com/allebb/pirrot",
+    "issues": "https://github.com/bobsta63/pirrot/issues",
+    "wiki": "https://github.com/allebb/pirrot/wiki"
   },
   "require": {
     "php": ">=7.0.0",

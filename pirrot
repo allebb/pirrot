@@ -6,9 +6,6 @@ use Ballen\Pirrot\Commands\IdentCommand;
 use Ballen\Pirrot\Commands\VoiceCommand;
 use Ballen\Pirrot\Commands\UpdateCommand;
 use Ballen\Pirrot\Commands\HelpCommand;
-// Test classes...
-use Ballen\Pirrot\Commands\IoCommand;
-use Ballen\Pirrot\Commands\IoInteruptCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
@@ -24,13 +21,8 @@ $app->add('voice', VoiceCommand::class);
 $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 
-// Test commands - will be removed in future!!
-$app->add('io', IoCommand::class);
-$app->add('ioi', IoInteruptCommand::class);
-
 try {
     $app->dispatch();
 } catch (CommandNotFoundException $exception) {
-    // If the requested command is not found we'll display the 'help' text by default?
     $app->dispatch('help');
 }
