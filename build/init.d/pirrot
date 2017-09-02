@@ -11,39 +11,41 @@
 # Description:       This service is used to run the Pirrot Repeater System.
 ### END INIT INFO
 
+start(){
+    echo "Starting Pirrot Daemon" >&2
+    /opt/pirrot/pirrot voice >> /var/log/pirrot.log &
+    /opt/pirrot/pirrot ident >> /var/log/pirrot.log &
+}
+
+stop(){
+    echo "Stopping Pirrot daemon" >&2
+    ps -efw | grep pirrot | grep -v grep | awk '{print $2}' | xargs kill
+}
+
+
+check(){
+    if [[ $EUID -ne 0 ]]; then
+        echo "Must be root to interact with this service!" 1>&2
+        exit 1
+    fi
+}
 
 case "$1" in
     start)
-        if [[ $EUID -ne 0 ]]; then
-           echo "Must be root to interact with this service!" 1>&2
-           exit 1
-        fi
-        echo "Setting working directory to /opt/pirrot"
-        cd /opt/pirrot
-        echo "Starting Pirrot Daemon"
-        /opt/pirrot/pirrot voice >> /var/log/pirrot.log &
-        /opt/pirrot/pirrot ident >> /var/log/pirrot.log &
+        check
+        start
         ;;
     stop)
-        if [[ $EUID -ne 0 ]]; then
-          echo "Must be root to interact with this service!" 1>&2
-          exit 1
-        fi
-        echo "Stopping Pirrot daemon"
-        ps -efw | grep pirrot | grep -v grep | awk '{print $2}' | xargs kill
+        check
+        stop
         ;;
-    restart)
-        if [[ $EUID -ne 0 ]]; then
-          echo "Must be root to interact with this service!" 1>&2
-          exit 1
-        fi
-        /etc/init.d/pirrot stop &
-        /etc/init.d/pirrot start &
+    restart|reload)
+        stop
+        start
         ;;
     *)
-        echo "Usage: /etc/init.d/pirrot start|stop|restart"
+        echo "Usage: /etc/init.d/pirrot start|stop|restart|reload"
         exit 1
         ;;
 esac
-
 exit 0
