@@ -37,8 +37,8 @@ case "$1" in
           echo "Must be root to interact with this service!" 1>&2
           exit 1
         fi
-        /etc/init.d/pirrot stop
-        /etc/init.d/pirrot start
+        /etc/init.d/pirrot stop &
+        /etc/init.d/pirrot start &
         ;;
     *)
         echo "Usage: /etc/init.d/pirrot start|stop|restart"
