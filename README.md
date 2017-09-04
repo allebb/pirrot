@@ -26,7 +26,7 @@ Assuming you wish to use this with a radio transceiver, you will also need to wi
 
 The audio in (receive) and audio out (transmit) connectors from your radio will need to be connected to the external USB sound card using the Mic Jack (for Transmit) and Speaker Jack (for Receive).
 
-If you plan to use the repeater in COS (Carrier Operated mode) you will need to connect your COS pin to 
+If you plan to use the repeater in COR mode you will need to connect your COR pin to the transceiver. 
 
 ## Installation
 
@@ -66,10 +66,10 @@ Using the ``alsamixer`` command in the terminal you can adjust your microphone a
 
 By default, the Pirrot configuration file, located in ``/etc/pirrot.conf`` has default GPIO pins configured, these are as follows:
 
-* __GPIO 18__ - COS Switch (Input/Relay) - _Triggered when COS is opened on the radio._
+* __GPIO 18__ - COR Signal (Input/Relay) - _Triggered when the radio squelch is opened._
 * __GPIO 23__ - PTT Switch (Output/Relay)  - _Triggers the PTT on the radio to transmit._
 * __GPIO 17__ - Power/Ready LED (Output/LED) - _Shows that the repeater program is running._
-* __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (fired when COS signal is high/non-functional in VOX mode)._
+* __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (fired when COR signal is high/non-functional in VOX mode)._
 * __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (fired when the repeater is ident-ing/playing back audio)._
 
 __Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.
