@@ -25,11 +25,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private $mode;
 
     /**
-     * Stores value of the COS recording state.
+     * Stores value of the COR recording state.
      *
      * @var bool
      */
-    private $cosRecording = false;
+    private $corRecording = false;
 
     /**
      * VoiceCommand constructor.
@@ -85,10 +85,10 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         }
     }
 
-    private function mainCos()
+    private function mainCor()
     {
         while (true) {
-            $this->processCosRecording();
+            $this->processCorRecording();
         }
     }
 
@@ -118,19 +118,19 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     }
 
     /**
-     * Handles the COS recording logic
+     * Handles the COR recording logic
      *
      * @return void
      */
-    private function processCosRecording()
+    private function processCorRecording()
     {
-        if (!$this->cosRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+        if (!$this->corRecording && ($this->inputCor->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
-            $this->cosRecording == true;
+            $this->corRecording == true;
             while (true) {
-                if ($this->inputCos->getValue() == GPIO::LOW) {
+                if ($this->inputCor->getValue() == GPIO::LOW) {
                     sleep(1); // Sleep for a second to get the end of the transmission!
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
@@ -141,7 +141,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     $this->sendCourtesyTone();
                     $this->outputPtt->setValue(GPIO::LOW);
                     $this->outputLedTx->setValue(GPIO::LOW);
-                    $this->cosRecording = false;
+                    $this->corRecording = false;
                     break;
                 }
             }

@@ -100,8 +100,8 @@ class AudioCommand extends BaseCommand
         }
 
         // Configure GPIO pin types.
-        $this->inputCos = $gpio->pin(
-            $this->config->get('in_cos_pin'),
+        $this->inputCor = $gpio->pin(
+            $this->config->get('in_cor_pin'),
             GPIO::IN,
             $this->config->get('cos_pin_invert', false)
         );

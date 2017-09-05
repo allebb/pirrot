@@ -29,12 +29,12 @@ The Pirrot configuration file is a key-value INI based configuration file, the b
 | record_device | alsa | Sets the system sound driver/system that will be used, options are ``alsa``, ``coreaudion`` or ``waveaudio`` - This should be left as default for the RaspberryPi!|
 | store_recordings | false | If set to ``true`` incoming transmissions will be saved into ``/opt/pirrot/storage/recordings`` directory with the timestamp. |
 | purge_recording_after | 7 | Recordings will be deleted after X number of days. |
-| in_cos_pin | 18 | The GPIO pin number for the COS input. |
+| in_cor_pin | 18 | The GPIO pin number for the COS input. |
 | out_ptt_pin | 23 | The GPIO pin number for the PTT output relay. |
 | out_ready_led_pin | 17 | The GPIO pin number for the Power LED output. |
 | out_rx_led_pin | 27 | The GPIO pin number for the Receive LED output. |
 | out_tx_led_pin | 22 | The GPIO pin number for the Transmit LED output. |
-| cos_pin_invert | false | Enables the ability to invert the GPIO high/low for the ``in_cos_pin``. |
+| cos_pin_invert | false | Enables the ability to invert the GPIO high/low for the ``in_cor_pin``. |
 | ptt_pin_invert | false | Enables the ability to invert the GPIO high/low for the ``out_ptt_pin``. |
 | ready_pin_invert | false | Enables the ability to invert the GPIO high/low for the ``out_ready_led_pin``. |
 | rx_pin_invert | false | Enables the ability to invert the GPIO high/low for the ``out_rx_led_pin``. |
