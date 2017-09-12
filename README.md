@@ -1,4 +1,4 @@
-# Pirrot - A Simplex Repeater controller for RaspberryPi
+# Pirrot - A Simplex Radio Repeater controller for RaspberryPi
 
 The Pirrot project exists to offer a cheaper alternative to buying a dedicated simplex repeater controller.
 
@@ -6,14 +6,13 @@ Pirrot also offers other operation modes that most simplex repeaters do not come
 
 ## Features
 
-* Saving recordings of voice optional (set in the system configuration) - Disabled by default.
-* Ability to set a courtesy tone.
-* Ability to configure the server identify automatically on a schedule.
-* Enable to purge recordings after a set time (eg. 30 days) - A Cron job will run and delete recordings old than that.
-* Ability to enable or disable repeater identifier. - Disabled by default.
-* Ability to upload recordings to Amazon S3 on a cron job (only works if connected to the LAN)
-* Ability to change output transmission from VOX to COS and specify GPIO pins.
+* Ability to set a courtesy tone on end of transmission.
+* Ability to configure the repeater to identify itself automatically on a schedule.
+* Ability to enable or disable automatic repeater identifier. - Disabled by default.
+* Ability to change output transmission from VOX (voice activation) to COR (COR signal from radio to an input relay).
+* Save recordings of recieved transmissions - Disabled by default.
 
+See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
 
 ## Hardware requirements
 
@@ -26,11 +25,13 @@ Assuming you wish to use this with a radio transceiver, you will also need to wi
 
 The audio in (receive) and audio out (transmit) connectors from your radio will need to be connected to the external USB sound card using the Mic Jack (for Transmit) and Speaker Jack (for Receive).
 
-If you plan to use the repeater in COR mode you will need to connect your COR pin to the transceiver. 
+If you plan to use the repeater in COR mode you will need to connect your COR GPIO pin to the transceiver. 
 
 ## Installation
 
 Pirrot can be installed either by downloading the latest tarball ([find the version number here](https://github.com/allebb/pirrot/releases)) from the command line as follows:
+
+__Replace the X.X.X.X with the latest version available from the releases page__
 
 ```shell
 cd ~
@@ -41,7 +42,7 @@ cd /opt/pirrot
 sudo make install
 ```
 
-...or you can use Git to download and install using this method instead:
+...alternatively you can use Git to download and install using this method instead:
 
 ```shell
 sudo apt-get install -y git
