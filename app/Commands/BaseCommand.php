@@ -5,6 +5,8 @@ namespace Ballen\Pirrot\Commands;
 use Ballen\Clip\ConsoleApplication;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Pirrot\Foundation\Config;
+use Ballen\GPIO\GPIO;
+use Ballen\GPIO\Pin;
 
 /**
  * Class PirrotxBaseCommand

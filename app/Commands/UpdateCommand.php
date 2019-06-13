@@ -16,12 +16,14 @@ class UpdateCommand extends BaseCommand implements CommandInterface
 
     /**
      * Handle the command.
+     * @return void
      */
     public function handle()
     {
         $this->writeln('Downloading latest source from GitHub...');
         system("sudo git reset --hard");
         system("sudo git pull");
+        system("sudo composer install");
         $this->writeln('Upgrade completed!');
         $this->writeln();
         $this->writeln('** REMEMBER TO RESTART THE PIRROT DAEMON **');

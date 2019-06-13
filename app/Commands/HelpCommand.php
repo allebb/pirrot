@@ -16,6 +16,7 @@ class HelpCommand extends BaseCommand implements CommandInterface
 
     /**
      * Handle the command.
+     * @return void
      */
     public function handle()
     {

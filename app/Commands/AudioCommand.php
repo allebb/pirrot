@@ -6,6 +6,7 @@ use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Executioner\Exceptions\ExecutionException;
 use Ballen\Executioner\Executioner;
 use Ballen\GPIO\Adapters\VfsAdapter;
+use Ballen\GPIO\Exceptions\GPIOException;
 use Ballen\GPIO\GPIO;
 use Ballen\Pirrot\Services\AudioService;
 
@@ -35,6 +36,7 @@ class AudioCommand extends BaseCommand
      * AudioCommand constructor.
      *
      * @param ArgumentsParser $argv
+     * @throws GPIOException
      */
     public function __construct(ArgumentsParser $argv)
     {
@@ -91,6 +93,7 @@ class AudioCommand extends BaseCommand
      * Initialise the GPIO handler object.
      *
      * @return GPIO
+     * @throws GPIOException
      */
     private function initGpio()
     {
@@ -131,6 +134,8 @@ class AudioCommand extends BaseCommand
         $this->outputLedRx->setValue(GPIO::LOW);
         $this->outputLedTx->setValue(GPIO::LOW);
         $this->outputPtt->setValue(GPIO::LOW);
+
+        return $gpio;
     }
 
 }

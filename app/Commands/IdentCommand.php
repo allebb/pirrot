@@ -6,6 +6,7 @@ use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\GPIO\GPIO;
+use Ballen\GPIO\Exceptions\GPIOException;
 
 /**
  * Class DaemonCommand
@@ -18,9 +19,9 @@ class IdentCommand extends AudioCommand implements CommandInterface
     use RecievesArgumentsTrait;
 
     /**
-     * DaemonCommand constructor.
-     *
+     * IdentCommand constructor.
      * @param ArgumentsParser $argv
+     * @throws GPIOException
      */
     public function __construct(ArgumentsParser $argv)
     {
@@ -29,6 +30,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
     /**
      * Handle the command.
+     * @return void
+     * @throws GPIOException
      */
     public function handle()
     {

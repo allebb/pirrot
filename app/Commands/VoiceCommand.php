@@ -33,8 +33,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
     /**
      * VoiceCommand constructor.
-     *
      * @param ArgumentsParser $argv
+     * @throws \Ballen\GPIO\Exceptions\GPIOException
      */
     public function __construct(ArgumentsParser $argv)
     {
@@ -51,6 +51,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
     /**
      * Handle the command.
+     * @return void
      */
     public function handle()
     {
@@ -70,6 +71,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         $this->exitWithError();
     }
 
+    /**
+     * Main loop handler for VOX transmission operations.
+     *
+     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @retun void
+     */
     private function mainVox()
     {
         while (true) {
@@ -85,6 +92,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         }
     }
 
+    /**
+     * Main loop handler for COR transmission operations.
+     *
+     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @retun void
+     */
     private function mainCor()
     {
         while (true) {
@@ -106,7 +119,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     }
 
     /**
-     * If enabled, plays the courtesy tone.
+     * If enabled, plays the courtesy tone at the end of transmissions.
      *
      * @return void
      */
@@ -119,8 +132,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
     /**
      * Handles the COR recording logic
-     *
      * @return void
+     * @throws \Ballen\GPIO\Exceptions\GPIOException
      */
     private function processCorRecording()
     {
