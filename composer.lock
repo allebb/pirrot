@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9793bf17b45401d49284efa1f88b306",
+    "content-hash": "681a2d0b7b4e6363095eeef5b6519190",
     "packages": [
         {
             "name": "ballen/clip",
@@ -105,16 +105,16 @@
         },
         {
             "name": "ballen/executioner",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allebb/executioner.git",
-                "reference": "a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0"
+                "reference": "2d3cbc3b402f4dcc7cd1abcab1f3d2e09451abe8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allebb/executioner/zipball/a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0",
-                "reference": "a0d08b4edcb3bb9da7bbe8caee6b854f59c936b0",
+                "url": "https://api.github.com/repos/allebb/executioner/zipball/2d3cbc3b402f4dcc7cd1abcab1f3d2e09451abe8",
+                "reference": "2d3cbc3b402f4dcc7cd1abcab1f3d2e09451abe8",
                 "shasum": ""
             },
             "require": {
@@ -149,20 +149,20 @@
                 "process",
                 "run"
             ],
-            "time": "2015-12-25T09:21:30+00:00"
+            "time": "2018-03-24T18:05:53+00:00"
         },
         {
             "name": "ballen/gpio",
-            "version": "1.0.4",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allebb/gpio.git",
-                "reference": "93cf9ed84c926b174988259014363be9634cf6fa"
+                "reference": "2fc47e623c44eda7b473e51806e5b3e06e643cdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allebb/gpio/zipball/93cf9ed84c926b174988259014363be9634cf6fa",
-                "reference": "93cf9ed84c926b174988259014363be9634cf6fa",
+                "url": "https://api.github.com/repos/allebb/gpio/zipball/2fc47e623c44eda7b473e51806e5b3e06e643cdb",
+                "reference": "2fc47e623c44eda7b473e51806e5b3e06e643cdb",
                 "shasum": ""
             },
             "require": {
@@ -179,7 +179,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPLv3"
+                "GPL-3.0-or-later"
             ],
             "authors": [
                 {
@@ -196,7 +196,7 @@
                 "io",
                 "rpi"
             ],
-            "time": "2017-08-25T12:13:21+00:00"
+            "time": "2019-06-13T09:35:19+00:00"
         }
     ],
     "packages-dev": [],
