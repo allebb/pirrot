@@ -19,6 +19,10 @@ echo ""
 #echo " - Stopping Pirrot daemon..."
 #sudo /etc/init.d/pirrot stop
 #sleep 3
+
+echo "- Uninstalling packages"
+sudo apt-get autoremove -y $PACKAGES
+
 echo "Done!"
 echo ""
 # Finished!

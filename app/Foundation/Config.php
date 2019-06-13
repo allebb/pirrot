@@ -23,7 +23,6 @@ class Config
      */
     public function __construct($config, $defaultConfig = null)
     {
-
         $this->config = $this->parseConfig($config);
         if ($defaultConfig) {
             $this->config = array_merge(
@@ -31,7 +30,6 @@ class Config
                 $this->parseConfig($config)
             );
         }
-
     }
 
     /**
@@ -60,8 +58,7 @@ class Config
      * @param mixed $default The default value to return if not set.
      * @return mixed
      */
-    public
-    function get($key,
+    public function get($key,
         $default = null
     ) {
         if (!isset($this->config[$key])) {
@@ -75,8 +72,7 @@ class Config
      *
      * @return array
      */
-    public
-    function all()
+    public function all()
     {
         return $this->config;
     }
@@ -87,9 +83,8 @@ class Config
      * @param $name The configuration property name.
      * @return mixed|null
      */
-    public
-    function __get($name
-    ) {
+    public function __get($name)
+    {
         if (isset($this->config[$name])) {
             return $this->config[$name];
         }

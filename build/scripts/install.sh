@@ -24,7 +24,9 @@ echo " - Setting execution bit on /opt/pirrot/pirrot..."
 sudo chmod +x /opt/pirrot/pirrot
 
 # Chmod storage directories
-chmod 666 -Rf /opt/pirrot/storage
+mkdir -p /opt/pirrot/storage/input
+mkdir -p /opt/pirrot/storage/recordings
+chmod 666 -R /opt/pirrot/storage
 
 # Copy the init.d script...
 echo " - Installing the daemon..."

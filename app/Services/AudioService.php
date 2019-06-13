@@ -202,8 +202,6 @@ class AudioService
      */
     public function morse($string)
     {
-        // @TODO - Find a morse code generator binary.
-
         // Generate the morse code and play and return the file name and path.
         return '';
     }
