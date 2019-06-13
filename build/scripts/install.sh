@@ -38,8 +38,8 @@ sudo update-rc.d pirrot defaults
 # Installing composer
 echo " - Installing Composer..."
 wget https://getcomposer.org/composer.phar
-mv composer.phar /usr/bin/composer
-chmod +x /usr/bin/composer
+sudo mv composer.phar /usr/bin/composer
+sudo chmod +x /usr/bin/composer
 
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
@@ -61,4 +61,4 @@ while true; do
     [Nn]* ) exit;
     esac
 done
-shutdown -r now
+sudo shutdown -r now

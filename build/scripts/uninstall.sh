@@ -36,4 +36,4 @@ while true; do
     [Nn]* ) exit;
     esac
 done
-shutdown -r now
+sudo shutdown -r now
