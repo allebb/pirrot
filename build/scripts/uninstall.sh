@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
+
 cd /tmp
 echo "Uninstalling Pirrot..."
 echo ""
@@ -17,11 +19,9 @@ echo " - Removing the Pirrot application..."
 sudo rm -Rf /opt/pirrot
 echo " - Removing Composer..."
 sudo rm -f /usr/bin/composer
-echo ""
-
 echo "- Uninstalling packages"
-PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
 sudo apt-get autoremove -y $PACKAGES
+echo ""
 
 echo "Done!"
 echo ""
