@@ -73,7 +73,7 @@ By default, the Pirrot configuration file, located in ``/etc/pirrot.conf`` has d
 * __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (fired when COR signal is high/non-functional in VOX mode)._
 * __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (fired when the repeater is ident-ing/playing back audio)._
 
-__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.
+__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.__
 
 # Uninstalling
 
