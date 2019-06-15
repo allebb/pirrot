@@ -136,7 +136,7 @@ class AudioService
     /**
      * Play a recorded message from the 'core' directory.
      *
-     * @param $file The file name (including the extension)
+     * @param string $file The file name (including the extension)
      * @return void
      */
     public function announce($file)
@@ -149,7 +149,7 @@ class AudioService
     /**
      * Play the specified courtesy tone.
      *
-     * @param $tone The tone filename (without the file extenion)
+     * @param string $tone The tone filename (without the file extenion)
      * @return void
      */
     public function tone($tone)
@@ -162,7 +162,7 @@ class AudioService
     /**
      * Output the repeater identification.
      *
-     * @param $callsign The repeater callsign.
+     * @param string $callsign The repeater callsign.
      * @param null $pl The PL/CTCSS tone to access the repeater on (optional)
      * @param bool $withTime Specify if to speak the time with the ident.
      * @param bool $withMorse Specify if to output the morse code translation for the callsign.
