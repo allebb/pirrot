@@ -10,7 +10,7 @@ Pirrot also offers other operation modes that most simplex repeaters do not come
 * Ability to configure the repeater to identify itself automatically on a schedule.
 * Ability to enable or disable automatic repeater identifier. - Disabled by default.
 * Ability to change output transmission from VOX (voice activation) to COR (COR signal from radio to an input relay).
-* Save recordings of recieved transmissions - Disabled by default.
+* Save recordings of received transmissions - Disabled by default.
 
 See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
 
@@ -73,7 +73,7 @@ By default, the Pirrot configuration file, located in ``/etc/pirrot.conf`` has d
 * __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (fired when COR signal is high/non-functional in VOX mode)._
 * __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (fired when the repeater is ident-ing/playing back audio)._
 
-__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.
+__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.__
 
 # Uninstalling
 

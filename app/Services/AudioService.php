@@ -202,9 +202,6 @@ class AudioService
      */
     public function morse($string)
     {
-        // @TODO - Find a morse code generator binary.
-        // Will work to implement: http://manpages.ubuntu.com/manpages/bionic/man1/cw.1.html
-
         // Generate the morse code and play and return the file name and path.
         return '';
     }

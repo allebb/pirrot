@@ -24,7 +24,10 @@ echo " - Setting execution bit on /opt/pirrot/pirrot..."
 sudo chmod +x /opt/pirrot/pirrot
 
 # Chmod storage directories
-chmod 666 -Rf /opt/pirrot/storage
+sudo mkdir /opt/pirrot/storage
+sudo mkdir /opt/pirrot/storage/input
+sudo mkdir /opt/pirrot/storage/recordings
+sudo chmod -R 664 /opt/pirrot/storage
 
 # Copy the init.d script...
 echo " - Installing the daemon..."
@@ -35,8 +38,8 @@ sudo update-rc.d pirrot defaults
 # Installing composer
 echo " - Installing Composer..."
 wget https://getcomposer.org/composer.phar
-mv composer.phar /usr/bin/composer
-chmod +x /usr/bin/composer
+sudo mv composer.phar /usr/bin/composer
+sudo chmod +x /usr/bin/composer
 
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
@@ -58,4 +61,4 @@ while true; do
     [Nn]* ) exit;
     esac
 done
-shutdown -r now
+sudo shutdown -r now
