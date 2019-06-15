@@ -209,7 +209,7 @@ class AudioService
     /**
      * Reads the given string in the pheonetic alphabet.
      *
-     * @param $string The string of characters to read.
+     * @param string $string The string of characters to read.
      * @return void
      */
     public function say($string)
@@ -232,7 +232,7 @@ class AudioService
      * Converts text characters to file array.
      *
      * @param string $string The input string
-     * @return array
+     * @return string
      */
     private function speak($string)
     {
@@ -250,7 +250,7 @@ class AudioService
      * Converts number characters to file array.
      *
      * @param int $number The input number
-     * @return array
+     * @return string
      */
     private function speakNumber($number)
     {
@@ -301,7 +301,7 @@ class AudioService
      * Returns sequence of audio files.
      *
      * @param array $files
-     * @return array
+     * @return string
      */
     private function sequenceOutput($files)
     {
@@ -319,7 +319,7 @@ class AudioService
     /**
      * Execute the audio player command
      *
-     * @param $files The string of audio files to play in order.
+     * @param string $files The string of audio files to play in order.
      * @return void
      */
     public function play($files)

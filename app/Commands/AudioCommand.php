@@ -57,7 +57,7 @@ class AudioCommand extends BaseCommand
     }
 
     /**
-     * Used to detect external binraries required.
+     * Used to detect external binaries required.
      *
      * @param array $binaries
      */

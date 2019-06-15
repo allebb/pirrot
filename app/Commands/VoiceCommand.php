@@ -6,6 +6,7 @@ use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\GPIO\GPIO;
+use Ballen\GPIO\Exceptions\GPIOException;
 
 /**
  * Class VoiceCommand
@@ -18,7 +19,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     use RecievesArgumentsTrait;
 
     /**
-     * The TX/RX mode for voice comms.
+     * The TX/RX mode for voice communications.
      *
      * @var string
      */
@@ -34,7 +35,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     /**
      * VoiceCommand constructor.
      * @param ArgumentsParser $argv
-     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @throws GPIOException
      */
     public function __construct(ArgumentsParser $argv)
     {
@@ -74,7 +75,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     /**
      * Main loop handler for VOX transmission operations.
      *
-     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @throws GPIOException
      * @retun void
      */
     private function mainVox()

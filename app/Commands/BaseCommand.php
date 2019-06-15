@@ -9,7 +9,7 @@ use Ballen\GPIO\GPIO;
 use Ballen\GPIO\Pin;
 
 /**
- * Class PirrotxBaseCommand
+ * Class Pirrot BaseCommand
  *
  * @package Ballen\Pirrot\Commands
  */
