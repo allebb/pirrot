@@ -43,7 +43,7 @@ sudo chmod +x /usr/bin/composer
 
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
-sudo composer install --working-dir /opt/pirrot
+sudo composer install --working-dir /opt/pirrot --no-dev
 
 # Disable onboard audio device (to enable USB device)
 echo " - Disabling on-board audio device"
