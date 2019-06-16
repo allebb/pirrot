@@ -27,7 +27,7 @@ sudo chmod +x /opt/pirrot/pirrot
 sudo mkdir /opt/pirrot/storage
 sudo mkdir /opt/pirrot/storage/input
 sudo mkdir /opt/pirrot/storage/recordings
-sudo chmod -R 664 /opt/pirrot/storage
+sudo chmod -R 755 /opt/pirrot/storage
 
 # Copy the init.d script...
 echo " - Installing the daemon..."
