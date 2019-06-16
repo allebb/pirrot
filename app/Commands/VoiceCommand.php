@@ -138,13 +138,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      */
     private function processCorRecording()
     {
-        if (!$this->corRecording && ($this->inputCor->getValue() == GPIO::HIGH)) {
+        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
-            $this->corRecording == true;
+            $this->corRecording = true;
             while (true) {
-                if ($this->inputCor->getValue() == GPIO::LOW) {
+                if ($this->inputCos->getValue() == GPIO::LOW) {
                     sleep(1); // Sleep for a second to get the end of the transmission!
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
