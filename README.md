@@ -37,7 +37,7 @@ __Replace the X.X.X.X with the latest version available from the releases page__
 cd ~
 wget https://github.com/allebb/pirrot/archive/vX.X.X.tar.gz
 sudo mkdir /opt/pirrot
-sudo tar xf pirrot-vX.X.X.tar.gz -C /opt/pirrot --strip 1
+sudo tar xf vX.X.X.tar.gz -C /opt/pirrot --strip 1
 cd /opt/pirrot
 sudo make install
 ```
