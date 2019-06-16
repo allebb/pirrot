@@ -201,15 +201,14 @@ class AudioService
     }
 
     /**
-     * Converts a string of text to a morse code
+     * Converts a string of text to a morse code audio output.
      *
      * @param $string
-     * @return string
+     * @return void
      */
     public function morse($string)
     {
-        // Generate the morse code and play and return the file name and path.
-        system($this->audioMorseBin . ' -v 100 -w 10 -f 500 ' . $string);
+        system($this->audioMorseBin . ' -v 100 -w 100 -f 500 ' . $string);
     }
 
     /**
