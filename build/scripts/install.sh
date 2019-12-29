@@ -2,6 +2,7 @@
 
 echo "Installing Pirrot..."
 
+sudo apt-get update
 PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
 sudo apt-get install -y $PACKAGES
 
