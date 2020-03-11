@@ -2,6 +2,6 @@
 sox
 morse
 wget
-php7.0-cli
-php7.0-json
-php7.0-curl
+php-cli
+php-json
+php-curl
