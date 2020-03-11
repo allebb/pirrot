@@ -33,6 +33,21 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private $corRecording = false;
 
     /**
+     * Stores timeout interval in milliseconds to stop recording.
+     *
+     * @var int
+     */
+    private $corTimeout = 0;
+
+
+    /**
+     * How long to wait before timeout - in milliseconds.
+     *
+     * @var int
+     */
+    private $timeoutAfter = 200;
+
+    /**
      * VoiceCommand constructor.
      * @param ArgumentsParser $argv
      * @throws GPIOException
@@ -143,9 +158,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->corRecording = true;
+            $corTimeout = round(microtime(true) * 1000) + $timeoutAfter;
             while (true) {
-                if ($this->inputCos->getValue() == GPIO::LOW) {
-                    sleep(1); // Sleep for a second to get the end of the transmission!
+                if ($this->inputCos->getValue() == GPIO::HIGH)
+                    $corTimeout = round(microtime(true) * 1000) + $timeoutAfter;
+
+                if ($this->inputCos->getValue() == GPIO::LOW && ($corTimeout < round(microtime(true) * 1000))) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
