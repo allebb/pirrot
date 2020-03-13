@@ -37,7 +37,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      *
      * @var int
      */
-    private $debounceTime = 0.2;
+    private $debounceTime = 0.25;
 
     /**
      * VoiceCommand constructor.
@@ -150,13 +150,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->corRecording = true;
-            $timeout = microtime(true) + $debounceTime;
+            $timeout = microtime(true) + $this->debounceTime;
             while (true) {
                 if ($this->inputCos->getValue() == GPIO::HIGH) {
-                    $timeout = microtime(true) + $debounceTime;
+                    $timeout = microtime(true) + $this->debounceTime;
                 }
-                usleep(100);
-                if ($this->inputCos->getValue() == GPIO::LOW && $timeout < microtime(true)) {
+                usleep(10000);
+                if ($timeout < microtime(true)) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
