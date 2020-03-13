@@ -11,18 +11,24 @@ class AudioService
 {
 
     /**
-     * The audio player binary path (with trailing slash)
+     * The audio player binary path
      *
      * @var string
      */
     public $audioPlayerBin = '/usr/bin/play -q';
 
     /**
-     * The audio record binary path (with trailing slash)
+     * The audio record binary path
      *
      * @var string
      */
     public $audioRecordBin = '/usr/bin/sox -q';
+
+    /**
+     * The audio morse generator binary path.
+     * @var string
+     */
+    public $audioMorseBin = '/usr/bin/morse';
 
     /**
      * The sound path (with trailing slash)
@@ -195,15 +201,14 @@ class AudioService
     }
 
     /**
-     * Converts a string of text to a morse code
+     * Converts a string of text to a morse code audio output.
      *
      * @param $string
-     * @return string
+     * @return void
      */
     public function morse($string)
     {
-        // Generate the morse code and play and return the file name and path.
-        return '';
+        system($this->audioMorseBin . ' -v 100 -w 100 -f 500 ' . $string);
     }
 
     /**

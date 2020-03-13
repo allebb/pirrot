@@ -33,6 +33,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private $corRecording = false;
 
     /**
+     * How long to wait before value on COR pin settles - in seconds.
+     *
+     * @var int
+     */
+    private $debounceTime = 0.25;
+
+    /**
      * VoiceCommand constructor.
      * @param ArgumentsParser $argv
      * @throws GPIOException
@@ -143,9 +150,13 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->corRecording = true;
+            $timeout = microtime(true) + $this->debounceTime;
             while (true) {
-                if ($this->inputCos->getValue() == GPIO::LOW) {
-                    sleep(1); // Sleep for a second to get the end of the transmission!
+                if ($this->inputCos->getValue() == GPIO::HIGH) {
+                    $timeout = microtime(true) + $this->debounceTime;
+                }
+                usleep(10000);
+                if ($timeout < microtime(true)) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
