@@ -83,3 +83,15 @@ If you wish to uninstall Pirrot at a later date, you can run:
 cd /opt/pirrot
 sudo make uninstall
 ```
+
+# PCB Interface
+
+![Schematic](pcb/schematic.png)
+![PCB](pcb/pcb.png)
+
+### Settings to use with this interface
+- RPi PTT pin: non-inverted
+- RPi COR pin: inverted
+---
+- [More info](pcb/README.md)
+- [Edit PCB](https://easyeda.com/integrac/rpi-repeater)
