@@ -95,3 +95,11 @@ sudo make uninstall
 ---
 - [More info](pcb/README.md)
 - [Edit PCB](https://easyeda.com/integrac/rpi-repeater)
+
+# Pirrot being used in the wild...
+
+Below is a compiled list of known projects and/or articles that have been created by users of Pirrot. I hope you can visit these great project sites and get inspired :)
+
+* [Margirine Man's Baofeng BF-888S Compact Repeater Project](https://www.mdshooters.com/showthread.php?t=244553) (based on Raspberry Pi Zero W) 
+
+__If you have a write up or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
