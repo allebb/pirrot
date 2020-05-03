@@ -4,6 +4,8 @@ The Pirrot project exists to offer a cheaper alternative to buying a dedicated s
 
 Pirrot also offers other operation modes that most simplex repeaters do not come with as standard such as automatic identification and the ability to operate in "surveillance mode".
 
+You can find a list of user projects to get inspiration from [below](https://github.com/allebb/pirrot/blob/master/README.md#pirrot-being-used-in-the-wild).
+
 ## Features
 
 * Ability to set a courtesy tone on end of transmission.
@@ -18,7 +20,7 @@ See the full list of configuration items (features) on the [CONFIGURATION page](
 
 The simplest hardware requirements are:
 
-1. A RaspberryPi 2+ (running _Raspbian Stretch_ or _Raspbian Stretch Lite_)
+1. A RaspberryPi 2+ or a Pi Zero W(running _Raspbian Stretch_ or _Raspbian Stretch Lite_)
 2. A USB audio interface (or USB for testing purposes)
 
 Assuming you wish to use this with a radio transceiver, you will also need to wire up the transceivers PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the "/etc/pirrot.conf" file).
@@ -96,10 +98,10 @@ sudo make uninstall
 - [More info](pcb/README.md)
 - [Edit PCB](https://easyeda.com/integrac/rpi-repeater)
 
-# Pirrot being used in the wild...
+# Pirrot being used in the wild
 
-Below is a compiled list of known projects and/or articles that have been created by users of Pirrot. I hope you can visit these great project sites and get inspired :)
+Below is a compiled list of known projects and/or articles that have been created by users of Pirrot. I hope you can visit these great project sites and get some inspiration to build your own using this software.
 
-* [Margirine Man's Baofeng BF-888S Compact Repeater Project](https://www.mdshooters.com/showthread.php?t=244553) (based on Raspberry Pi Zero W) 
+* [Margirine Man's Baofeng BF-888S Compact Repeater Project](https://www.mdshooters.com/showthread.php?t=244553) (based on a Raspberry Pi Zero W) 
 
-__If you have a write up or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
+__If you have a write-,up, blog post or photo gallery, or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
