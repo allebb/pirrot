@@ -20,7 +20,7 @@ start(){
 
 stop(){
     echo "Stopping Pirrot..." >&2
-    killall -9 php
+    killall -w php
     echo "done!" >&2
 }
 

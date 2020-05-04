@@ -15,6 +15,11 @@ class TerminateCommand extends AudioCommand implements CommandInterface
 {
     use RecievesArgumentsTrait;
 
+    private $managedProcessPaths = [
+        '/usr/bin/play',
+        '/usr/bin/sox',
+    ];
+
     /**
      * Handle the command.
      * @return void
@@ -22,19 +27,18 @@ class TerminateCommand extends AudioCommand implements CommandInterface
      */
     public function handle()
     {
-        $this->cleanup(null);
-    }
 
-    /**
-     * Clean up our IO and other Pirrot spawned/managed processes.
-     * @param $signal
-     * @return void
-     */
-    public function cleanup($signal)
-    {
-        $this->writeln();
-        $this->writeln('Caught and exited cleanly...');
-        file_put_contents('/tmp/testing.txt', date('c') . PHP_EOL, FILE_APPEND);
+        // Kill any other processes that Pirrot spawns/manages
+        foreach ($this->managedProcessPaths as $process) {
+            system("pkill -f " . $process);
+        }
+
+        // Set the GPIO LED's back to default and stop transmitting (all outputs should be off)
+        $this->outputLedPwr->setValue(GPIO::LOW);
+        $this->outputPtt->setValue(GPIO::LOW);
+        $this->outputLedRx->setValue(GPIO::LOW);
+        $this->outputLedTx->setValue(GPIO::LOW);
+
         exit(0);
     }
 }

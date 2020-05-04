@@ -26,8 +26,12 @@ $app->add('help', HelpCommand::class);
 $app->add('cleanup', TerminateCommand::class);
 
 // Register process signal handlers
-pcntl_signal(SIGINT, [TerminateCommand::class, 'cleanup']);
-pcntl_signal(SIGTERM, [TerminateCommand::class, 'cleanup']);
+pcntl_signal(SIGINT, function ($signal) use ($app) {
+    $app->dispatch('cleanup');
+});
+pcntl_signal(SIGTERM, function ($signal) use ($app) {
+    $app->dispatch('cleanup');
+});
 
 // Boot the application/daemon
 try {
