@@ -18,6 +18,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
     use RecievesArgumentsTrait;
 
+    private $isBooted = false;
+
     /**
      * IdentCommand constructor.
      * @param ArgumentsParser $argv
@@ -36,13 +38,22 @@ class IdentCommand extends AudioCommand implements CommandInterface
     public function handle()
     {
 
+
         // Detect if the repeater 'ident' is enabled/disabled...
         if (!$this->config->get('auto_ident')) {
             $this->writeln('Repeater Ident disabled in the configuration file!');
             $this->exitWithSuccess();
         }
 
+
         while (true) {
+
+            // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)
+            if (!$this->isBooted) {
+                sleep(5);
+                $isBooted = true;
+            }
+
             $this->outputPtt->setValue(GPIO::HIGH);
             $this->outputLedTx->setValue(GPIO::HIGH);
             $this->audioService->ident(
@@ -53,6 +64,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
             );
             $this->outputPtt->setValue(GPIO::LOW);
             $this->outputLedTx->setValue(GPIO::LOW);
+
             sleep($this->config->get('ident_interval'));
         }
     }
