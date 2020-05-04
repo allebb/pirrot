@@ -93,6 +93,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $this->storeRecording();
             $this->outputLedTx->setValue(GPIO::HIGH);
             $this->outputPtt->setValue(GPIO::HIGH);
+            $this->processDelayTransmissionSettings();
             $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
             $this->sendCourtesyTone();
             $this->outputLedTx->setValue(GPIO::LOW);
@@ -136,6 +137,15 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         if ($this->config->get('courtesy_tone', false)) {
             $this->audioService->tone($this->config->get('courtesy_tone', 'Beep'));
         }
+    }
+
+    /**
+     * Processes any optional delayed playback interval in the configuration file (default this is disabled).
+     * @return void
+     */
+    private function processDelayTransmissionSettings()
+    {
+        sleep($this->config->get('delayed_playback_interval'));
     }
 
     /**
