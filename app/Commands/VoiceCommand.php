@@ -92,8 +92,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
             $this->outputLedTx->setValue(GPIO::HIGH);
-            $this->outputPtt->setValue(GPIO::HIGH);
             $this->processDelayTransmissionSettings();
+            $this->outputPtt->setValue(GPIO::HIGH);
             $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
             $this->sendCourtesyTone();
             $this->outputLedTx->setValue(GPIO::LOW);
@@ -145,7 +145,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      */
     private function processDelayTransmissionSettings()
     {
-        sleep($this->config->get('delayed_playback_interval'));
+        usleep($this->config->get('delayed_playback_interval') * 1000000);
     }
 
     /**
@@ -170,8 +170,9 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
-                    $this->outputPtt->setValue(GPIO::HIGH);
                     $this->outputLedTx->setValue(GPIO::HIGH);
+                    $this->processDelayTransmissionSettings();
+                    $this->outputPtt->setValue(GPIO::HIGH);
                     $this->audioService->play($this->basePath . '/storage/input/buffer.ogg');
                     $this->sendCourtesyTone();
                     $this->outputPtt->setValue(GPIO::LOW);
