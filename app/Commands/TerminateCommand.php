@@ -22,15 +22,19 @@ class TerminateCommand extends AudioCommand implements CommandInterface
      */
     public function handle()
     {
-        // Force the outputs back to their default values...
-        //$this->outputLedPwr->setValue(GPIO::HIGH);
-        //$this->outputLedRx->setValue(GPIO::LOW);
-        //$this->outputLedTx->setValue(GPIO::LOW);
-        //$this->outputPtt->setValue(GPIO::LOW);
+        $this->cleanup(null);
+    }
 
+    /**
+     * Clean up our IO and other Pirrot spawned/managed processes.
+     * @param $signal
+     * @return void
+     */
+    public function cleanup($signal)
+    {
         $this->writeln();
         $this->writeln('Caught and exited cleanly...');
         file_put_contents('/tmp/testing.txt', date('c') . PHP_EOL, FILE_APPEND);
-        $this->exitWithSuccess();
+        exit(0);
     }
 }

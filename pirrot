@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-declare(ticks=1);
+pcntl_async_signals(true);
 
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
@@ -12,8 +12,6 @@ use Ballen\Pirrot\Commands\TerminateCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
-
-//require_once $bindir . '/app/Helpers/ProcessHandler.php';
 
 // Initiate the Composer autoloader.
 require_once $bindir . '/vendor/autoload.php';
@@ -28,11 +26,8 @@ $app->add('help', HelpCommand::class);
 $app->add('cleanup', TerminateCommand::class);
 
 // Register process signal handlers
-foreach ([SIGINT, SIGTERM] as $signalType) {
-    pcntl_signal($signalType, function ($signal) use ($app) {
-        $app->dispatch('terminate');
-    });
-}
+pcntl_signal(SIGINT, [TerminateCommand::class, 'cleanup']);
+pcntl_signal(SIGTERM, [TerminateCommand::class, 'cleanup']);
 
 // Boot the application/daemon
 try {
