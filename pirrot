@@ -13,7 +13,7 @@ use Ballen\Pirrot\Commands\HelpCommand;
 $bindir = dirname(__FILE__);
 
 // Register process signal handlers
-require_once $bindir . '/ProcessHandler.php';
+require_once $bindir . '/app/Helpers/ProcessHandler.php';
 foreach ([SIGHUP, SIGINT, SIGTERM, SIGKILL] as $signalType) {
     pcntl_signal($signalType, 'ioCleanup');
 }
