@@ -22,7 +22,7 @@ The Pirrot configuration file is a key-value INI based configuration file, the b
 | courtesy_tone | BeeBoo | The file name (without extension) from the ``resources/sounds`` directory, this will play at the end of transmissions. Set to ``false`` if you would like to disable the courtesy tone. |
 | auto_ident | false | Enables or disables automatic transmission of the repeater identification. |
 | ident_interval|600| The number of seconds between each automatic identification __in seconds__.|
-| delayed_playback_interval|0| An optional number of seconds that the repeater will delay before playing back the received transmission. |
+| delayed_playback_interval|0| An optional number of __seconds__ that the repeater will delay before playing back the received transmission. |
 | pl_tone|110.9|Optional PL/CTCSS tone, this will be read with the automatic identification.|
 | transmit_mode | cos | The repeater transmit mode, options are ``cos``,``vox`` and ``disabled``. Using ``disabled`` mode, the repeater will quitely listen (and optionally record transmissions eg. in surveillance mode. |
 | ident_time | true | Will "speak" the time as part of the automatic identification. |
