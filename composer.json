@@ -33,7 +33,8 @@
     "php": ">=7.0.0",
     "ballen/clip": "^2.0",
     "ballen/executioner": "^3.0",
-    "ballen/gpio": "^1.0"
+    "ballen/gpio": "^1.0",
+    "ext-pcntl": "*"
   },
   "autoload": {
     "psr-4": {

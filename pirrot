@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+declare(ticks=1);
+
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
 use Ballen\Pirrot\Commands\IdentCommand;
@@ -9,6 +11,12 @@ use Ballen\Pirrot\Commands\HelpCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
+
+// Register process signal handlers
+require_once $bindir . '/ProcessHandler.php';
+foreach ([SIGHUP, SIGINT, SIGTERM, SIGKILL] as $signalType) {
+    pcntl_signal($signalType, 'ioCleanup');
+}
 
 // Initiate the Composer autoloader.
 require_once $bindir . '/vendor/autoload.php';
