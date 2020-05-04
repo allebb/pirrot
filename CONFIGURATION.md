@@ -8,6 +8,8 @@ Once you have made changes to the configuration file you must however restart th
 
 ```shell
 sudo /etc/init.d/pirrot restart
+# or...
+sudo service pirrot restart
 ```
 
 # /etc/pirrot.conf
