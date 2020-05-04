@@ -25,8 +25,8 @@ class VersionCommand extends BaseCommand implements CommandInterface
      */
     public function handle()
     {
-        $this->writeln('Pirrot v' . self::PIRROT_VERSION . ' ');
-        $this->writeln(' Runtime: ' . phpversion() . ' (' . php_uname('v') . ') on ' . php_uname('v'));
+        $this->writeln('Pirrot v' . self::PIRROT_VERSION);
+        $this->writeln('  runtime: v' . phpversion() . ' (' . php_uname('v') . ') on ' . php_uname('m'));
         $this->exitWithSuccess();
     }
 }

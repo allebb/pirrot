@@ -30,6 +30,7 @@ class HelpCommand extends BaseCommand implements CommandInterface
         //$this->writeln('  ident      - Repeater Ident service daemon.');
         //$this->writeln('  voice      - Repeater Voice I/O service daemon.');
         $this->writeln('  update     - Runs the software updater.');
+        $this->writeln('  version    - Output version and runtime information.');
         $this->writeln();
         $this->exitWithSuccess();
     }

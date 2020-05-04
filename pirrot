@@ -26,7 +26,7 @@ $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 $app->add('cleanup', TerminateCommand::class);
 
-$app->add('--version', VersionCommand::class);
+$app->add('version', VersionCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {
