@@ -8,15 +8,12 @@ use Ballen\Pirrot\Commands\IdentCommand;
 use Ballen\Pirrot\Commands\VoiceCommand;
 use Ballen\Pirrot\Commands\UpdateCommand;
 use Ballen\Pirrot\Commands\HelpCommand;
+use Ballen\Pirrot\Commands\TerminateCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
 
-// Register process signal handlers
-require_once $bindir . '/app/Helpers/ProcessHandler.php';
-foreach ([SIGHUP, SIGINT, SIGTERM, SIGKILL] as $signalType) {
-    pcntl_signal($signalType, 'ioCleanup');
-}
+//require_once $bindir . '/app/Helpers/ProcessHandler.php';
 
 // Initiate the Composer autoloader.
 require_once $bindir . '/vendor/autoload.php';
@@ -28,7 +25,16 @@ $app->add('ident', IdentCommand::class);
 $app->add('voice', VoiceCommand::class);
 $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
+$app->add('cleanup', TerminateCommand::class);
 
+// Register process signal handlers
+foreach ([SIGINT, SIGTERM] as $signalType) {
+    pcntl_signal($signalType, function ($signal) use ($app) {
+        $app->dispatch('terminate');
+    });
+}
+
+// Boot the application/daemon
 try {
     $app->dispatch();
 } catch (CommandNotFoundException $exception) {
