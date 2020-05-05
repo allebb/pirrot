@@ -2,7 +2,7 @@
 
 if [[ -f /etc/os-release ]]; then
     OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
-    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*=//')
+    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
     VER_NO=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
  else
     echo "!! INSTALLER ERROR (003) !!"
