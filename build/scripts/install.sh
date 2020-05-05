@@ -33,14 +33,14 @@ fi
 
 
 echo " # Checking for Pirrot configuration..."
-if [ ! -f /etc/pirrot.conf ]; then
+if [[ ! -f /etc/pirrot.conf ]]; then
     echo " - Creating new pirrot.conf from template..."
     sudo cp /opt/pirrot/build/configs/pirrot_default.conf /etc/pirrot.conf
     sudo chmod 0644 /etc/pirrot.conf
 fi
 
 echo " # Checking if log files exist..."
-if [ ! -f /var/log/pirrot.log ]; then
+if [[ ! -f /var/log/pirrot.log ]]; then
     echo " - Creating log file and setting permissions..."
     sudo touch /var/log/pirrot.log
     sudo chmod 0644 /var/log/pirrot.log

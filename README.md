@@ -20,7 +20,7 @@ See the full list of configuration items (features) on the [CONFIGURATION page](
 
 The simplest hardware/software requirements are:
 
-1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Pi Zero W** but should work on others too!
+1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Zero W** but should work on others too!
 2. Raspbian version **9 (stretch)** or **10 (buster)** running on your Pi (___either the "lite" or "desktop" versions___ but I recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
 3. **An external USB sound card**.
 
