@@ -1,6 +1,6 @@
 # Pirrot - A Simplex Radio Repeater controller for RaspberryPi
 
-The Pirrot project exists to offer a cheaper alternative to buying a dedicated simplex repeater controller.
+The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex repeater controller.
 
 Pirrot also offers other operation modes that most simplex repeaters do not come with as standard such as automatic identification and the ability to operate in "surveillance mode".
 
@@ -10,9 +10,9 @@ You can find a list of user projects to get inspiration from [below](https://git
 
 * Ability to set a courtesy tone on end of transmission.
 * Ability to configure the repeater to identify itself automatically on a schedule.
-* Ability to enable or disable automatic repeater identifier. - Disabled by default.
-* Ability to change output transmission from VOX (voice activation) to COR (COR signal from radio to an input relay).
-* Save recordings of received transmissions - Disabled by default.
+* Ability to enable or disable automatic repeater identifier (disabled by default).
+* Ability to transmit on VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
+* Save recordings of received transmissions (disabled by default).
 
 See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
 
