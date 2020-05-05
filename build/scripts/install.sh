@@ -4,7 +4,6 @@ echo "Installing Pirrot..."
 
 sudo apt-get update
 
-
 if [[ -f /etc/os-release ]]; then
     OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
     VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*=//')
@@ -20,9 +19,9 @@ fi
 
 echo "OS detected: ${OS} ${VER_NAME}"
 
-if [[ -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.txt ]]; then
+if [[ -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.install ]]; then
     echo "Running version specific installer steps..."
-    source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.txt
+    source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.instll
  else
     echo "!! INSTALLER ERROR (002) !!"
     echo "The installer could not find Rasbian version specific install sources,"

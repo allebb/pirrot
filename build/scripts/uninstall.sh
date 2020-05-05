@@ -1,4 +1,29 @@
 #!/usr/bin/env bash
+
+if [[ -f /etc/os-release ]]; then
+    OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
+    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*=//')
+    VER_NO=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
+ else
+    echo "!! INSTALLER ERROR (003) !!"
+    echo "The uninstaller could not determine the OS version!"
+    echo "Please raise a bug at: https://github.com/allebb/pirrot/issues"
+    echo "and ensure you include what version of Raspbian you are trying to"
+    echo "remove Pirrot from."
+    echo ""
+fi
+
+echo "OS detected: ${OS} ${VER_NAME}"
+
+if [[ ! -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.uninstall ]]; then
+    echo "!! INSTALLER ERROR (004) !!"
+    echo "The uninstaller could not find Rasbian version specific install sources,"
+    echo "Please raise a bug at: https://github.com/allebb/pirrot/issues"
+    echo "and ensure you include what version of Raspbian you are trying to"
+    echo "uninstall Pirrot on."
+    echo ""
+fi
+
 PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
 
 cd /tmp
@@ -19,8 +44,8 @@ echo " - Removing the Pirrot application..."
 sudo rm -Rf /opt/pirrot
 echo " - Removing Composer..."
 sudo rm -f /usr/bin/composer
-echo "- Uninstalling packages"
-sudo apt-get autoremove -y $PACKAGES
+echo "- Running OS specific cleanup..."
+source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.uninstall
 echo ""
 
 echo "Done!"

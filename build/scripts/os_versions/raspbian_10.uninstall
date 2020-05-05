@@ -1,0 +1,1 @@
+sudo apt-get autoremove -y sox morse wget php-cli php-json php-curl
