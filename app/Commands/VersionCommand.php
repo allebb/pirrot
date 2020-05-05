@@ -58,6 +58,7 @@ class VersionCommand extends BaseCommand implements CommandInterface
 
     /**
      * Detects the Raspberry Pi hardware version.
+     * @return void
      */
     private function detectHardwareVersion()
     {
