@@ -6,7 +6,7 @@ sudo apt-get update
 
 if [[ -f /etc/os-release ]]; then
     OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
-    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*=//')
+    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
     VER_NO=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
  else
     echo "!! INSTALLER ERROR (001) !!"
@@ -21,7 +21,7 @@ echo "OS detected: ${OS} ${VER_NAME}"
 
 if [[ -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.install ]]; then
     echo "Running version specific installer steps..."
-    source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.instll
+    source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.install
  else
     echo "!! INSTALLER ERROR (002) !!"
     echo "The installer could not find Rasbian version specific install sources,"
