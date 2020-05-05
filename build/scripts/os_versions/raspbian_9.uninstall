@@ -1,2 +1,2 @@
 sudo apt-get autoremove -y sox morse wget php7.3-cli php7.3-json php7.3-curl
-sudo rm sudo tee /etc/apt/sources.list.d/php.list
+sudo rm -f /etc/apt/sources.list.d/php.list
