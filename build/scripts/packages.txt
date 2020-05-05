@@ -1,8 +1,0 @@
-# Pirrot dependencies (installed via. Aptitude)
-sox
-morse
-wget
-php-cli
-php-json
-php-curl
-

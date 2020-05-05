@@ -3,8 +3,35 @@
 echo "Installing Pirrot..."
 
 sudo apt-get update
-PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
-sudo apt-get install -y $PACKAGES
+
+
+if [[ -f /etc/os-release ]]; then
+    OS=$(grep -w ID /etc/os-release | sed 's/^.*=//')
+    VER_NAME=$(grep VERSION /etc/os-release | sed 's/^.*=//')
+    VER_NO=$(grep VERSION_ID /etc/os-release | sed 's/^.*"\(.*\)"/\1/')
+ else
+    echo "!! INSTALLER ERROR (001) !!"
+    echo "The installer could not determine the OS version!"
+    echo "Please raise a bug at: https://github.com/allebb/pirrot/issues"
+    echo "and ensure you include what version of Raspbian you are trying to"
+    echo "install Pirrot on."
+    echo ""
+fi
+
+echo "OS detected: ${OS} ${VER_NAME}"
+
+if [[ -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.txt ]]; then
+    echo "Running version specific installer steps..."
+    source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.txt
+ else
+    echo "!! INSTALLER ERROR (002) !!"
+    echo "The installer could not find Rasbian version specific install sources,"
+    echo "Please raise a bug at: https://github.com/allebb/pirrot/issues"
+    echo "and ensure you include what version of Raspbian you are trying to"
+    echo "install Pirrot on."
+    echo ""
+fi
+
 
 echo " # Checking for Pirrot configuration..."
 if [ ! -f /etc/pirrot.conf ]; then
