@@ -18,16 +18,19 @@ See the full list of configuration items (features) on the [CONFIGURATION page](
 
 ## Hardware requirements
 
-The simplest hardware requirements are:
+The simplest hardware/software requirements are:
 
-1. A RaspberryPi 2+ or a Pi Zero W(running _Raspbian Stretch_ or _Raspbian Stretch Lite_)
-2. A USB audio interface (or USB for testing purposes)
+1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Pi Zero W** but should work on others too!
+2. Raspbian version **9 (stretch)** or **10 (buster)** running on your Pi (___either the "lite" or "desktop" versions___ but I recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
+3. **An external USB sound card**.
+
+I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi foundation.
 
 Assuming you wish to use this with a radio transceiver, you will also need to wire up the transceivers PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the "/etc/pirrot.conf" file).
 
 The audio in (receive) and audio out (transmit) connectors from your radio will need to be connected to the external USB sound card using the Mic Jack (for Transmit) and Speaker Jack (for Receive).
 
-If you plan to use the repeater in COR mode you will need to connect your COR GPIO pin to the transceiver. 
+If you plan to use the repeater in COS/COR mode you will need to connect your COR GPIO pin to the transceiver. 
 
 ## Installation
 
