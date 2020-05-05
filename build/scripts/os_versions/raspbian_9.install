@@ -1,5 +1,5 @@
 sudo apt install -y wget ca-certificates apt-transport-https
 wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
-sudo apt-get update
 echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list
+sudo apt-get update
 sudo apt-get install -y sox morse wget php7.3-cli php7.3-json php7.3-curl
