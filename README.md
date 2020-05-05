@@ -2,7 +2,7 @@
 
 The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex repeater controller.
 
-Pirrot also offers other operation modes that most simplex repeaters do not come with as standard such as automatic identification and the ability to operate in "surveillance mode".
+Pirrot also offers other operation modes and features that most off-the-shelf simplex repeaters do not come with as standard such as automatic identification and the ability to operate in "surveillance mode".
 
 You can find a list of user projects to get inspiration from [below](https://github.com/allebb/pirrot/blob/master/README.md#pirrot-being-used-in-the-wild).
 
@@ -26,7 +26,7 @@ The simplest hardware/software requirements are:
 
 I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi foundation.
 
-Assuming you wish to use this with a radio transceiver, you will also need to wire up the transceivers PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the "/etc/pirrot.conf" file).
+Assuming you wish to use this with a radio transceiver, you will also need to wire up the transceiver's PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the configuration file found at ``/etc/pirrot.conf``).
 
 The audio in (receive) and audio out (transmit) connectors from your radio will need to be connected to the external USB sound card using the Mic Jack (for Transmit) and Speaker Jack (for Receive).
 
@@ -62,11 +62,13 @@ Once installed, Pirrot will start automatically at boot up (ensure your USB audi
 
 The Pirrot configuration file is found in ``/etc/pirrot.conf``, a full list of settings and descriptions can be found on the [configuration](CONFIGURATION.md) page.
 
-When making changes to this file please ensure that you restart the Pirrot daemon by running ``sudo /etc/init.d/pirrot restart`` to ensure that the changes to take affect.
+When making changes to this file please ensure that you restart the Pirrot daemon by running ``sudo service pirrot restart`` to ensure that the changes to take affect.
 
 ## Sound adjustment
 
 Using the ``alsamixer`` command in the terminal you can adjust your microphone and speaker volumes if required.
+
+If you do adjust the volume, remember that to permanently save these settings use the ``alsactl store`` command to ensure they are kept after reboot.
 
 ## Default GPIO pins
 
@@ -74,9 +76,9 @@ By default, the Pirrot configuration file, located in ``/etc/pirrot.conf`` has d
 
 * __GPIO 18__ - COR Signal (Input/Relay) - _Triggered when the radio squelch is opened._
 * __GPIO 23__ - PTT Switch (Output/Relay)  - _Triggers the PTT on the radio to transmit._
-* __GPIO 17__ - Power/Ready LED (Output/LED) - _Shows that the repeater program is running._
-* __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (fired when COR signal is high/non-functional in VOX mode)._
-* __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (fired when the repeater is ident-ing/playing back audio)._
+* __GPIO 17__ - Power/Ready LED (Output/LED) - _Illuminates when the Pirrot daemon is running (indicating that the repeater is ready and working)._
+* __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (Illuminated when COR signal is high **non-functional in VOX mode**)._
+* __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (Illuminated when the repeater is ident-ing/playing back a transmission)._
 
 __Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.__
 
