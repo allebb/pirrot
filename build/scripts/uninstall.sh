@@ -24,8 +24,6 @@ if [[ ! -f /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.uninstall ]]; t
     echo ""
 fi
 
-PACKAGES=$(grep -vE "^\s*#" /opt/pirrot/build/scripts/packages.txt  | tr "\n" " ")
-
 cd /tmp
 echo "Uninstalling Pirrot..."
 echo ""
