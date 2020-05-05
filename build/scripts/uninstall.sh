@@ -45,6 +45,8 @@ sudo rm -f /usr/bin/composer
 echo "- Running OS specific cleanup..."
 source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.uninstall
 echo ""
+echo "- Deleting Pirrot application from disk..."
+sudo rm -Rf /opt/pirrot
 
 echo "Done!"
 echo ""
