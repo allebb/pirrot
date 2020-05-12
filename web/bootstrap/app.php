@@ -6,7 +6,14 @@ require_once __DIR__ . '/../vendor/autoload.php';
     dirname(__DIR__)
 ))->bootstrap();
 
-date_default_timezone_set(env('APP_TIMEZONE', 'UTC'));
+
+// Load the timezone from the Pirrot configuration file...
+$pirrotConfig = (object)parse_ini_file('../../build/configs/pirrot_default.conf');
+if (file_exists($config = '/etc/pirrot.conf')) {
+    $pirrotConfig = (object)parse_ini_file($config);
+}
+
+date_default_timezone_set(env('APP_TIMEZONE', $pirrotConfig->timezone));
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +67,9 @@ $app->singleton(
 */
 
 $app->configure('app');
+
+// Share our pirrot configuration within the application container.
+$app['pirrot.config'] = $pirrotConfig;
 
 /*
 |--------------------------------------------------------------------------
