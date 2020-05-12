@@ -10,6 +10,7 @@ use Ballen\Pirrot\Commands\VoiceCommand;
 use Ballen\Pirrot\Commands\UpdateCommand;
 use Ballen\Pirrot\Commands\HelpCommand;
 use Ballen\Pirrot\Commands\TerminateCommand;
+use Ballen\Pirrot\Commands\WebCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
@@ -19,14 +20,16 @@ require_once $bindir . '/vendor/autoload.php';
 
 $app = new CommandRouter($argv);
 
-// Add our commands and their handler class mappings
+// Demonised commands
 $app->add('ident', IdentCommand::class);
 $app->add('voice', VoiceCommand::class);
+$app->add('web', WebCommand::class);
+
+// CLI/Utility commands
 $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
-$app->add('cleanup', TerminateCommand::class);
-
 $app->add('version', VersionCommand::class);
+$app->add('cleanup', TerminateCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {
