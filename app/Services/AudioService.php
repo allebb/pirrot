@@ -208,20 +208,12 @@ class AudioService
             $speakArray = array_merge($speakArray, [$this->speakNumber(date('i'))]);
             // Could update this later to include "AM" or "PM" but at the moment uses 24 hour clock format.
         }
-        if ($withMorse) {
-            $speakArray[] = $this->morse($callsign);
-        }
-        $this->play($this->sequenceOutput($speakArray));
-    }
 
-    /**
-     * Converts a string of text to a morse code audio output.
-     * @param string $string The string to convert and output as audible morse code.
-     * @return void
-     */
-    public function morse($string)
-    {
-        system($this->audioMorseBin . ' -v ' . $this->config->morse_output_volume . ' -w ' . $this->config->morse_wpm . ' -f ' . $this->config->morse_frequency . ' "' . $string . '"');
+        $this->play($this->sequenceOutput($speakArray));
+
+        if ($withMorse) {
+            $this->morse($callsign);
+        }
     }
 
     /**
@@ -343,6 +335,16 @@ class AudioService
     public function play($files)
     {
         system($this->audioPlayerBin . ' ' . $files);
+    }
+
+    /**
+     * Converts a string of text to a morse code audio output.
+     * @param string $string The string to convert and output as audible morse code.
+     * @return void
+     */
+    public function morse($string)
+    {
+        system($this->audioMorseBin . ' -v ' . $this->config->morse_output_volume . ' -w ' . $this->config->morse_wpm . ' -f ' . $this->config->morse_frequency . ' "' . $string . '"');
     }
 
 }
