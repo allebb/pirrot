@@ -17,7 +17,7 @@ class AudioService
      *
      * @var string
      */
-    public $audioPlayerBin = '/usr/bin/play -q -t alsa';
+    public $audioPlayerBin = '/usr/bin/play -q';
 
     /**
      * The audio record binary path
@@ -334,7 +334,7 @@ class AudioService
      */
     public function play($files)
     {
-        system($this->audioPlayerBin . ' ' . $files);
+        system($this->audioPlayerBin . ' ' . $files . ' -t alsa');
     }
 
     /**
