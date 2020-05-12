@@ -20,6 +20,12 @@ class UpdateCommand extends BaseCommand implements CommandInterface
      */
     public function handle()
     {
+
+        if(!file_exists('/opt/pirrot/.git')){
+            $this->writeln('UPDATE ABORTED! Pirrot can only be upgraded installed using Git...');
+            $this->exitWithSuccess();
+        }
+
         $this->writeln('Downloading latest source from GitHub...');
         system("sudo git reset --hard");
         system("sudo git pull");
@@ -27,7 +33,7 @@ class UpdateCommand extends BaseCommand implements CommandInterface
         $this->writeln('Upgrade completed!');
         $this->writeln();
         $this->writeln('** REMEMBER TO RESTART THE PIRROT DAEMON **');
-        $this->writeln('   Use: sudo /etc/init.d/pirrot stop && sudo /etc/init.d/pirrot start');
+        $this->writeln('   Use: sudo service pirrot restart');
         $this->exitWithSuccess();
     }
 }
