@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "681a2d0b7b4e6363095eeef5b6519190",
+    "content-hash": "9c72b13ce30f6fe98c146e59ee9bac40",
     "packages": [
         {
             "name": "ballen/clip",
@@ -59,23 +59,23 @@
         },
         {
             "name": "ballen/collection",
-            "version": "1.0.6",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allebb/collection.git",
-                "reference": "07aae5f12b1950d98921b78a64c08c5b97e4943e"
+                "reference": "426a67238150f84b161123d0fe03e88acc83a22a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allebb/collection/zipball/07aae5f12b1950d98921b78a64c08c5b97e4943e",
-                "reference": "07aae5f12b1950d98921b78a64c08c5b97e4943e",
+                "url": "https://api.github.com/repos/allebb/collection/zipball/426a67238150f84b161123d0fe03e88acc83a22a",
+                "reference": "426a67238150f84b161123d0fe03e88acc83a22a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.3.*"
+                "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
             "autoload": {
@@ -101,7 +101,7 @@
                 "collection",
                 "list"
             ],
-            "time": "2016-12-04T19:00:15+00:00"
+            "time": "2020-01-30T10:27:22+00:00"
         },
         {
             "name": "ballen/executioner",
@@ -153,20 +153,20 @@
         },
         {
             "name": "ballen/gpio",
-            "version": "1.0.6",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/allebb/gpio.git",
-                "reference": "2fc47e623c44eda7b473e51806e5b3e06e643cdb"
+                "reference": "a21add87e860e8b727f476ff02b40839d53edab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/allebb/gpio/zipball/2fc47e623c44eda7b473e51806e5b3e06e643cdb",
-                "reference": "2fc47e623c44eda7b473e51806e5b3e06e643cdb",
+                "url": "https://api.github.com/repos/allebb/gpio/zipball/a21add87e860e8b727f476ff02b40839d53edab5",
+                "reference": "a21add87e860e8b727f476ff02b40839d53edab5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0"
+                "php": ">=7.1.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "5.7.*"
@@ -196,7 +196,7 @@
                 "io",
                 "rpi"
             ],
-            "time": "2019-06-13T09:35:19+00:00"
+            "time": "2020-01-31T08:04:42+00:00"
         }
     ],
     "packages-dev": [],
@@ -206,7 +206,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "ext-pcntl": "*"
     },
     "platform-dev": []
 }
