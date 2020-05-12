@@ -93,8 +93,8 @@ sudo chmod +x /usr/bin/composer
 
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
-sudo composer install --working-dir /opt/pirrot --no-dev --no-interaction
-sudo composer install --working-dir /opt/pirrot/web --no-dev --no-interaction
+sudo composer install -q --working-dir /opt/pirrot --no-dev --no-interaction
+sudo composer install -q --working-dir /opt/pirrot/web --no-dev --no-interaction
 
 # Run database migrations for Pirrot web interface
 echo " - Running database updates..."
