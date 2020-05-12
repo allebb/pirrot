@@ -48,9 +48,9 @@ if [[ ! -f /opt/pirrot/web/.env ]]; then
     echo " - Setting default configuration for Pirrot Web interface..."
     sudo cp /opt/pirrot/web/.env.example /opt/pirrot/web/.env
 fi
-if [[ ! -f /opt/pirrot/web/database/database.sqlite ]]; then
+if [[ ! -f /opt/pirrot/storage/pirrot-web.database ]]; then
     echo " - Creating empty Pirrot Web database..."
-    sudo touch /opt/pirrot/web/database/database.sqlite
+    sudo touch /opt/pirrot/storage/pirrot-web.database
 fi
 
 echo " # Checking if log files exist..."
