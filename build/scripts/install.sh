@@ -39,6 +39,18 @@ if [[ ! -f /etc/pirrot.conf ]]; then
     sudo chmod 0644 /etc/pirrot.conf
 fi
 
+echo " # Checking for Pirrot Web Interface configuration..."
+if [[ ! -f /opt/pirrot/web/storage/app/password.vault ]]; then
+    echo " - Setting default password for Pirrot Web interface..."
+    sudo cp /opt/pirrot/build/configs/default_password.vault /opt/pirrot/web/storage/app/password.vault
+    sudo chmod 0644 /opt/pirrot/web/storage/app/password.vault
+fi
+if [[ ! -f /opt/pirrot/web/.env ]]; then
+    echo " - Setting default configuration for Pirrot Web interface..."
+    sudo cp /opt/pirrot/web/.env.example /opt/pirrot/web/.env
+    sudo chmod 0644 /opt/pirrot/web/.env
+fi
+
 echo " # Checking if log files exist..."
 if [[ ! -f /var/log/pirrot.log ]]; then
     echo " - Creating log file and setting permissions..."
@@ -77,6 +89,7 @@ sudo chmod +x /usr/bin/composer
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
 sudo composer install --working-dir /opt/pirrot --no-dev --no-interaction
+sudo composer install --working-dir /opt/pirrot/web --no-dev --no-interaction
 
 # Disable onboard audio device (to enable USB device)
 echo " - Disabling on-board audio device"
