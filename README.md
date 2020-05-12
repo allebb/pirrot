@@ -34,24 +34,24 @@ If you plan to use the repeater in COS/COR mode you will need to connect your CO
 
 ## Installation
 
-Pirrot can be installed either by downloading the latest tarball ([find the version number here](https://github.com/allebb/pirrot/releases)) from the command line as follows:
+Pirrot can be installed using Git or by downloading the latest tarball ([find the version number here](https://github.com/allebb/pirrot/releases)), installation steps are as follows:
 
-__Replace the X.X.X.X with the latest version available from the releases page__
+To install using Git (**the recommended way** - this supports easy future updates using 'pirrot update' command) run the following commands at the terminal:
+
+```shell
+sudo apt-get install -y git
+sudo git clone --single-branch --branch latest-stable https://github.com/allebb/pirrot /opt/pirrot
+cd /opt/pirrot
+sudo make install
+```
+
+Alternatively you can install Pirrot by downloading the latest tarball, **replace the X.X.X.X with the latest version available from the ([releases page](https://github.com/allebb/pirrot/releases))**:
 
 ```shell
 cd ~
 wget https://github.com/allebb/pirrot/archive/vX.X.X.tar.gz
 sudo mkdir /opt/pirrot
 sudo tar xf vX.X.X.tar.gz -C /opt/pirrot --strip 1
-cd /opt/pirrot
-sudo make install
-```
-
-...alternatively you can use Git to download and install using this method instead:
-
-```shell
-sudo apt-get install -y git
-sudo git clone https://github.com/allebb/pirrot /opt/pirrot
 cd /opt/pirrot
 sudo make install
 ```
