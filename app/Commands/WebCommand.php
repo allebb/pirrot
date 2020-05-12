@@ -45,9 +45,14 @@ class WebCommand extends AudioCommand implements CommandInterface
         $webInterfacePort = $this->config->get('web_interface_port', 8440);
         $webInterfaceBindIp = $this->config->get('web_interface_bind_ip', '0.0.0.0');
 
+        $logger = '/dev/null'; // Default the logger to use /dev/null
+        if ($this->config->get('web_interface_logging', false)) {
+            $logger = '/var/log/pirrot-web.log';
+        }
+
         if ($this->config->get('web_interface_enabled')) {
             $this->writeln('Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
-            system($this->phpBin .' -S '.$webInterfaceBindIp . ':' . $webInterfacePort . ' -t /opt/pirrot/web/public 2> /var/log/pirrot-web.log &');
+            system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t /opt/pirrot/web/public 2> ' . $logger . ' &');
             $this->exitWithSuccess();
         }
     }

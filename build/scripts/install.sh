@@ -44,6 +44,8 @@ if [[ ! -f /var/log/pirrot.log ]]; then
     echo " - Creating log file and setting permissions..."
     sudo touch /var/log/pirrot.log
     sudo chmod 0644 /var/log/pirrot.log
+    sudo touch /var/log/pirrot-web.log
+    sudo chmod 0644 /var/log/pirrot-web.log
 fi
 
 # Chmod it...
