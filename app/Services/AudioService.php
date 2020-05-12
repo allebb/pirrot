@@ -17,7 +17,7 @@ class AudioService
      *
      * @var string
      */
-    public $audioPlayerBin = '/usr/bin/play -q';
+    public $audioPlayerBin = '/usr/bin/play -q -t alsa';
 
     /**
      * The audio record binary path
