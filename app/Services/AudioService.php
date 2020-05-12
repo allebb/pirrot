@@ -344,7 +344,7 @@ class AudioService
      */
     public function morse($string)
     {
-        system($this->audioMorseBin . ' -v ' . $this->config->morse_output_volume . ' -w ' . $this->config->morse_wpm . ' -f ' . $this->config->morse_frequency . ' "' . $string . '"');
+        system($this->audioMorseBin . ' -v ' . $this->config->morse_output_volume . ' -w ' . $this->config->morse_wpm . ' -f ' . $this->config->morse_frequency . ' ' . $string);
     }
 
 }
