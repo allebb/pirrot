@@ -15,6 +15,7 @@ start(){
     echo "Starting Pirrot..." >&2
     /opt/pirrot/pirrot voice >> /var/log/pirrot.log &
     /opt/pirrot/pirrot ident >> /var/log/pirrot.log &
+    /opt/pirrot/pirrot web >> /var/log/pirrot-web.log &
     echo "done!" >&2
 }
 
