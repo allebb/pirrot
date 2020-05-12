@@ -8,6 +8,7 @@ use Ballen\Executioner\Executioner;
 use Ballen\GPIO\Adapters\VfsAdapter;
 use Ballen\GPIO\Exceptions\GPIOException;
 use Ballen\GPIO\GPIO;
+use Ballen\Pirrot\Foundation\Config;
 use Ballen\Pirrot\Services\AudioService;
 
 /**
@@ -49,7 +50,7 @@ class AudioCommand extends BaseCommand
             'morse'
         ]);
 
-        $this->audioService = new AudioService();
+        $this->audioService = new AudioService($this->config);
         $this->audioService->soundPath = $this->basePath . '/resources/sound/';
         $this->audioService->audioPlayerBin = $this->binPaths['play'] . ' -q ';
         $this->audioService->audioRecordBin = $this->binPaths['sox'] . ' -q ';

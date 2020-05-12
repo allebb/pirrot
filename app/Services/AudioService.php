@@ -2,6 +2,8 @@
 
 namespace Ballen\Pirrot\Services;
 
+use Ballen\Pirrot\Foundation\Config;
+
 /**
  * Class AudioService
  *
@@ -36,6 +38,8 @@ class AudioService
      * @var string
      */
     public $soundPath = 'resources/sounds/';
+
+    private $config;
 
     /**
      * Array of pheonetic characters that the audio service can output.
@@ -139,6 +143,16 @@ class AudioService
         '900' => '900.wav',
     ];
 
+
+    /**
+     * AudioService constructor.
+     * @param Config $config
+     */
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * Play a recorded message from the 'core' directory.
      *
@@ -202,13 +216,12 @@ class AudioService
 
     /**
      * Converts a string of text to a morse code audio output.
-     *
-     * @param $string
+     * @param string $string The string to convert and output as audible morse code.
      * @return void
      */
     public function morse($string)
     {
-        system($this->audioMorseBin . ' -v 100 -w 100 -f 500 ' . $string);
+        system($this->audioMorseBin . ' -v ' . $this->config->morse_output_volume . ' -w ' . $this->config->morse_wpm . ' -f ' . $this->config->morse_frequency . ' "' . $string . '"');
     }
 
     /**
