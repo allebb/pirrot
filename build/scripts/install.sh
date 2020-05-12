@@ -50,6 +50,10 @@ fi
 echo " - Setting execution bit on /opt/pirrot/pirrot..."
 sudo chmod +x /opt/pirrot/pirrot
 
+# Make "pirrot" accessible from the PATH...
+sudo ln -s /opt/pirrot/pirrot /usr/local/bin/pirrot
+
+
 # Chmod storage directories
 sudo mkdir /opt/pirrot/storage
 sudo mkdir /opt/pirrot/storage/input

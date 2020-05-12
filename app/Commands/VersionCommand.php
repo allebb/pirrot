@@ -15,11 +15,6 @@ class VersionCommand extends BaseCommand implements CommandInterface
     use RecievesArgumentsTrait;
 
     /**
-     * The Pirrot release/version number.
-     */
-    const PIRROT_VERSION = "1.5.0";
-
-    /**
      * The file where the OS information can be retrieved from.
      */
     const OS_BUILD_INFO_FILE = "/etc/os-release";
@@ -42,14 +37,21 @@ class VersionCommand extends BaseCommand implements CommandInterface
     private $hardwareVersion = "**not detected**";
 
     /**
+     * The Pirrot version (release) number.
+     * @var string
+     */
+    private $pirrotVersion = "**not detected**";
+
+    /**
      * Handle the command.
      * @return void
      */
     public function handle()
     {
+        $this->detectPirrotVersion();
         $this->detectRaspbianVersion();
         $this->detectHardwareVersion();
-        $this->writeln('Pirrot v' . self::PIRROT_VERSION);
+        $this->writeln('Pirrot v' . $this->pirrotVersion);
         $this->writeln('    - HW version: ' . $this->hardwareVersion);
         $this->writeln('    - OS version: ' . $this->raspbainVersion);
         $this->writeln('    - Compiler version: ' . phpversion() . ' (' . php_uname('v') . ') on ' . php_uname('m'));
@@ -86,6 +88,18 @@ class VersionCommand extends BaseCommand implements CommandInterface
         if (isset($versionMatches[1])) {
             $this->raspbainVersion = trim(ucwords($osMatches[1]), '"') . " " . trim($versionMatches[1], '"');
         }
+    }
 
+    /**
+     * Detects the Pirrot release version.
+     * @return void
+     */
+    private function detectPirrotVersion()
+    {
+        $pirrotVersionInfo = '/opt/pirrot/VERSION';
+        if (!file_exists($pirrotVersionInfo)) {
+            return;
+        }
+        $this->pirrotVersion = trim(file_get_contents($pirrotVersionInfo));
     }
 }
