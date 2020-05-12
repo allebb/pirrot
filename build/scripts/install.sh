@@ -43,12 +43,14 @@ echo " # Checking for Pirrot Web Interface configuration..."
 if [[ ! -f /opt/pirrot/web/storage/app/password.vault ]]; then
     echo " - Setting default password for Pirrot Web interface..."
     sudo cp /opt/pirrot/build/configs/default_password.vault /opt/pirrot/web/storage/app/password.vault
-    sudo chmod 0644 /opt/pirrot/web/storage/app/password.vault
 fi
 if [[ ! -f /opt/pirrot/web/.env ]]; then
     echo " - Setting default configuration for Pirrot Web interface..."
     sudo cp /opt/pirrot/web/.env.example /opt/pirrot/web/.env
-    sudo chmod 0644 /opt/pirrot/web/.env
+fi
+if [[ ! -f /opt/pirrot/web/database/database.sqlite ]]; then
+    echo " - Creating empty Pirrot Web database..."
+    sudo touch /opt/pirrot/web/database/database.sqlite
 fi
 
 echo " # Checking if log files exist..."
@@ -90,6 +92,10 @@ sudo chmod +x /usr/bin/composer
 echo " - Installing Pirrot Dependencies..."
 sudo composer install --working-dir /opt/pirrot --no-dev --no-interaction
 sudo composer install --working-dir /opt/pirrot/web --no-dev --no-interaction
+
+# Run database migrations for Pirrot web interface
+echo " - Running database updates..."
+sudo /usr/bin/php /opt/pirrot/web/artisan migate --force
 
 # Disable onboard audio device (to enable USB device)
 echo " - Disabling on-board audio device"
