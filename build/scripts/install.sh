@@ -98,7 +98,7 @@ sudo composer install --working-dir /opt/pirrot/web --no-dev --no-interaction
 
 # Run database migrations for Pirrot web interface
 echo " - Running database updates..."
-sudo /usr/bin/php /opt/pirrot/web/artisan migate --force
+sudo /usr/bin/php /opt/pirrot/web/artisan migrate --force
 
 # Disable onboard audio device (to enable USB device)
 echo " - Disabling on-board audio device"
