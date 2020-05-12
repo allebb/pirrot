@@ -19,14 +19,14 @@ class AuthenticatePirrotAdmin
     public function handle($request, Closure $next)
     {
 
-        // @todo Will update this to read the password from an encypted file instead of the .env file.
+        $hash = trim(file_get_contents(storage_path('app/password.vault')));
 
-        //app('pirrot.config')->timezone; //will return the timezone from the Pirrot Config file.
-        if ($request->getUser() != 'admin' && $request->getPassword() != env('ADMIN_PASSWORD')) {
-            $headers = array('WWW-Authenticate' => 'Basic');
-            return response('Unauthorized', 401, $headers);
+        if ($request->getUser() == 'admin' && password_verify($request->getPassword(), $hash)) {
+            return $next($request);
         }
 
-        return $next($request);
+        $headers = array('WWW-Authenticate' => 'Basic');
+        return response('Unauthorized', 401, $headers);
+
     }
 }

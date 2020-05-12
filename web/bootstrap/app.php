@@ -69,6 +69,7 @@ $app->singleton(
 $app->configure('app');
 
 // Share our pirrot configuration within the application container.
+// //app('pirrot.config')->timezone; //will return the timezone from the Pirrot Config file.
 $app['pirrot.config'] = $pirrotConfig;
 
 /*
@@ -81,10 +82,6 @@ $app['pirrot.config'] = $pirrotConfig;
 | route or middleware that'll be assigned to some specific routes.
 |
 */
-
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
 
 $app->routeMiddleware([
     'auth.pirrot' => App\Http\Middleware\AuthenticatePirrotAdmin::class,
