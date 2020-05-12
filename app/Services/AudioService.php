@@ -42,7 +42,7 @@ class AudioService
     private $config;
 
     /**
-     * Array of pheonetic characters that the audio service can output.
+     * Array of phonetic characters that the audio service can output.
      *
      * @var array
      */

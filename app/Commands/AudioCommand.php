@@ -52,8 +52,8 @@ class AudioCommand extends BaseCommand
 
         $this->audioService = new AudioService($this->config);
         $this->audioService->soundPath = $this->basePath . '/resources/sound/';
-        $this->audioService->audioPlayerBin = $this->binPaths['play'] . ' -q ';
-        $this->audioService->audioRecordBin = $this->binPaths['sox'] . ' -q ';
+        $this->audioService->audioPlayerBin = $this->binPaths['play'] . ' -q';
+        $this->audioService->audioRecordBin = $this->binPaths['sox'] . ' -q';
         $this->audioService->audioMorseBin = $this->binPaths['morse'];
 
         $this->gpio = $this->initGpio();
