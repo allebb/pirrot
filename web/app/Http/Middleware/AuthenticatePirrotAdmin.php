@@ -19,7 +19,7 @@ class AuthenticatePirrotAdmin
     public function handle($request, Closure $next)
     {
 
-        $hash = trim(file_get_contents(storage_path('app/password.vault')));
+        $hash = trim(file_get_contents(storage_path().'/../../storage/password.vault'));
 
         if ($request->getUser() == 'admin' && password_verify($request->getPassword(), $hash)) {
             return $next($request);

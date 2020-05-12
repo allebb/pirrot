@@ -40,17 +40,9 @@ if [[ ! -f /etc/pirrot.conf ]]; then
 fi
 
 echo " # Checking for Pirrot Web Interface configuration..."
-if [[ ! -f /opt/pirrot/web/storage/app/password.vault ]]; then
-    echo " - Setting default password for Pirrot Web interface..."
-    sudo cp /opt/pirrot/build/configs/default_password.vault /opt/pirrot/web/storage/app/password.vault
-fi
 if [[ ! -f /opt/pirrot/web/.env ]]; then
     echo " - Setting default configuration for Pirrot Web interface..."
     sudo cp /opt/pirrot/web/.env.example /opt/pirrot/web/.env
-fi
-if [[ ! -f /opt/pirrot/storage/pirrot-web.database ]]; then
-    echo " - Creating empty Pirrot Web database..."
-    sudo touch /opt/pirrot/storage/pirrot-web.database
 fi
 
 echo " # Checking if log files exist..."
@@ -69,12 +61,23 @@ sudo chmod +x /opt/pirrot/pirrot
 # Make "pirrot" accessible from the PATH...
 sudo ln -s /opt/pirrot/pirrot /usr/local/bin/pirrot
 
-
 # Chmod storage directories
 sudo mkdir /opt/pirrot/storage
 sudo mkdir /opt/pirrot/storage/input
 sudo mkdir /opt/pirrot/storage/recordings
 sudo chmod -R 755 /opt/pirrot/storage
+
+# Create new Pirrot Web SQLite database if one doesn't already exist.
+if [[ ! -f /opt/pirrot/storage/pirrot-web.database ]]; then
+    echo " - Creating empty Pirrot Web database..."
+    sudo touch /opt/pirrot/storage/pirrot-web.database
+fi
+
+# Copy across the default web admin password (vault) if one doesn't already exist.
+if [[ ! -f /opt/pirrot/storage/password.vault ]]; then
+    echo " - Setting default password for Pirrot Web interface..."
+    sudo cp /opt/pirrot/build/configs/default_password.vault /opt/pirrot/storage/password.vault
+fi
 
 # Copy the init.d script...
 echo " - Installing the daemon..."

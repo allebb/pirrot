@@ -8,7 +8,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 
 // Load the timezone from the Pirrot configuration file...
-$pirrotConfig = (object)parse_ini_file('../../build/configs/pirrot_default.conf');
+$pirrotConfig = (object)parse_ini_file(dirname(__DIR__) . '/../build/configs/pirrot_default.conf');
 if (file_exists($config = '/etc/pirrot.conf')) {
     $pirrotConfig = (object)parse_ini_file($config);
 }
