@@ -29,7 +29,7 @@ class UpdateCommand extends BaseCommand implements CommandInterface
         $this->writeln('Downloading latest source from GitHub...');
         system("sudo git reset --hard");
         system("sudo git pull");
-        system("sudo composer install");
+        system("sudo composer install --working-dir /opt/pirrot --no-dev --no-interaction");
         $this->writeln('Upgrade completed!');
         $this->writeln();
         $this->writeln('** REMEMBER TO RESTART THE PIRROT DAEMON **');
