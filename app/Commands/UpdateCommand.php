@@ -27,8 +27,8 @@ class UpdateCommand extends BaseCommand implements CommandInterface
         }
 
         $this->writeln('Downloading latest source from GitHub...');
-        system("sudo git reset --hard");
-        system("sudo git pull");
+        system("cd /opt/pirrot && sudo git reset --hard");
+        system("cd /opt/pirrot && sudo git pull");
         system("sudo composer install --working-dir /opt/pirrot --no-dev --no-interaction");
         $this->writeln('Upgrade completed!');
         $this->writeln();
