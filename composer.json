@@ -34,7 +34,8 @@
     "ballen/clip": "^2.0",
     "ballen/executioner": "^3.0",
     "ballen/gpio": "^1.0",
-    "ext-pcntl": "*"
+    "ext-pcntl": "*",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

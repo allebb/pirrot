@@ -51,6 +51,17 @@ class VersionCommand extends BaseCommand implements CommandInterface
         $this->detectPirrotVersion();
         $this->detectRaspbianVersion();
         $this->detectHardwareVersion();
+        
+        if ($this->arguments()->isFlagSet('json')) {
+            $this->write(json_encode([
+                'version' => $this->pirrotVersion,
+                'hw_version' => $this->hardwareVersion,
+                'os_version' => $this->raspbainVersion,
+                'compiler_version' => phpversion() . ' (' . php_uname('v') . ') on ' . php_uname('m'),
+            ]));
+            $this->exitWithSuccess();
+        }
+
         $this->writeln('Pirrot v' . $this->pirrotVersion);
         $this->writeln('    - HW version: ' . $this->hardwareVersion);
         $this->writeln('    - OS version: ' . $this->raspbainVersion);
