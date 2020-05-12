@@ -40,10 +40,10 @@ echo " - Removing the Pirrot daemon..."
 sudo rm -f /etc/init.d/pirrot
 echo " - Removing Composer..."
 sudo rm -f /usr/bin/composer
-echo "- Running OS specific cleanup..."
+echo " - Running OS specific cleanup..."
 source /opt/pirrot/build/scripts/os_versions/${OS}_${VER_NO}.uninstall
 echo ""
-echo "- Deleting Pirrot application from disk..."
+echo " - Deleting Pirrot application from disk..."
 sudo rm -f /usr/local/bin/pirrot
 sudo rm -Rf /opt/pirrot
 
