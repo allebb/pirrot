@@ -106,10 +106,26 @@ You can edit or order the fabrication of this PCB online at: https://easyeda.com
 If you use this interface board, you should configure the Pirrot Output pin settings (in ``/etc/pirrot.conf``) with the following settings:
 
 | Description | Setting Name | Value to be set |
-|:---:|:--------------|:------------|
+|:----|:--------------|:------------|
 | RaspberryPi PTT pin | ``ptt_pin_invert`` | false |
 | RaspberryPi COR pin | ``cos_pin_invert`` | true |
 
+# The optional web interface
+
+Since v2.0.0 of Pirrot, I have implemented a light-weight admin web interface that provides easy access using a remote computer or table device to update Pirrot settings, view hardware stats (temperature, CPU and RAM utilisation, and disk usage etc.) as well as access and listen to and/or download transmission recordings (if enabled in the config file too).
+
+Pirrot is designed to run on resource restricted SBC's as well as battery operated systems in the field and therefore, by default, I have taken the decision to disable the admin web interface by default to ensure that Pirrot and your Raspberry Pi uses as little power and resources as possible out of the box.
+
+If however system resources and power consumption is not an issue for you/your intended use, you can easily enable it; when enabled, the web interface will be available and accessible using: http://{ip-address}:8440, you will be prompted for access credentials, by default these are as follows:
+
+| Name | Value |
+|:----|:--------------|
+| Username | ``admin`` |
+| Password | ``pirrot`` |
+
+To enable the web interface, you must edit ``/etc/pirrot.conf`` and change the setting ``web_interface_enabled`` to ``true`` you will then need to restart the Pirrot daemon before the web interface will be activated, to restart Pirrot you should run ``sudo service pirrot restart``.
+
+You can set a new admin password for the web interface (and I highly encourage you to do so) by running the following command at the console: ```pirrot setwebpwd --password={YourPasswordHere}```.
 
 # Pirrot being used in the wild
 
