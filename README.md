@@ -80,7 +80,7 @@ By default, the Pirrot configuration file, located in ``/etc/pirrot.conf`` has d
 * __GPIO 27__ - Receive LED (Output/LED) - _Receiving transmission (Illuminated when COR signal is high **non-functional in VOX mode**)._
 * __GPIO 22__ - Transmit LED (Output/LED) - _Transmitting transmission (Illuminated when the repeater is ident-ing/playing back a transmission)._
 
-__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo /etc/init.d/pirrot restart`` command.__
+__Remember: When making changes to the ``/etc/pirrot.conf`` file you must restart the daemon using the ``sudo service pirrot restart`` command.__
 
 # Uninstalling
 
@@ -103,18 +103,20 @@ You can find out more about the [PCB and interface here](pcb/README.md).
 
 You can edit or order the fabrication of this PCB online at: https://easyeda.com/integrac/rpi-repeater
 
-If you use this interface board, you should configure the Pirrot Output pin settings (in ``/etc/pirrot.conf``) with the following values:
+If you use this interface board, you should configure the Pirrot output pin settings (in ``/etc/pirrot.conf``) with the following values:
 
 | Description | Setting Name | Value to be set |
 |:----|:--------------|:------------|
 | RaspberryPi PTT pin | ``ptt_pin_invert`` | false |
 | RaspberryPi COR pin | ``cos_pin_invert`` | true |
 
+**Remember to restart Pirrot by running ``sudo service pirrot restart`` for the changes to take affect.**
+
 # The optional web interface
 
 Since v2.0.0 of Pirrot, I have implemented a light-weight admin web interface that provides easy access using a remote computer or table device to update Pirrot settings, view hardware stats (temperature, CPU and RAM utilisation, and disk usage etc.) as well as access and listen to and/or download transmission recordings (if enabled in the config file too).
 
-Pirrot is designed to run on resource restricted SBC's as well as battery operated systems in the field and therefore, by default, I have taken the decision to disable the admin web interface by default to ensure that Pirrot and your Raspberry Pi uses as little power and resources as possible out of the box.
+**Pirrot is designed to run on resource restricted SBC's as well as battery operated systems in the field and therefore, by default, I have taken the decision to disable the admin web interface by default to ensure that Pirrot and your Raspberry Pi uses as little power and resources as possible out of the box.**
 
 If however system resources and power consumption is not an issue for you/your intended use, you can easily enable it; when enabled, the web interface will be available and accessible using: http://{ip-address}:8440, you will be prompted for access credentials, by default these are as follows:
 
