@@ -54,7 +54,7 @@ class RecordingsController extends Controller
             if (!unlink($filePath)) {
                 return response()->isServerError();
             }
-            return response()->isSuccessful();
+            return response(null, 204);
         }
         return response()->isNotFound();
     }
