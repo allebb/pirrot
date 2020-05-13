@@ -26,12 +26,16 @@ The Pirrot configuration file is a key-value INI based configuration file, the b
 | ident_interval|600| The number of seconds between each automatic identification __in seconds__.|
 | delayed_playback_interval|0| An optional number of __seconds__ that the repeater will delay before playing back the received transmission. |
 | pl_tone|110.9|Optional PL/CTCSS tone, this will be read with the automatic identification.|
-| transmit_mode | cos | The repeater transmit mode, options are ``cos``,``vox`` and ``disabled``. Using ``disabled`` mode, the repeater will quitely listen (and optionally record transmissions eg. in surveillance mode. |
+| transmit_mode | cor | The repeater transmit mode, options are ``cor``,``vox`` and ``disabled``. Using ``disabled`` mode, the repeater will quietly listen (and optionally record transmissions eg. in surveillance mode. |
 | ident_time | true | Will "speak" the time as part of the automatic identification. |
-| ident_morse | false | Will transmit the repeater callsign in morse code at the end of the automatic identification.
+| ident_morse | false | Will transmit the repeater callsign in morse code at the end of the automatic identification (Not implemented as yet). |
 | record_device | alsa | Sets the system sound driver/system that will be used, options are ``alsa``, ``coreaudion`` or ``waveaudio`` - This should be left as default for the RaspberryPi!|
-| store_recordings | false | If set to ``true`` incoming transmissions will be saved into ``/opt/pirrot/storage/recordings`` directory with the timestamp. |
-| purge_recording_after | 7 | Recordings will be deleted after X number of days. |
+| store_recordings | false | If set to ``true`` incoming transmissions will be saved into ``/opt/pirrot/storage/recordings`` directory, the file will use the current timestamp. |
+| purge_recording_after | 7 | Recordings will be automatically deleted this number of days. |
+| web_interface_enabled | false | Enables the light-weight admin web interface |
+| web_interface_port | 8440 | The TCP port that the web server will listen on |
+| web_interface_bind_ip | 0.0.0.0 | Allows binding to a specific IP address (eg. 127.0.0.1 for local access only), default is to allow connections from all. |
+| web_interface_logging | false | Enables access logs to be saved to /var/log/pirrot-web.log |
 | in_cor_pin | 18 | The GPIO pin number for the COS input. |
 | out_ptt_pin | 23 | The GPIO pin number for the PTT output relay. |
 | out_ready_led_pin | 17 | The GPIO pin number for the Power LED output. |
