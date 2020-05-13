@@ -7,7 +7,7 @@
         </tr>
         @foreach($recordings as $recording)
             <tr>
-                <td>{{ $recording }}</td>
+                <td>{{ $recording->getFilename() }} - {{ $recording->extension() }} [{{ $recording->getExtension() }}] {{ ($recording->getSize() * 1024) }}KB Type: {{ $recording->getType() }}</td>
             </tr>
         @endforeach
 
