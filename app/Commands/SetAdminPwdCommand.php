@@ -24,7 +24,9 @@ class SetAdminPwdCommand extends BaseCommand implements CommandInterface
         $password = $this->arguments()->getOption('password', null);
 
         if (!$password) {
-            $this->writeln('No password specified, please set with: --password="YourNewPasswordHere!"');
+            $this->writeln('No password specified, please set using this command syntax:');
+            $this->writeln(' sudo pirrot setwebpwd --password="YourNewPasswordHere"');
+            $this->writeln('');
             $this->exitWithError();
         }
 

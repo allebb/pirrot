@@ -127,7 +127,7 @@ If however system resources and power consumption is not an issue for you/your i
 
 To enable the web interface, you must edit ``/etc/pirrot.conf`` and change the setting ``web_interface_enabled`` to ``true`` you will then need to restart the Pirrot daemon before the web interface will be activated, to restart Pirrot you should run ``sudo service pirrot restart``.
 
-You can set a new admin password for the web interface (and I highly encourage you to do so) by running the following command at the console: ```pirrot setwebpwd --password={YourPasswordHere}```.
+You can set a new admin password for the web interface (and I highly encourage you to do so) by running the following command at the console: ```sudo pirrot setwebpwd --password={YourPasswordHere}```.
 
 # Pirrot being used in the wild
 
