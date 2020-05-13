@@ -20,12 +20,12 @@ $router->get('/', function () {
 
 $router->group(['middleware' => 'auth.pirrot'], function () use ($router) {
 
-    $router->get('/dashboard', 'DashboardController@showDashboardPage');
+    $router->get('/dashboard', ['as'=> 'dashboard', 'uses' => 'DashboardController@showDashboardPage']);
     $router->get('/dashboard/stats', 'DashboardController@ajaxGetDashboardStats');
 
-    $router->get('/audio-recordings', 'RecordingsController@showRecordingsPage');
-    $router->get('/audio-recordings/{filename}/download', ['name'=> 'download-recording', 'uses' => 'RecordingsController@downloadAudioFile']);
-    $router->get('/audio-recordings/{filename}/delete', 'RecordingsController@deleteAudioFile');
+    $router->get('/audio-recordings', ['as'=> 'recordings', 'uses' => 'RecordingsController@showRecordingsPage']);
+    $router->get('/audio-recordings/{filename}/download', ['as'=> 'download-recording', 'uses' => 'RecordingsController@downloadAudioFile']);
+    $router->get('/audio-recordings/{filename}/delete', ['as'=> 'download-recording', 'uses' => 'RecordingsController@deleteAudioFile']);
 
 });
 
