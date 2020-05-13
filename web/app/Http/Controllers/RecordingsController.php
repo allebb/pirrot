@@ -9,7 +9,7 @@ class RecordingsController extends Controller
 
     public function showRecordingsPage()
     {
-        $recordingsPath = app('path') . '/public/recordings/';
+        $recordingsPath = app('path') . '/../public/recordings/';
         $audioFiles = new Collection(
             array_diff(scandir($recordingsPath), array('.', '..'))
         );
