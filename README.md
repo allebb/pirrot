@@ -142,7 +142,7 @@ __If you have a write-up, blog post, photo gallery, or know of a project using P
 
 # Useful notes and tips
 
-I thought I would share a list of useful notes, ideas and other interesting RaspberryPi setup related items that may help with your Pirrot or other RaspberryPi related projects.
+I thought I would share a list of useful notes, ideas and other interesting RaspberryPi setup related items that may help with your Pirrot-based repeater or other RaspberryPi related projects.
 
 ## Remote desktop access to your RaspberryPi
 If you intend to run Pirrot on a Raspberry Pi and opt for the "Desktop" version of Raspbian instead of the "Lite" version, you may wish to access the desktop remotely, I personally prefer the RDP protocol and find it superior to VNC,  luckily you can easily install ``xrdp`` (an open-source server implementation of the RDP protocol) on your RaspberryPi with just a few commands:
