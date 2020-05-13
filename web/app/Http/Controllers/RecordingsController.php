@@ -30,25 +30,26 @@ class RecordingsController extends Controller
 
     /**
      * Downloads the audio recording file.
-     * @param string $file The filename (without the file extension)
+     * @param string $filename The filename (without the file extension)
      * @return bool|BinaryFileResponse
      */
-    public function downloadAudioFile($file)
+    public function downloadAudioFile($filename)
     {
-        if (file_exists(app('path') . '/../public/recordings/' . $file . self::RECORDING_FILE_EXT)) {
-            return response()->download($file);
+        $filePath = app('path') . '/../public/recordings/' . $filename . self::RECORDING_FILE_EXT;
+        if (file_exists($filePath)) {
+            return response()->download($filePath);
         }
         return response()->isNotFound();
     }
 
     /**
      * Deletes an audio recording file.
-     * @param string $file The filename (without the file extension)
+     * @param string $filename The filename (without the file extension)
      * @return bool|BinaryFileResponse
      */
-    public function deleteAudioFile($file)
+    public function deleteAudioFile($filename)
     {
-        $filePath = app('path') . '/../public/recordings/' . $file . self::RECORDING_FILE_EXT;
+        $filePath = app('path') . '/../public/recordings/' . $filename . self::RECORDING_FILE_EXT;
         if (file_exists($filePath)) {
             if (!unlink($filePath)) {
                 return response()->isServerError();
