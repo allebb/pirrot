@@ -137,3 +137,39 @@ I hope you can visit these great project sites and get some inspiration to build
 
 
 __If you have a write-,up, blog post or photo gallery, or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
+
+# Useful notes and tips
+
+I thought I would share a list of useful notes, ideas and other interesting RaspberryPi setup related items that may help with your Pirrot or other RaspberryPi related projects.
+
+## Remote desktop access to your RaspberryPi
+If you intend to run Pirrot on a Raspberry Pi and opt for the "Desktop" version of Raspbian instead of the "Lite" version, you may wish to access the desktop remotely, I personally prefer the RDP protocol and find it superior to VNC,  luckily you can easily install ``xrdp`` (an open-source server implementation of the RDP protocol) on your RaspberryPi with just a few commands:
+
+```shell
+sudo apt-get update
+sudo apt-get install xrdp
+sudo adduser xrdp ssl-cert
+```
+
+You can then access your Raspberry Pi's desktop using another computer, tablet device or mobile phone - simply download and install an RDP client (sometimes referred to as Microsoft Remote Desktop client) on your device(s).
+
+## Keeping the correct time with no internet access
+
+If you're using your Raspberry Pi remotely (outside and/or away from an internet connection), the Raspberry Pi does not have an on-board RTC (real-time clock) and without access to the internet your Raspberry Pi will not keep accurate time due to the unavailability of an NTP (Network Time Protocol) server.
+
+There are two solutions to this, they are as follows:
+
+1) **Buy an RTC HAT** - This will keep time as long as the small onboard supplied battery has charge.
+2) **Buy a GPS HAT or USB dongle** - A much better solution in my opinion, not only does this keep the RaspberryPi's clock in sync (from satellites) but Pirrot (if it detects a GPS receiver configured on your Pi) will also output your current GPS location on the web interface dashboard too - useful if using this in a car or "go-box" type of setup.
+
+Follow [this guide](#) to setup a USB GPS dongle on your Raspberry Pi.
+
+## Auto WiFi hotpot when the RaspberryPi is away from it's primary WiFi Network
+
+If you are running your RaspberryPi remotely (maybe in a "go-box", car or a remotely located repeater site) it is likely that you will not have a WiFi network or internet connection at the site or location.
+
+In this scenario I will assume that you primarily use the RaspberryPi remotely and would like access to the RaspberryPi from a laptop, tablet or other mobile device in order to access it (such as over HTTP, SSH or even xRDP) but when we bring it back in-range of our primary location (eg. a home or office) it will auto-connect to our main WiFi network (which has internet access) and thus can access the internet again, install updates etc.
+
+The solution is to configure the RaspberryPi to "switch" it's WiFi adapter into "Hot Spot" mode (and advertise a WiFi network that we can connect to from our mobile devices) when it cannot detect and connect our Home or Office WiFi network.
+
+Follow [this guide](#) to configure your RaspberryPi as an "auto" remote hotspot.
