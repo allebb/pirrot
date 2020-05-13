@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c72b13ce30f6fe98c146e59ee9bac40",
+    "content-hash": "cdfa26e6125c1f32dc149747ea14661b",
     "packages": [
         {
             "name": "ballen/clip",
@@ -207,7 +207,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.0.0",
-        "ext-pcntl": "*"
+        "ext-pcntl": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }
