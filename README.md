@@ -93,20 +93,31 @@ sudo make uninstall
 
 # PCB Interface
 
+This PCB interface design and PCB schematic has kindly been designed and contributed by Peter Javorsky ([https://github.com/tekk](@tekk); and provides a simple interface to connect your radio(s) to a Raspberry Pi running Pirrot.
+
 ![Schematic](pcb/schematic.png)
+
 ![PCB](pcb/pcb.png)
 
-### Settings to use with this interface
-- RPi PTT pin: non-inverted
-- RPi COR pin: inverted
----
-- [More info](pcb/README.md)
-- [Edit PCB](https://easyeda.com/integrac/rpi-repeater)
+You can find out more about the [PCB and interface here](pcb/README.md).
+
+You can edit or order the fabrication of this PCB online at: https://easyeda.com/integrac/rpi-repeater
+
+If you use this interface board, you should configure the Pirrot Output pin settings (in ``/etc/pirrot.conf``) with the following settings:
+
+| Description | Setting Name | Value to be set |
+|:---:|:--------------|:------------|
+| RaspberryPi PTT pin | ``ptt_pin_invert`` | false |
+| RaspberryPi COR pin | ``cos_pin_invert`` | true |
+
 
 # Pirrot being used in the wild
 
-Below is a compiled list of known projects and/or articles that have been created by users of Pirrot. I hope you can visit these great project sites and get some inspiration to build your own using this software.
+Below is a compiled list of known projects and/or articles that have been created by users of Pirrot.
+
+I hope you can visit these great project sites and get some inspiration to build your own using the Pirrot software.
 
 * [Margirine Man's Baofeng BF-888S Compact Repeater Project](https://www.mdshooters.com/showthread.php?t=244553) (based on a Raspberry Pi Zero W) 
+
 
 __If you have a write-,up, blog post or photo gallery, or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
