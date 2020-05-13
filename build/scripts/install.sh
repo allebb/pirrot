@@ -72,6 +72,10 @@ if [[ ! -f /opt/pirrot/storage/pirrot-web.database ]]; then
     echo " - Creating empty Pirrot Web database..."
     sudo touch /opt/pirrot/storage/pirrot-web.database
 fi
+# Symlink our recordings directory to our web interface public directory (so we can list and play them in the browser)
+if [[ ! -d /opt/pirrot/web/public/recordings ]]; then
+    sudo ln -s /opt/pirrot/storage/recordings/ /opt/pirrot/web/public/recordings
+fi
 
 # Copy across the default web admin password (vault) if one doesn't already exist.
 if [[ ! -f /opt/pirrot/storage/password.vault ]]; then
