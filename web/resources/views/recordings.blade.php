@@ -7,7 +7,9 @@
         </tr>
         @foreach($recordings as $recording)
             <tr>
-                <td>{{ $recording->getFilename() }} - {{ $recording->extension() }} [{{ $recording->getExtension() }}] {{ ($recording->getSize() * 1024) }}KB Type: {{ $recording->getType() }}</td>
+                <td>{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}
+                    - {{ $recording->getExtension() }} Size: {{ ($recording->getSize() * 1024) }}KB
+                    Type: {{ $recording->getType() }} Created at: {{ $recording->getCTime() }} [<a href="{{ route('download-recording', ['filename' => rtrim($recording->getFilename(), '.'.$recording->getExtension())]) }}">Download</a>]</td>
             </tr>
         @endforeach
 

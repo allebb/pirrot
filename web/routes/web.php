@@ -24,7 +24,7 @@ $router->group(['middleware' => 'auth.pirrot'], function () use ($router) {
     $router->get('/dashboard/stats', 'DashboardController@ajaxGetDashboardStats');
 
     $router->get('/audio-recordings', 'RecordingsController@showRecordingsPage');
-    $router->get('/audio-recordings/{filename}/download', 'RecordingsController@downloadAudioFile');
+    $router->get('/audio-recordings/{filename}/download', ['name'=> 'download-recording', 'uses' => 'RecordingsController@downloadAudioFile']);
     $router->get('/audio-recordings/{filename}/delete', 'RecordingsController@deleteAudioFile');
 
 });

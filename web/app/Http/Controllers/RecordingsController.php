@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RecordingsController extends Controller
@@ -23,7 +22,7 @@ class RecordingsController extends Controller
         $filesInDirectory = array_diff(scandir($recordingsPath), array('.', '..'));
 
         foreach ($filesInDirectory as $file) {
-            $audioFiles->add(new File($file));
+            $audioFiles->add(new \SplFileInfo($file));
         }
 
         return view('recordings')->with('recordings', $audioFiles);
