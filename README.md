@@ -93,7 +93,7 @@ sudo make uninstall
 
 # PCB Interface
 
-This PCB interface design and PCB schematic has kindly been designed and contributed by Peter Javorsky ([https://github.com/tekk](@tekk); and provides a simple interface to connect your radio(s) to a Raspberry Pi running Pirrot.
+This PCB interface design and PCB schematic has kindly been designed and contributed by Peter Javorsky ([@tekk](https://github.com/tekk)); and provides a simple interface (if you don't want to build your own circuit) to connect your radio(s) to a Raspberry Pi running Pirrot.
 
 ![Schematic](pcb/schematic.png)
 
@@ -103,7 +103,7 @@ You can find out more about the [PCB and interface here](pcb/README.md).
 
 You can edit or order the fabrication of this PCB online at: https://easyeda.com/integrac/rpi-repeater
 
-If you use this interface board, you should configure the Pirrot Output pin settings (in ``/etc/pirrot.conf``) with the following settings:
+If you use this interface board, you should configure the Pirrot Output pin settings (in ``/etc/pirrot.conf``) with the following values:
 
 | Description | Setting Name | Value to be set |
 |:----|:--------------|:------------|
