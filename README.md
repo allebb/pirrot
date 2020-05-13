@@ -138,7 +138,7 @@ I hope you can visit these great project sites and get some inspiration to build
 * [Margirine Man's Baofeng BF-888S Compact Repeater Project](https://www.mdshooters.com/showthread.php?t=244553) (based on a Raspberry Pi Zero W) 
 
 
-__If you have a write-,up, blog post or photo gallery, or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article linked here to help and/or inspire others.__
+__If you have a write-up, blog post, photo gallery, or know of a project using Pirrot, please let me know by emailing me at ballen@bobbyallen.me and I'll get the article/gallery linked here to help and/or inspire others.__
 
 # Useful notes and tips
 
