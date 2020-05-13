@@ -5,6 +5,7 @@ pcntl_async_signals(true);
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
 use Ballen\Pirrot\Commands\IdentCommand;
+use Ballen\Pirrot\Commands\SetAdminPwdCommand;
 use Ballen\Pirrot\Commands\VersionCommand;
 use Ballen\Pirrot\Commands\VoiceCommand;
 use Ballen\Pirrot\Commands\UpdateCommand;
@@ -30,6 +31,7 @@ $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 $app->add('version', VersionCommand::class);
 $app->add('cleanup', TerminateCommand::class);
+$app->add('setwebpwd', SetAdminPwdCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {
