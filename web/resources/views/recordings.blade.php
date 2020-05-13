@@ -25,6 +25,6 @@
     <p>No recordings found.</p>
 @endif
 
-@if(!app('pirrot.config')->purge_recording_after > 0)
+@if(app('pirrot.config')->purge_recording_after > 0)
     <p>Based on your current configuration, these recordings are automatically purged after {{ number_format(app('pirrot.config')->purge_recording_after) }} days. </p>
 @endif
