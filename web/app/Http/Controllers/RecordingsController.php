@@ -22,7 +22,7 @@ class RecordingsController extends Controller
         $filesInDirectory = array_diff(scandir($recordingsPath), array('.', '..'));
 
         foreach ($filesInDirectory as $file) {
-            $audioFiles->add(new \SplFileInfo($file));
+            $audioFiles->add(new \SplFileInfo($recordingsPath . $file));
         }
 
         return view('recordings')->with('recordings', $audioFiles);
