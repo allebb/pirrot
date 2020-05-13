@@ -16,6 +16,10 @@
                     Created at: {{ date('H:i:s jS M Y', $recording->getMTime()) }} [<a
                         href="{{ route('download-recording', ['filename' => rtrim($recording->getFilename(), '.'.$recording->getExtension())]) }}">Download</a>]
                     [<a href="{{ route('delete-recording', ['filename' => rtrim($recording->getFilename(), '.'.$recording->getExtension())]) }}">Delete</a>]
+                    <audio controls>
+                        <source src="/recordings/{{ $recording->getFilename() }}" type="audio/ogg">
+                        Your browser does not support the HTML5 audio player.
+                    </audio>
                 </td>
             </tr>
         @endforeach
