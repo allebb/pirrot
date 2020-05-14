@@ -17,14 +17,20 @@
                     </p>
                     <ul class="menu-list">
                         <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ route('recordings') }}">Audio Recordings</a></li>
+                        <li><a href="{{ route('weather-reports') }}">Weather Reports</a></li>
                     </ul>
                     <p class="menu-label">
                         Administration
                     </p>
                     <ul class="menu-list">
-                        <li><a href="{{ route('recordings') }}">Audio Recordings</a></li>
-                        <li><a href="{{ route('weather-reports') }}">Weather Reports</a></li>
                         <li><a href="{{ route('settings') }}">Settings</a></li>
+                    </ul>
+                    <p class="menu-label">
+                        Other
+                    </p>
+                    <ul class="menu-list">
+                        <li><a href="#">About Pirrot</a></li>
                     </ul>
                 </aside>
             </div>

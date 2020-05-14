@@ -5,13 +5,13 @@
 @section('title', 'Recordings')
 
 @section('content')
-    <h2 class="subtitle">Manage your stored audio recordings</h2>
+    <h2 class="subtitle">Manage stored transmission recordings</h2>
 
     @if(!app('pirrot.config')->store_recordings)
 
         <article class="message is-danger">
             <div class="message-body">
-                Your settings are currently set to not record transmissions, ff you wish to listen back or download recordings, you must first enable the <strong>store_recordings</strong>
+                Your settings are currently set to not record transmissions, if you wish to listen back or download recordings, you must first enable the <strong>store_recordings</strong>
                 option in your configuration as at present it is disabled.
             </div>
         </article>
@@ -43,8 +43,8 @@
     @endif
 
     @if(app('pirrot.config')->purge_recording_after > 0)
-        <div class="notification">
-            <p>Based on your current configuration, these recordings are automatically purged
+        <div class="notification has-background-warning">
+            <p class="has-text-grey-light">Based on your current configuration, these recordings are automatically purged
                 after {{ number_format(app('pirrot.config')->purge_recording_after) }} days. </p>
         </div>
     @endif
