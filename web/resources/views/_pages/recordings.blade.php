@@ -75,8 +75,8 @@
                     <button id="player-close" class="delete" aria-label="delete"></button>
                 </div>
                 <div class="message-body">
-                    <audio class="audio-player" controls autoplay>
-                        <source id="player-source" src="" type="audio/ogg">
+                    <audio id="audio-player" controls autoplay>
+                        <source id="player-source" type="audio/ogg">
                         Oh no! Your browser does not support the HTML5 audio player, we'd recommend you download the
                         recording
                         files instead!
@@ -101,21 +101,25 @@
 
 @section('js')
     <script>
-        console.log('got here!');
 
         function closeAudioPlayerModal() {
             $("#player-modal").removeClass('is-active');
             $("#player-modal").removeClass('is-clipped');
         }
 
-        $('.btn-play-audio').on('click', function (e) {
+        function loadAudioFile(sourceUrl) {
+            var audio = $("#audio-player");
+            $("#player-source").attr("src", sourceUrl);
+            audio[0].pause();
+            audio[0].load();//suspends and restores all audio element
+            audio[0].oncanplaythrough = audio[0].play();
+        }
 
+        $('.btn-play-audio').on('click', function (e) {
             var file = $(this).data('filename');
-            document.getElementById("player-source").src = '/recordings/' + file;
+            loadAudioFile('/recordings/' + file + '.ogg');
             $("#player-modal").addClass('is-active');
             $("#player-modal").addClass('is-clipped');
-            //$("#player-source").play;
-
         });
 
         $('#player-close').on('click', function () {
