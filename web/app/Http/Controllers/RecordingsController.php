@@ -70,7 +70,6 @@ class RecordingsController extends Controller
     private function checkDevMode($path)
     {
         if ((env('APP_ENV') == 'local') && !file_exists($path)) {
-            // @todo - Copy in some example files here!!
             mkdir($path);
             shell_exec("cp -r " . app('path') . '/resources/dev/dummy_recordings/' . " $path");
         }
