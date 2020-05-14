@@ -25,7 +25,7 @@ class RecordingsController extends Controller
             $audioFiles->add(new \SplFileInfo($recordingsPath . $file));
         }
 
-        return view('recordings')->with('recordings', $audioFiles);
+        return view('_pages.recordings')->with('recordings', $audioFiles);
     }
 
     /**

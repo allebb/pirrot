@@ -9,7 +9,7 @@ class DashboardController extends Controller
 
     public function showDashboardPage()
     {
-        return view('dashboard')->with('test', 'Bobby Allen');
+        return view('_pages.dashboard')->with('test', 'Bobby Allen');
     }
 
     public function ajaxGetDashboardStats()
