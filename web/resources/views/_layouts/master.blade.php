@@ -23,7 +23,7 @@
                     </p>
                     <ul class="menu-list">
                         <li><a href="{{ route('recordings') }}">Audio Recordings</a></li>
-                        <li><a href="#">Weather Reports</a></li>
+                        <li><a href="{{ route('weather-reports') }}">Weather Reports</a></li>
                         <li><a href="{{ route('settings') }}">Settings</a></li>
                     </ul>
                 </aside>
