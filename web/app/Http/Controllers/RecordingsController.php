@@ -71,7 +71,7 @@ class RecordingsController extends Controller
     {
         if ((env('APP_ENV') == 'local') && !file_exists($path)) {
             mkdir($path);
-            shell_exec("cp -r " . app('path') . '/resources/dev/dummy_recordings/' . " $path");
+            system("cp -r " . app('path') . '/../resources/dev/dummy_recordings/' . " $path");
         }
     }
 
