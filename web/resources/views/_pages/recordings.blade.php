@@ -26,7 +26,7 @@
             <div class="message-header">
                 <p>Stored transmissions</p>
             </div>
-            <table class="table">
+            <table id="recordings-table" class="table is-fullwidth">
                 @foreach($recordings as $recording)
                     <tr>
                         <td>{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}
@@ -120,6 +120,32 @@
             loadAudioFile('/recordings/' + file + '.ogg');
             $("#player-modal").addClass('is-active');
             $("#player-modal").addClass('is-clipped');
+        });
+
+        $('.btn-download-audio').on('click', function (e) {
+            var file = $(this).data('filename');
+            window.location = '/audio-recordings/' + file + '/download';
+        });
+
+        $('.btn-delete-audio').on('click', function (e) {
+            var file = $(this).data('filename');
+            var fileRow = $(this).closest('tr');
+
+            if (confirm('Are you sure you want to delete this recording?') === false) {
+                return;
+            }
+
+            fetch('/audio-recordings/' + file + '/delete', {
+                method: 'get',
+            }).then(result => {
+                $(fileRow).remove();
+                if (document.getElementById("recordings-table").rows.length === 0) {
+                    window.location.reload();
+                }
+            }).catch(error => {
+                alert('An error occurred and the recording could not be deleted, please refresh and try again!');
+            });
+
         });
 
         $('#player-close').on('click', function () {
