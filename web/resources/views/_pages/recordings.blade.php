@@ -1,14 +1,20 @@
 @extends('_layouts.master')
 
-@section('title', 'Dashboard - Pirrot Web Interface')
 
+@section('html-title', 'Recordings - Pirrot Web Interface')
+@section('title', 'Recordings')
 
 @section('content')
-    <h1>Audio recordings</h1>
+    <h2 class="subtitle">Manage your stored audio recordings</h2>
 
     @if(!app('pirrot.config')->store_recordings)
-        <p>If you wish to listen back or download recordings, you must first enable the <em>store_recordings</em> option
-            in your configuration as at present it is disabled.</p>
+
+        <article class="message is-danger">
+            <div class="message-body">
+                Your settings are currently set to not record transmissions, ff you wish to listen back or download recordings, you must first enable the <strong>store_recordings</strong>
+                option in your configuration as at present it is disabled.
+            </div>
+        </article>
     @endif
 
     @if($recordings->count() > 0)
@@ -33,12 +39,14 @@
 
         </table>
     @else
-        <p>No recordings found.</p>
+        <p style="padding: 4rem; text-align: center;">No recordings found.</p>
     @endif
 
     @if(app('pirrot.config')->purge_recording_after > 0)
-        <p>Based on your current configuration, these recordings are automatically purged
-            after {{ number_format(app('pirrot.config')->purge_recording_after) }} days. </p>
+        <div class="notification">
+            <p>Based on your current configuration, these recordings are automatically purged
+                after {{ number_format(app('pirrot.config')->purge_recording_after) }} days. </p>
+        </div>
     @endif
 @endsection
 
