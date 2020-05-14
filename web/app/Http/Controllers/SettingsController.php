@@ -74,6 +74,26 @@ class SettingsController extends Controller
         'ready_pin_invert',
     ];
 
+    /**
+     * Optionally override a label
+     * @var array
+     */
+    private $labelOverrides = [
+        'enabled' => 'Enable Repeater'
+    ];
+
+    private $fieldComments = [
+        'timezone' => ['The timezone you wish to use for logging, TTS services, and the web interface (if enabled)'],
+        'enabled' => [
+            'Enable the "repeat" functionality.',
+            'Optionally you can disable the repeater thus not "repeating" the communications received.'
+        ],
+        'courtesy_tone' => [
+            'To disable courtesy tones set to: false',
+            'Otherwise use the filename of the courtesy tone, eg. BeeBoo (without the .wav extension)'
+        ],
+    ];
+
     public function showSettingsPage()
     {
 
@@ -83,10 +103,35 @@ class SettingsController extends Controller
             $settings = (object)parse_ini_file($config);
         }
 
+        $panelInputs = [];
+
         // Regex out the setting values and comments to provide a list of settings that we can render out.
+        foreach ($this->fieldGroups as $field => $group) {
+
+            if (!in_array($field, $this->labelOverrides)) {
+                $label = ucwords(str_replace('_', ' ', $field));
+            } else {
+                $label = $this->labelOverrides[$field];
+            }
+
+            // Get the value from the settings file...
+            $value = 'false';
+
+            $inputType = SettingEntity::TYPE_TEXT;
+            if (in_array($field, $this->booleanFields)) {
+                $inputType = SettingEntity::TYPE_BOOL;
+            }
+
+            $inputComments = null;
+            if (key_exists($field, $this->fieldComments)) {
+                $inputComments = $this->fieldComments[$field];
+            }
+
+            $panelInputs[$group][] = new SettingEntity($field, $label, $group, $value, $inputType, $inputComments);
+        }
 
 
-        return view('_pages.settings');
+        return view('_pages.settings')->with('panels', $panelInputs);
     }
 
 }

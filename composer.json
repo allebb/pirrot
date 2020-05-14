@@ -30,7 +30,7 @@
     "wiki": "https://github.com/allebb/pirrot/wiki"
   },
   "require": {
-    "php": ">=7.0.0",
+    "php": ">=7.3",
     "ballen/clip": "^2.0",
     "ballen/executioner": "^3.0",
     "ballen/gpio": "^1.0",

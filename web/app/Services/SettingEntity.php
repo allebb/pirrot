@@ -31,6 +31,12 @@ class SettingEntity
     public $name = null;
 
     /**
+     * Human friendly label for the web interface.
+     * @var null
+     */
+    public $label = null;
+
+    /**
      * The setting value
      * @var string
      */
@@ -51,11 +57,26 @@ class SettingEntity
     /**
      * SettingEntity constructor.
      * @param string $name
+     * @param string $label
+     * @param string $group
+     * @param null $value
+     * @param string $inputType
+     * @param array $commentLines
      */
-    public function __construct(string $name, string $group)
-    {
+    public function __construct(
+        string $name,
+        string $label,
+        string $group,
+        $value = null,
+        $inputType = self::TYPE_TEXT,
+        $commentLines = []
+    ) {
         $this->name = $name;
+        $this->label = $label;
         $this->group = $group;
+        $this->value = $value;
+        $this->inputType = $inputType;
+        $this->commentLines = $commentLines;
     }
 
 }
