@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('html-title')</title>
     <link rel="stylesheet" href="{{ url('/css/bulma.min.css') }}">
+    @yield('css')
 </head>
 <body>
 <section class="section">
@@ -43,5 +44,6 @@
     </div>
 </section>
 <script src="{{ url('/js/jquery.min.js') }}"></script>
+@yield('js')
 </body>
 </html>

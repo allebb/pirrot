@@ -6,8 +6,14 @@
 
 @section('content')
     <h2 class="subtitle">Review and update your repeater settings</h2>
-
-    <p>This is where we will render out the Pirrot settings.</p>
+    <article class="message">
+        <div class="message-header">
+            <p>Settings</p>
+        </div>
+        <div class="message-body">
+            Output the settings stuff here!
+        </div>
+    </article>
 @endsection
 
 
