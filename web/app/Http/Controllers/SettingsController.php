@@ -94,6 +94,10 @@ class SettingsController extends Controller
         ],
     ];
 
+    /**
+     * Renders the Settings page.
+     * @return \Illuminate\View\View
+     */
     public function showSettingsPage()
     {
 
@@ -108,7 +112,7 @@ class SettingsController extends Controller
         // Regex out the setting values and comments to provide a list of settings that we can render out.
         foreach ($this->fieldGroups as $field => $group) {
 
-            if (!in_array($field, $this->labelOverrides)) {
+            if (!key_exists($field, $this->labelOverrides)) {
                 $label = ucwords(str_replace('_', ' ', $field));
             } else {
                 $label = $this->labelOverrides[$field];
@@ -132,6 +136,14 @@ class SettingsController extends Controller
 
 
         return view('_pages.settings')->with('panels', $panelInputs);
+    }
+
+    /**
+     * Handles the updating of the settings and restarts the Pirrot daemon.
+     */
+    public function updateSettings()
+    {
+        return response('', 200);
     }
 
 }

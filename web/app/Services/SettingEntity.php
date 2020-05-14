@@ -7,12 +7,12 @@ namespace App\Services;
 class SettingEntity
 {
 
-    const GROUP_GENERAL = 'general';
-    const GROUP_AUDIO = 'audio';
-    const GROUP_MORSE = 'morse';
-    const GROUP_STORAGE = 'storage';
-    const GROUP_WEBINTERFACE = 'web-interface';
-    const GROUP_GPIO = 'gpio';
+    const GROUP_GENERAL = 'General';
+    const GROUP_AUDIO = 'Audio';
+    const GROUP_MORSE = 'Morse';
+    const GROUP_STORAGE = 'Storage';
+    const GROUP_WEBINTERFACE = 'Web Interface';
+    const GROUP_GPIO = 'GPIO';
 
     const TYPE_TEXT = 'text';
     const TYPE_BOOL = 'bool';

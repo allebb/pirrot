@@ -7,7 +7,7 @@
 @section('content')
     <h2 class="subtitle">Review and update your repeater settings</h2>
 
-    <form method="POST" action="{{ route('settings') }}">
+    <form id="form-settings" method="POST" action="{{ route('settings') }}">
 
 
         @foreach($panels as $group => $config)
@@ -36,7 +36,7 @@
                                                    value="{{ $value->value }}" required>
                                     @endif
                                     @if($value->commentLines)
-                                        <p>{{ implode('<br>', $value->commentLines) }}</p>
+                                        <p>{!! implode('<br>', $value->commentLines) !!}</p>
                                         @endif
                                         </p>
                                 </div>
@@ -56,6 +56,17 @@
 
 @section('js')
     <script>
-        console.log('got here!');
+        $('#form-settings').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this).serialize();
+            fetch('/settings', {
+                method: 'post',
+                body: form,
+            }).then(result => {
+                alert('Settings updated, now reloading Pirrot!');
+            }).catch(error => {
+                alert('An error occurred and your changes could not be saved, please refresh and try again!');
+            });
+        })
     </script>
 @endsection

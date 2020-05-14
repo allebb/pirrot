@@ -30,6 +30,7 @@ $router->group(['middleware' => 'auth.pirrot'], function () use ($router) {
     $router->get('/weather-reports', ['as'=> 'weather-reports', 'uses' => 'WeatherController@showWeatherPage']);
 
     $router->get('/settings', ['as'=> 'settings', 'uses' => 'SettingsController@showSettingsPage']);
+    $router->post('/settings', 'SettingsController@updateSettings');
 
 });
 
