@@ -181,7 +181,7 @@ class SettingsController extends Controller
         file_put_contents('/etc/pirrot.conf', $updatedConfig);
 
         // Trigger a daemon restart
-        system('sudo service pirrot restart');
+        system('sudo /opt/pirrot/web/resources/restart-pirrot.sh > /dev/null &');
 
         return response('', 200);
     }
