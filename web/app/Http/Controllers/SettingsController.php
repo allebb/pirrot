@@ -178,10 +178,10 @@ class SettingsController extends Controller
 
         // Backup the old configuration file and then write the new file...
         system("cp " . $configFilePath . " /opt/pirrot/storage/backups/pirrot-" . date("dmYHis") . ".conf");
-        file_put_contents('/etc/pirrot.conf', $updatedConfig);
+        file_put_contents('/etc/pirrot-temp.conf', $updatedConfig);
 
         // Trigger a daemon restart
-        system('sudo /opt/pirrot/web/resources/restart-pirrot.sh > /dev/null &');
+        system('sudo /opt/pirrot/web/resources/scripts/restart-pirrot.sh > /dev/null &');
 
         return response('', 200);
     }
