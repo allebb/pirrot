@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ConfManagerService;
 use App\Services\SettingEntity;
 use App\Services\SettingsManifest;
 use App\Services\StatsService;
@@ -101,13 +102,14 @@ class SettingsController extends Controller
     public function showSettingsPage()
     {
 
-        // Read the current settings file
-        $settings = (object)parse_ini_file(dirname(__DIR__) . '/../../../build/configs/pirrot_default.conf');
-        if (file_exists($config = '/etc/pirrot.conf')) {
-            $settings = (object)parse_ini_file($config);
+        $configFilePath = dirname(__DIR__) . '/../../../build/configs/pirrot_default.conf';
+        if (file_exists('/etc/pirrot.conf')) {
+            $configFilePath = '/etc/pirrot.conf';
         }
 
-        $panelInputs = [];
+        // Get setting values from the configuration file.
+        $config = new ConfManagerService($configFilePath);
+        $configValues = $config->read();
 
         // Regex out the setting values and comments to provide a list of settings that we can render out.
         foreach ($this->fieldGroups as $field => $group) {
@@ -119,7 +121,7 @@ class SettingsController extends Controller
             }
 
             // Get the value from the settings file...
-            $value = 'false';
+            $value = $configValues[$field];
 
             $inputType = SettingEntity::TYPE_TEXT;
             if (in_array($field, $this->booleanFields)) {

@@ -29,7 +29,8 @@
                                     <p class="control">
                                         @if($value->inputType === \App\Services\SettingEntity::TYPE_BOOL)
                                             <input type="checkbox" id="input_{{ $value->name }}"
-                                                   name="{{ $value->name }}" value="true">
+                                                   name="{{ $value->name }}" value="1"
+                                                   @if($value->value == 'true') checked @endif>
                                         @else
                                             <input class="input is-static has-background-white"
                                                    id="input_{{ $value->name }}" name="{{ $value->name }}"
