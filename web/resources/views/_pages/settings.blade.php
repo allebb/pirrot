@@ -29,7 +29,7 @@
                                     <p class="control">
                                         @if($value->inputType === \App\Services\SettingEntity::TYPE_BOOL)
                                             <input type="checkbox" id="input_{{ $value->name }}"
-                                                   name="{{ $value->name }}" value="1"
+                                                   name="{{ $value->name }}" value="true"
                                                    @if($value->value == 'true') checked @endif>
                                         @else
                                             <input class="input is-static has-background-white"
@@ -59,10 +59,10 @@
     <script>
         $('#form-settings').on('submit', function (e) {
             e.preventDefault();
-            var form = $(this).serialize();
+            var form = $(this).serializeArray();
             fetch('/settings', {
                 method: 'post',
-                body: form,
+                body: JSON.stringify(form),
             }).then(result => {
                 alert('Settings updated, now reloading Pirrot!');
             }).catch(error => {

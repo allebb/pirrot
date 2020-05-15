@@ -7,6 +7,7 @@ use App\Services\SettingEntity;
 use App\Services\SettingsManifest;
 use App\Services\StatsService;
 use Hamcrest\Core\Set;
+use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
@@ -142,9 +143,36 @@ class SettingsController extends Controller
 
     /**
      * Handles the updating of the settings and restarts the Pirrot daemon.
+     * @param Request $request
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
      */
-    public function updateSettings()
+    public function updateSettings(Request $request)
     {
+
+        $configFilePath = dirname(__DIR__) . '/../../../build/configs/pirrot_default.conf';
+        if (file_exists('/etc/pirrot.conf')) {
+            $configFilePath = '/etc/pirrot.conf';
+        }
+
+        // Get setting values from the configuration file.
+        $config = new ConfManagerService($configFilePath);
+        $currentSettings = $config->read();
+        $updateSettings = $request->json();
+
+        $newSettings = [];
+        foreach ($updateSettings as $setting) {
+            $newSettings[$setting['name']] = $setting['value'];
+        }
+
+        // If the input name is a checkbox, if it's not found in the array we should set the value to 'false'
+        //if (in_array($setting['name'], $this->booleanFields)) {
+        //
+        //}
+
+        dd($newSettings);
+
+        dd($config->update(array_merge($currentSettings, $newSettings)));
+
         return response('', 200);
     }
 
