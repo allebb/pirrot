@@ -65,6 +65,7 @@ sudo ln -s /opt/pirrot/pirrot /usr/local/bin/pirrot
 sudo mkdir /opt/pirrot/storage
 sudo mkdir /opt/pirrot/storage/input
 sudo mkdir /opt/pirrot/storage/recordings
+sudo mkdir /opt/pirrot/storage/backups
 sudo chmod -R 755 /opt/pirrot/storage
 
 # Create new Pirrot Web SQLite database if one doesn't already exist.

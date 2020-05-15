@@ -158,20 +158,29 @@ class SettingsController extends Controller
         $config = new ConfManagerService($configFilePath);
         $currentSettings = $config->read();
         $updateSettings = $request->json();
-
         $newSettings = [];
         foreach ($updateSettings as $setting) {
             $newSettings[$setting['name']] = $setting['value'];
         }
 
-        // If the input name is a checkbox, if it's not found in the array we should set the value to 'false'
-        //if (in_array($setting['name'], $this->booleanFields)) {
-        //
-        //}
+        // Set all "boolean" type config items to "false" if the checkbox is not checked.
+        $falseBooleanValues = array_diff_key($currentSettings, $newSettings);
+        foreach ($falseBooleanValues as $key => $value) {
+            $newSettings[$key] = "false";
+        }
+        $updatedConfig = $config->update(array_merge($currentSettings, $newSettings));
 
-        dd($newSettings);
+        // We will only write the new configuration file and attempt to restart the Pirrot daemon ONLY if it's actually running on a RPi.
+        if (env('APP_ENV') != 'production') {
+            return response('', 200);
+        }
 
-        dd($config->update(array_merge($currentSettings, $newSettings)));
+        // Backup the old configuration file and then write the new file...
+        system("cp " . $configFilePath . " /opt/pirrot/storage/backups/pirrot-" . date("dMY-His") . ".conf");
+        file_put_contents('/etc/pirrot.conf', $updatedConfig);
+
+        // Trigger a daemon restart
+        system('sudo service pirrot restart');
 
         return response('', 200);
     }
