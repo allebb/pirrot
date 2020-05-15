@@ -172,11 +172,12 @@ class SettingsController extends Controller
 
         // We will only write the new configuration file and attempt to restart the Pirrot daemon ONLY if it's actually running on a RPi.
         if (env('APP_ENV') != 'production') {
+            sleep(15); // Sleep for a while to simulate the service restarting (in a local development environment)
             return response('', 200);
         }
 
         // Backup the old configuration file and then write the new file...
-        system("cp " . $configFilePath . " /opt/pirrot/storage/backups/pirrot-" . date("dMY-His") . ".conf");
+        system("cp " . $configFilePath . " /opt/pirrot/storage/backups/pirrot-" . date("dmYHis") . ".conf");
         file_put_contents('/etc/pirrot.conf', $updatedConfig);
 
         // Trigger a daemon restart
