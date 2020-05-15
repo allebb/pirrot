@@ -59,16 +59,15 @@
         <div class="modal-content">
             <article class="message">
                 <div class="message-header">
-                    <p>Please wait...</p>
+                    <p>Settings</p>
                 </div>
                 <div class="message-body">
-                    <p class="is-size-4 pb-3">Your changes are being applied to the repeater now!</p>
+                    <p class="is-size-5 pb-3">Please wait whilst your changes are being applied...</p>
 
-                    <p class="has-text-grey-light" style="padding-top: 2rem; padding-bottom: 1.2rem;">Please note that if you have updated the web
-                        interface port you will need to update the browser URL with the new port address.</p>
-
-                    <p class="is-size-7">If something went wrong with your new settings, a copy of your old <code>pirrot.conf</code> file
-                        has been backed up under <code>/opt/pirrot/storage/backups</code> which you can revert back to if
+                    <p class="is-size-7" style="padding-top: 2rem;">If something went wrong with your new settings, a copy of your old <code>pirrot.conf</code>
+                        file
+                        has been backed up under <code>/opt/pirrot/storage/backups</code> which you can revert back to
+                        if
                         required.</p>
                 </div>
             </article>
@@ -82,7 +81,7 @@
         $('#form-settings').on('submit', function (e) {
             e.preventDefault();
 
-            if (confirm('Are you sure you want to apply these changes? The repeater service will be restarted and intermittently unavailable!') !== true) {
+            if (confirm('Are you sure you want to apply these changes now? The repeater service will be restarted and will be unavailable for a few seconds!') !== true) {
                 return;
             }
 
@@ -92,20 +91,21 @@
             fetch('/settings', {
                 method: 'post',
                 body: JSON.stringify(form),
-            }).then(result => {
-                clearReloadingScreen();
-            }).catch(error => {
-                alert('An error occurred and your changes could not be saved, please refresh and try again!');
-            });
+            })
+                .then(response => response.json())
+                .then(result => {
+                    setTimeout(function () {
+                        window.location = result.after_url;
+                    }, 5000);
+                })
+                .catch(error => {
+                    alert('An error occurred and your changes could not be saved, please refresh and try again!');
+                });
         });
-
 
         function showReloadingScreen() {
             $("#reloading-modal").addClass('is-active');
         }
 
-        function clearReloadingScreen(){
-            $("#reloading-modal").removeClass('is-active');
-        }
     </script>
 @endsection

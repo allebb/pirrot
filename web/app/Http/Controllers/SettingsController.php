@@ -168,22 +168,35 @@ class SettingsController extends Controller
         foreach ($falseBooleanValues as $key => $value) {
             $newSettings[$key] = "false";
         }
-        $updatedConfig = $config->update(array_merge($currentSettings, $newSettings));
+
+        $updatedConfig = $config->update($newSettings);
+
+        // Get the current request URL so we can manipulate it for the auto-refresh after the service has been restarted.
+        $url = parse_url(request()->root());
+        $response =
+            [
+                'check_url' => $url['scheme'] . "://" . $url['host'] . ':' . $newSettings['web_interface_port'] . '/up',
+                'after_url' => $url['scheme'] . "://" . $url['host'] . ':' . $newSettings['web_interface_port'] . '/settings',
+            ];
 
         // We will only write the new configuration file and attempt to restart the Pirrot daemon ONLY if it's actually running on a RPi.
-        if (env('APP_ENV') != 'production') {
-            sleep(15); // Sleep for a while to simulate the service restarting (in a local development environment)
-            return response('', 200);
+        if (env('APP_ENV') !== 'production') {
+            $response =
+                [
+                    'check_url' => request()->root() . '/up',
+                    'after_url' => request()->root() . '/settings',
+                ];
+            return response($response, 200);
         }
 
         // Backup the old configuration file and then write the new file...
         system("cp " . $configFilePath . " /opt/pirrot/storage/backups/pirrot-" . date("dmYHis") . ".conf");
-        file_put_contents('/etc/pirrot-temp.conf', $updatedConfig);
+        file_put_contents('/etc/pirrot.conf', $updatedConfig);
 
-        // Trigger a daemon restart
+        // Trigger a daemon restart (after two seconds to give us enough time to respond to the HTTP request)
         system('sudo /opt/pirrot/web/resources/scripts/restart-pirrot.sh > /dev/null &');
 
-        return response('', 200);
+        return response($response, 200);
     }
 
 }

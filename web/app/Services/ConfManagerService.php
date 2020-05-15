@@ -40,7 +40,7 @@ class ConfManagerService
 
         foreach ($this->configSettingsKeys as $index => $line) {
             $line = trim($line);
-            if(substr($line,0,1) == ';'){
+            if (substr($line, 0, 1) == ';') {
                 continue;
             }
             $this->readSettings[$line] = $this->configSettingsValues[$index];
@@ -59,23 +59,17 @@ class ConfManagerService
     {
         $fileLines = explode(PHP_EOL, $this->configurationContents);
 
-        // Lets now try to update it from our form array:
-        // $updates = [
-        //   'enabled' => 'false',
-        //   'pl_tone' => '110.9',
-        // ];
-
-        $newConfig = $this->configurationContents;
+        $newConfig = $fileLines;
 
         // Check each line if there is an update to be applied and if so,
         foreach ($fileLines as $index => $line) {
             foreach ($updates as $name => $value) {
                 if (substr($line, 0, strlen($name)) == $name) {
-                    $fileLines[$index] = str_replace($line, "{$name} = {$value}", $line);
+                    $newConfig[$index] = str_replace($line, "{$name} = {$value}", $line);
                 }
             }
         }
 
-        return $newConfig;
+        return implode(PHP_EOL, $newConfig);
     }
 }
