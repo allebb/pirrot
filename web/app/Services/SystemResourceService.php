@@ -89,7 +89,8 @@ class SystemResourceService
     public function getBootTime(): string
     {
         $data = shell_exec('uptime -s');
-        return date_create_from_format('Y-m-d H:i:s', $data)->format(self::DATE_OUTPUT_FORMAT);
+        $bootDateTime = date_create_from_format('Y-m-d H:i:s', $data);
+        return date_format($bootDateTime, self::DATE_OUTPUT_FORMAT);
     }
 
     private function removeKbSuffix(string $string)
