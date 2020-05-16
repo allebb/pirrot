@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\ConfManagerService;
 use App\Services\SettingEntity;
-use App\Services\SettingsManifest;
-use App\Services\StatsService;
-use Hamcrest\Core\Set;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -44,6 +41,11 @@ class SettingsController extends Controller
         'web_interface_bind_ip' => SettingEntity::GROUP_WEBINTERFACE,
         'web_interface_logging' => SettingEntity::GROUP_WEBINTERFACE,
 
+        'tripwire_enabled' => SettingEntity::GROUP_TRIPWIRE,
+        'tripwire_url' => SettingEntity::GROUP_TRIPWIRE,
+        'tripwire_ignore_interval' => SettingEntity::GROUP_TRIPWIRE,
+        'tripwire_request_timeout' => SettingEntity::GROUP_TRIPWIRE,
+
         'in_cor_pin' => SettingEntity::GROUP_GPIO,
         'out_ptt_pin' => SettingEntity::GROUP_GPIO,
         'out_ready_led_pin' => SettingEntity::GROUP_GPIO,
@@ -69,6 +71,7 @@ class SettingsController extends Controller
         'store_recordings',
         'web_interface_enabled',
         'web_interface_logging',
+        'tripwire_enabled',
         'rx_pin_invert',
         'tx_pin_invert',
         'cos_pin_invert',
@@ -81,7 +84,8 @@ class SettingsController extends Controller
      * @var array
      */
     private $labelOverrides = [
-        'enabled' => 'Enable Repeater'
+        'enabled' => 'Enable Repeater',
+        'tripwire_enabled' => 'Enable Tripwire'
     ];
 
     private $fieldComments = [

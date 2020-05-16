@@ -12,6 +12,7 @@ class SettingEntity
     const GROUP_MORSE = 'Morse';
     const GROUP_STORAGE = 'Storage';
     const GROUP_WEBINTERFACE = 'Web Interface';
+    const GROUP_TRIPWIRE = 'Tripwire';
     const GROUP_GPIO = 'GPIO';
 
     const TYPE_TEXT = 'text';
