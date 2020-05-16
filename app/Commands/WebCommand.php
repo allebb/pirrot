@@ -63,8 +63,8 @@ class WebCommand extends AudioCommand implements CommandInterface
      */
     private function readAndCacheSystemInfo()
     {
-        $sysInfo = shell_exec(env('PIRROT_PATH') . '/pirrot version --dump');
-        file_put_contents(env('PIRROT_PATH') . '/storage/sysinfo.cache', trim($sysInfo));
+        $sysInfo = shell_exec($this->basePath . '/pirrot version --dump');
+        file_put_contents($this->basePath . '/storage/sysinfo.cache', trim($sysInfo));
     }
 
 

@@ -21,7 +21,7 @@ class UpdateCommand extends BaseCommand implements CommandInterface
     public function handle()
     {
 
-        if(!file_exists('/opt/pirrot/.git')){
+        if (!file_exists($this->basePath . '/.git')) {
             $this->writeln('UPDATE ABORTED! Pirrot can only be upgraded installed using Git...');
             $this->exitWithSuccess();
         }

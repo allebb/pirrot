@@ -32,7 +32,7 @@ class SetAdminPwdCommand extends BaseCommand implements CommandInterface
 
         $securedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        if (!file_put_contents('/opt/pirrot/storage/password.vault', $securedPassword)) {
+        if (!file_put_contents($this->basePath . '/storage/password.vault', $securedPassword)) {
             $this->writeln('Error, could not store updated password!');
             $this->exitWithError();
         }
