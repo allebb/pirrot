@@ -31,7 +31,7 @@
                         Other
                     </p>
                     <ul class="menu-list">
-                        <li><a href="#">About Pirrot</a></li>
+                        <li><a href="{{ route('support') }}">Help & Support</a></li>
                     </ul>
                 </aside>
             </div>

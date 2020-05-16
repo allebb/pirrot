@@ -32,6 +32,8 @@ $router->group(['middleware' => 'auth.pirrot'], function () use ($router) {
     $router->get('/settings', ['as'=> 'settings', 'uses' => 'SettingsController@showSettingsPage']);
     $router->post('/settings', 'SettingsController@updateSettings');
 
+    $router->get('/support', ['as'=> 'support', 'uses' => 'ContentController@showSupportPage']);
+
 });
 
 
