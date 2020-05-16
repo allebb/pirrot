@@ -5,7 +5,7 @@ namespace App\Services;
 class SystemResourceService
 {
 
-    const DATE_OUTPUT_FORMAT = 'jS M Y H:m';
+    const DATE_OUTPUT_FORMAT = 'H:i jS M Y';
 
     private $ramTotal = 0;
 
@@ -17,7 +17,7 @@ class SystemResourceService
     {
 
         $tempDegreesC = $this->getTemperature();
-        $tempDegreesF = ''; //(($tempDegreesC / 5) * 9) + 32;
+        $tempDegreesF = (($tempDegreesC / 5) * 9) + 32;
 
         $ramUsage = $this->getRamUsage();
 
@@ -62,12 +62,12 @@ class SystemResourceService
         return rtrim($cpuUsage, "%");
     }
 
-    function getRamUsage()
+    function getRamUsage(): int
     {
-        $this->ramTotal = trim(rtrim(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2"), "kB"));
-        $this->ramFree = trim(rtrim(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2"), "kB"));
-        $this->ramAvailable = trim(rtrim(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"), "kB"));
-        return $this->ramTotal;// - $this->ramAvailable;
+        $this->ramTotal = trim($this->removeKbSuffix(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2")));
+        $this->ramFree = trim($this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2")));
+        $this->ramAvailable = trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2")));
+        return $this->ramTotal - $this->ramAvailable;
     }
 
     public function getUptime(): string
@@ -81,6 +81,11 @@ class SystemResourceService
         $num = intdiv($num, 24);
         $days = $num;
         return "{$days}d {$hours}h {$mins}m";
+    }
+
+    private function removeKbSuffix(string $string)
+    {
+        return str_replace(' kB', '', $string);
     }
 
 
