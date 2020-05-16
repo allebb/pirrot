@@ -51,8 +51,8 @@ class WebCommand extends AudioCommand implements CommandInterface
 
         if ($this->config->get('web_interface_enabled')) {
             $this->writeln('Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
-            $this->readAndCacheSystemInfo();
             system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . env('PIRROT_PATH') . '/web/public 2> ' . $logger . ' &');
+            $this->readAndCacheSystemInfo();
             $this->exitWithSuccess();
         }
     }
