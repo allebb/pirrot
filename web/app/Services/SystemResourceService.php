@@ -72,7 +72,7 @@ class SystemResourceService
             1);
         $this->ramAvailable = round(trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"))) / 1024,
             1);
-        return round(($this->ramTotal - $this->ramAvailable) / 1024, 1);
+        return $this->ramTotal - $this->ramAvailable;
     }
 
     public function getUptime(): string
