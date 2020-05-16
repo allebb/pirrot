@@ -67,7 +67,7 @@ class SystemResourceService
         $this->ramTotal = trim(rtrim(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2"), "kB"));
         $this->ramFree = trim(rtrim(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2"), "kB"));
         $this->ramAvailable = trim(rtrim(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"), "kB"));
-        return $this->ramTotal - $this->ramAvailable;
+        return $this->ramTotal;// - $this->ramAvailable;
     }
 
     public function getUptime(): string
