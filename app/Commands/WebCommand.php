@@ -38,7 +38,6 @@ class WebCommand extends AudioCommand implements CommandInterface
     /**
      * Handle the command.
      * @return void
-     * @throws GPIOException
      */
     public function handle()
     {
@@ -52,9 +51,20 @@ class WebCommand extends AudioCommand implements CommandInterface
 
         if ($this->config->get('web_interface_enabled')) {
             $this->writeln('Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
-            system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t /opt/pirrot/web/public 2> ' . $logger . ' &');
+            $this->readAndCacheSystemInfo();
+            system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . env('PIRROT_PATH') . '/web/public 2> ' . $logger . ' &');
             $this->exitWithSuccess();
         }
+    }
+
+    /**
+     * Reads and caches system information on web interface init.
+     * @return void
+     */
+    private function readAndCacheSystemInfo()
+    {
+        $sysInfo = shell_exec(env('PIRROT_PATH') . '/pirrot version --dump');
+        file_put_contents(env('PIRROT_PATH') . '/storage/sysinfo.cache', trim($sysInfo));
     }
 
 

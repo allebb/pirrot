@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StatsService;
+use App\Services\SystemResourceService;
 
 class WeatherController extends Controller
 {

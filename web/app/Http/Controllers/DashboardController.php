@@ -2,24 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\StatsService;
+use App\Services\SystemResourceService;
 
 class DashboardController extends Controller
 {
 
     public function showDashboardPage()
     {
-        return view('_pages.dashboard')->with('test', 'Bobby Allen');
+        return view('_pages.dashboard')
+            ->with('system', $this->retrieveSystemInformation());
     }
 
     public function ajaxGetDashboardStats()
     {
-        $statsService = new StatsService();
+        $statsService = new SystemResourceService();
         return response()->json([
             'version' => $statsService->versions(),
             'temperature' => $statsService->temperature(),
             'hostname' => $statsService->hostname()
         ]);
+    }
+
+    /**
+     * Retrieves the system information from the cache data.
+     * @return mixed
+     */
+    private function retrieveSystemInformation()
+    {
+        $systemInfoCache = env('PIRROT_PATH') . '/storage/sysinfo.cache';
+        $systemInfo = [];
+        if (file_exists($systemInfoCache)) {
+            $systemInfo = file_get_contents($systemInfoCache);
+        }
+        return json_decode($systemInfo);
+    }
+
+    private function retrieveSystemUtilisation()
+    {
+        // Return an object of system utilisation.
     }
 
 }

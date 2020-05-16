@@ -15,27 +15,32 @@
                 <table class="table has-background-light is-fullwidth">
                     <tr>
                         <th>Hostname</th>
-                        <td id="s_hostname"><span class="has-text-grey-light">Loading</span></td>
+                        <td><span class="has-text-grey-light">{{ $system->hostname }}</span></td>
                     </tr>
                     <tr>
-                        <th>Uptime</th>
-                        <td id="s_uptime"><span class="has-text-grey-light">Loading</span></td>
+                        <th>Model</th>
+                        <td><span class="has-text-grey-light">{{ $system->hardware_model }}</span></td>
                     </tr>
                     <tr>
-                        <th>System Time</th>
-                        <td id="s_uptime"><span class="has-text-grey-light">Loading</span></td>
+                        <th>Serial #</th>
+                        <td><span class="has-text-grey-light">{{ $system->hardware_serial }}</span></td>
                     </tr>
                     <tr>
-                        <th>Hardware Model</th>
-                        <td id="s_model"><span class="has-text-grey-light">Loading</span></td>
+                        <th>Processor</th>
+                        <td><span class="has-text-grey-light"><abbr title="CPU Cores">{{ $system->hardware_cpu_count }}</abbr> @ {{ number_format($system->hardware_cpu_freq,1,'.') }}MHz ({{ $system->hardware_cpu_arch }})</span>
+                        </td>
                     </tr>
                     <tr>
-                        <th>OS Version</th>
-                        <td id="s_ver_os"><span class="has-text-grey-light">Loading</span></td>
+                        <th>Operating System</th>
+                        <td><span class="has-text-grey-light">{{ $system->version_raspbian }}</span></td>
+                    </tr>
+                    <tr>
+                        <th>Kernel</th>
+                        <td><span class="has-text-grey-light">{{ $system->version_kernel }}</span></td>
                     </tr>
                     <tr>
                         <th>Pirrot Version</th>
-                        <td id="s_ver_pirrot"><span class="has-text-grey-light">Loading</span></td>
+                        <td><span class="has-text-grey-light">{{ $system->version_pirrot }}</span></td>
                     </tr>
                 </table>
             </article>
@@ -48,6 +53,14 @@
                     <p>Resources</p>
                 </div>
                 <table class="table is-fullwidth has-background-light">
+                    <tr>
+                        <th>Uptime</th>
+                        <td id="s_uptime"><span class="has-text-grey-light">Loading</span></td>
+                    </tr>
+                    <tr>
+                        <th>System Time</th>
+                        <td id="s_uptime"><span class="has-text-grey-light">Loading</span></td>
+                    </tr>
                     <tr>
                         <th>CPU</th>
                         <td id="s_cpu"><span class="has-text-grey-light">Loading</span></td>

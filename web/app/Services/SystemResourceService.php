@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class StatsService
+class SystemResourceService
 {
 
     public function versions(): array

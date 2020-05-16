@@ -26,7 +26,7 @@ class VersionCommand extends BaseCommand implements CommandInterface
 
         $systemInfo->detect();
 
-        if ($this->arguments()->isFlagSet('debug')) {
+        if ($this->arguments()->isFlagSet('dump')) {
             $systemInfo = new SystemInfoService();
             $systemInfo->detect();
             $this->write(json_encode([
