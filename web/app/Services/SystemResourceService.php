@@ -84,7 +84,7 @@ class SystemResourceService
         $data = shell_exec('df -m /');
         $line = explode(PHP_EOL, $data);
 
-        $columns = preg_match('/(.*) (.*) (.*) (.*) (.*) (.*)/', $line, $columnArray);
+        $columns = preg_match('/(.*) (.*) (.*) (.*) (.*) (.*)/', $line[1], $columnArray);
 
         $this->diskUsed = $columns[3];
         $this->diskAvailable = $columns[4];
