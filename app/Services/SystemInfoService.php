@@ -232,7 +232,11 @@ class SystemInfoService
         $cpuCount = system("lscpu | grep \"CPU(s):\" | cut -d : -f2");
         ob_clean();
 
-        $this->hardwareCpuCount = trim($cpuCount);
+        $cpuCountClean = trim($cpuCount);
+        if (is_numeric($cpuCountClean)) {
+            $this->hardwareCpuCount = (int)$cpuCountClean;
+        }
+
     }
 
     /**
@@ -245,7 +249,11 @@ class SystemInfoService
         $cpuFreq = system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2");
         ob_clean();
 
-        $this->hardwareCpuFrequency = trim($cpuFreq);
+        $cpuFreqClean = trim($cpuFreq);
+        if (is_numeric($cpuFreqClean)) {
+            $this->hardwareCpuFrequency = (int)$cpuFreqClean;
+        }
+
     }
 
 }
