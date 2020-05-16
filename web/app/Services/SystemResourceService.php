@@ -17,7 +17,7 @@ class SystemResourceService
     {
 
         $tempDegreesC = $this->getTemperature();
-        $tempDegreesF = (($tempDegreesC / 5) * 9) + 32;
+        $tempDegreesF = ''; //(($tempDegreesC / 5) * 9) + 32;
 
         $ramUsage = $this->getRamUsage();
 
