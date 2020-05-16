@@ -23,7 +23,7 @@ class SystemResourceService
         return [
 
             // Times
-            'booted' => date(self::DATE_OUTPUT_FORMAT, 4322),
+            'booted' => $this->getBootTime(),
             'uptime_time' => $this->getUptime(),
             'system_time' => date(self::DATE_OUTPUT_FORMAT),
 
@@ -84,6 +84,12 @@ class SystemResourceService
         $num = intdiv($num, 24);
         $days = $num;
         return "{$days}d {$hours}h {$mins}m";
+    }
+
+    public function getBootTime(): string
+    {
+        $data = shell_exec('uptime -s');
+        return date_create_from_format('Y-m-d H:i:s', $data)->format(self::DATE_OUTPUT_FORMAT);
     }
 
     private function removeKbSuffix(string $string)
