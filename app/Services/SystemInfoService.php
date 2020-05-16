@@ -176,7 +176,7 @@ class SystemInfoService
         }
 
         ob_start();
-        system("cat /proc/cpuinfo |grep Serial|cut -d' ' -f2", $serialNumber);
+        $serialNumber = system("cat /proc/cpuinfo |grep Serial|cut -d' ' -f2");
         ob_clean();
 
         $this->hardwareSerial = trim($serialNumber);
@@ -229,7 +229,7 @@ class SystemInfoService
     protected function detectCpuCoreCount()
     {
         ob_start();
-        system("lscpu | grep \"CPU(s):\" | cut -d : -f2", $cpuCount);
+        $cpuCount = system("lscpu | grep \"CPU(s):\" | cut -d : -f2");
         ob_clean();
 
         $this->hardwareCpuCount = trim($cpuCount);
@@ -242,7 +242,7 @@ class SystemInfoService
     protected function detectCpuFrequency()
     {
         ob_start();
-        system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2", $cpuFreq);
+        $cpuFreq = system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2");
         ob_clean();
 
         $this->hardwareCpuFrequency = trim($cpuFreq);
