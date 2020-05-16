@@ -6,6 +6,7 @@ use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
 use Ballen\Pirrot\Commands\IdentCommand;
 use Ballen\Pirrot\Commands\SetAdminPwdCommand;
+use Ballen\Pirrot\Commands\TripwireCommand;
 use Ballen\Pirrot\Commands\VersionCommand;
 use Ballen\Pirrot\Commands\VoiceCommand;
 use Ballen\Pirrot\Commands\UpdateCommand;
@@ -26,7 +27,10 @@ $app->add('ident', IdentCommand::class);
 $app->add('voice', VoiceCommand::class);
 $app->add('web', WebCommand::class);
 
-// CLI commands
+// System/BackgroundApp commands
+$app->add('tripwire', TripwireCommand::class);
+
+// User CLI commands
 $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 $app->add('version', VersionCommand::class);
