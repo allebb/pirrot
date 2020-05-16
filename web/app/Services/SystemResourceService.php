@@ -17,9 +17,10 @@ class SystemResourceService
     {
 
         $tempDegreesC = $this->getTemperature();
-        $tempDegreesF = (($tempDegreesC / 5) * 9) + 32;
+        $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
 
         $ramUsage = $this->getRamUsage();
+        $ramPercentageValue = ($this->ramTotal / 100);
 
         return [
 
@@ -30,7 +31,8 @@ class SystemResourceService
 
             // Usage Percentages
             'cpu_percent' => $this->getCpuUsage(),
-            'ram_percent' => $ramUsage,
+            'ram_percent' => ceil($this->ramTotal * $ramPercentageValue),
+            'ram_usage' => $ramUsage,
             'ram_total' => $this->ramTotal,
             'disk_percent' => '100', // @todo Add this later
             'disk_total' => '600', // @todo Add this laster
@@ -64,10 +66,13 @@ class SystemResourceService
 
     function getRamUsage(): int
     {
-        $this->ramTotal = trim($this->removeKbSuffix(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2")));
-        $this->ramFree = trim($this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2")));
-        $this->ramAvailable = trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2")));
-        return $this->ramTotal - $this->ramAvailable;
+        $this->ramTotal = round(trim($this->removeKbSuffix(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2"))) / 1024,
+            1);
+        $this->ramFree = round(trim($this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2"))) / 1024,
+            1);
+        $this->ramAvailable = round(trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"))) / 1024,
+            1);
+        return round(($this->ramTotal - $this->ramAvailable) / 1024, 1);
     }
 
     public function getUptime(): string

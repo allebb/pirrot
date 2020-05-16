@@ -126,9 +126,9 @@
             $("#s_uptime").text(result.uptime_time);
             $("#s_systime").text(result.system_time);
             $("#s_cpu").text(result.cpu_percent + '%');
-            $("#s_ram").text('TBC');
+            $("#s_ram").text(result.ram_percent + '%');
             $("#s_disk").text('TBC');
-            $("#s_temp").text(result.temp_c + '&deg;C / ' + '' + '&deg;F');
+            $("#s_temp").text(result.temp_c + '°C / ' + result.temp_f + '°F');
             $("#s_lat").text('TBC');
             $("#s_lng").text('TBC');
             $("#s_alt").text('TBC');
