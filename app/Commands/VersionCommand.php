@@ -29,7 +29,20 @@ class VersionCommand extends BaseCommand implements CommandInterface
         if ($this->arguments()->isFlagSet('debug')) {
             $systemInfo = new SystemInfoService();
             $systemInfo->detect();
-            $this->write((string)$systemInfo);
+            $this->write(json_encode([
+                'hostname' => $systemInfo->hostname,
+                'hardware_model' => $systemInfo->hardwareModel,
+                'hardware_serial' => $systemInfo->hardwareSerial,
+                'hardware_cpu_arch' => $systemInfo->hardwareCpuArch,
+                'hardware_cpu_count' => $systemInfo->hardwareCpuCount,
+                'hardware_cpu_freq' => $systemInfo->hardwareCpuFrequency,
+                'version_kernel' => $systemInfo->kernelVersion,
+                'version_raspbian' => $systemInfo->raspbainVersion,
+                'version_php' => $systemInfo->phpVersion,
+                'version_pirrot' => $systemInfo->pirrotVersion,
+                'gps_configured' => $systemInfo->hasGpsConfigured,
+
+            ]));
             $this->exitWithSuccess();
         }
 

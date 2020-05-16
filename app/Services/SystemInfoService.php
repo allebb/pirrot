@@ -129,7 +129,7 @@ class SystemInfoService
         if (!file_exists('/sys/firmware/devicetree/base/model')) {
             return;
         }
-        $this->hardwareModel = file_get_contents(self::HARDWARE_VERSION_FILE);
+        $this->hardwareModel = trim(file_get_contents(self::HARDWARE_VERSION_FILE));
     }
 
     /**
@@ -223,7 +223,7 @@ class SystemInfoService
      */
     protected function detectCpuCoreCount()
     {
-        $cpuCount = system("lscpu | grep \"CPU(s):\" | cut -d : -f2");
+        system("lscpu | grep \"CPU(s):\" | cut -d : -f2", $cpuCount);
 
         $count = trim($cpuCount);
 
@@ -238,7 +238,7 @@ class SystemInfoService
      */
     protected function detectCpuFrequency()
     {
-        $cpuFreq = system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2");
+        system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2", $cpuFreq);
 
         $cpuFreq = trim($cpuFreq);
 
@@ -246,5 +246,5 @@ class SystemInfoService
             $this->hardwareCpuFrequency = (int)$cpuFreq;
         }
     }
-    
+
 }
