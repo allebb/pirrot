@@ -117,6 +117,18 @@
 
 @section('js')
     <script>
-        console.log('got here!');
+
+        window.setInterval(function () {
+                fetch('/dashboard/stats')
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result);
+                    })
+                    .catch(error => {
+                        console.log('No data returned from the stats endpoint.');
+                    })
+            },
+            5000);
+
     </script>
 @endsection

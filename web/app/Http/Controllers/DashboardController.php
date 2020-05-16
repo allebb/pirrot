@@ -16,11 +16,7 @@ class DashboardController extends Controller
     public function ajaxGetDashboardStats()
     {
         $statsService = new SystemResourceService();
-        return response()->json([
-            'version' => $statsService->versions(),
-            'temperature' => $statsService->temperature(),
-            'hostname' => $statsService->hostname()
-        ]);
+        return response()->json($statsService->toArray());
     }
 
     /**
