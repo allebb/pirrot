@@ -53,7 +53,7 @@ class SystemResourceService
         if (!$data) {
             return '**not detected**';
         }
-        return rtrim(trim($data), '\'c');
+        return rtrim(trim($data), '\'C');
     }
 
     public function getCpuUsage(): int

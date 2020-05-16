@@ -106,6 +106,10 @@
                             <th>Altitude</th>
                             <td id="s_alt"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
+                        <tr>
+                            <th>Speed</th>
+                            <td id="s_spd"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
                     </table>
                 @endif
             </article>
@@ -118,10 +122,24 @@
 @section('js')
     <script>
 
+        function renderStats(result) {
+            $("s_uptime").text(result.uptime_time);
+            $("s_systime").text(result.system_time);
+            $("s_cpu").text(result.cpu_percent + '%');
+            $("s_ram").text('TBC');
+            $("s_disk").text('TBC');
+            $("s_temp").text(result.temp_c + '&deg;C / ' + '' + '&deg;F');
+            $("s_lat").text('TBC');
+            $("s_lng").text('TBC');
+            $("s_alt").text('TBC');
+            $("s_spd").text('TBC');
+        }
+
         window.setInterval(function () {
                 fetch('/dashboard/stats')
                     .then(response => response.json())
                     .then(result => {
+                        renderStats(result);
                         console.log(result);
                     })
                     .catch(error => {
@@ -129,6 +147,5 @@
                     })
             },
             5000);
-
     </script>
 @endsection
