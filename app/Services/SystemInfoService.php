@@ -184,10 +184,10 @@ class SystemInfoService
      */
     protected function detectGpsHardware()
     {
-        if (!file_exists('/etc/default/gpsd')) {
-            $this->hasGpsConfigured = false;
+        if (file_exists('/etc/default/gpsd')) {
+            $this->hasGpsConfigured = true;
         }
-        $this->hasGpsConfigured = true;
+        $this->hasGpsConfigured = false;
     }
 
     /**
@@ -223,12 +223,14 @@ class SystemInfoService
      */
     protected function detectCpuCoreCount()
     {
+        ob_start();
         system("lscpu | grep \"CPU(s):\" | cut -d : -f2", $cpuCount);
+        ob_clean();
 
         $count = trim($cpuCount);
 
         if (is_numeric($count)) {
-            $this->hardwareCpuCount = (int)$count;
+            $this->hardwareCpuCount = $count;
         }
     }
 
@@ -238,12 +240,14 @@ class SystemInfoService
      */
     protected function detectCpuFrequency()
     {
+        ob_start();
         system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2", $cpuFreq);
+        ob_clean();
 
         $cpuFreq = trim($cpuFreq);
 
         if (is_numeric($cpuFreq)) {
-            $this->hardwareCpuFrequency = (int)$cpuFreq;
+            $this->hardwareCpuFrequency = $cpuFreq;
         }
     }
 
