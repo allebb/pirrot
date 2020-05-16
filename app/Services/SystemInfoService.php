@@ -174,7 +174,12 @@ class SystemInfoService
         if (!file_exists('/proc/cpuinfo')) {
             return;
         }
-        $this->hardwareSerial = trim(system("cat /proc/cpuinfo |grep Serial|cut -d' ' -f2"));
+
+        ob_start();
+        system("cat /proc/cpuinfo |grep Serial|cut -d' ' -f2", $serialNumber);
+        ob_clean();
+
+        $this->hardwareSerial = trim($serialNumber);
 
     }
 
@@ -227,11 +232,7 @@ class SystemInfoService
         system("lscpu | grep \"CPU(s):\" | cut -d : -f2", $cpuCount);
         ob_clean();
 
-        $count = trim($cpuCount);
-
-        if (is_numeric($count)) {
-            $this->hardwareCpuCount = $count;
-        }
+        $this->hardwareCpuCount = trim($cpuCount);
     }
 
     /**
@@ -244,11 +245,7 @@ class SystemInfoService
         system("lscpu | grep \"CPU max MHz:\" | cut -d : -f2", $cpuFreq);
         ob_clean();
 
-        $cpuFreq = trim($cpuFreq);
-
-        if (is_numeric($cpuFreq)) {
-            $this->hardwareCpuFrequency = $cpuFreq;
-        }
+        $this->hardwareCpuFrequency = trim($cpuFreq);
     }
 
 }
