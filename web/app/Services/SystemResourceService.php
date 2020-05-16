@@ -81,18 +81,12 @@ class SystemResourceService
 
     public function getDiskUsage(): int
     {
-        $data = shell_exec('df -m');
-
-        $lines = explode(PHP_EOL, $data);
-        foreach ($lines as $line) {
-            $columns = explode(" ", $line);
-            if ($columns[5] == '/') { // RPi images use "/" as the main partition, that's all we're worried about!!
-                $this->diskUsed = $columns[2];
-                $this->diskAvailable = $columns[3];
-                $this->diskTotal = $this->diskUsed + $this->diskAvailable;
-                break;
-            }
-        }
+        $data = shell_exec('df -m /');
+        $line = explode(PHP_EOL, $data);
+        $columns = explode("\t", $line[1]);
+        $this->diskUsed = $columns[2];
+        $this->diskAvailable = $columns[3];
+        $this->diskTotal = $this->diskUsed + $this->diskAvailable;
         return $this->diskUsed;
 
     }
