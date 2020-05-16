@@ -28,7 +28,7 @@
                     <tr>
                         <th>Processor</th>
                         <td><span class="has-text-grey-light"><abbr
-                                    title="CPU Cores">{{ $system->hardware_cpu_count }}</abbr> @ {{ number_format(($system->hardware_cpu_freq / 1000),1,'.') }}MHz ({{ $system->hardware_cpu_arch }})</span>
+                                    title="CPU Cores">{{ $system->hardware_cpu_count }}</abbr> @ {{ number_format(($system->hardware_cpu_freq / 1000),1,'.','') }}MHz ({{ $system->hardware_cpu_arch }})</span>
                         </td>
                     </tr>
                     <tr>
