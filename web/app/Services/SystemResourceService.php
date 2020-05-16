@@ -84,6 +84,7 @@ class SystemResourceService
         $data = shell_exec('df -m /');
         $line = explode(PHP_EOL, $data);
         $columns = explode("\t", $line[1]);
+        var_dump($columns); die();
         $this->diskUsed = $columns[2];
         $this->diskAvailable = $columns[3];
         $this->diskTotal = $this->diskUsed + $this->diskAvailable;
