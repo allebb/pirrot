@@ -64,13 +64,10 @@ class SystemResourceService
 
     function getRamUsage(): int
     {
-        $this->ramTotal = round(trim($this->removeKbSuffix(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2"))) / 1024,
-            1);
-        $this->ramFree = round(trim($this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2"))) / 1024,
-            1);
-        $this->ramAvailable = round(trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"))) / 1024,
-            1);
-        return ($this->ramTotal - $this->ramAvailable) / 1024;
+        $this->ramTotal = $this->removeKbSuffix(shell_exec("grep 'MemTotal' /proc/meminfo | cut -d : -f2")) / 1024;
+        $this->ramFree = $this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2")) / 1024;
+        $this->ramAvailable = $this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2")) / 1024;
+        return $this->ramTotal - $this->ramAvailable;
     }
 
     public function getUptime(): string
@@ -94,7 +91,7 @@ class SystemResourceService
 
     private function removeKbSuffix(string $string)
     {
-        return str_replace(' kB', '', $string);
+        return str_replace(' kB', '', trim($string));
     }
 
 
