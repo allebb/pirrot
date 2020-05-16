@@ -18,9 +18,7 @@ class SystemResourceService
 
         $tempDegreesC = $this->getTemperature();
         $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
-
         $ramUsage = $this->getRamUsage();
-        $ramPercentageValue = ($this->ramTotal / 100);
 
         return [
 
@@ -31,7 +29,7 @@ class SystemResourceService
 
             // Usage Percentages
             'cpu_percent' => $this->getCpuUsage(),
-            'ram_percent' => ceil($this->ramTotal * $ramPercentageValue),
+            'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
             'ram_usage' => $ramUsage,
             'ram_total' => $this->ramTotal,
             'disk_percent' => '100', // @todo Add this later
@@ -72,7 +70,7 @@ class SystemResourceService
             1);
         $this->ramAvailable = round(trim($this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2"))) / 1024,
             1);
-        return $this->ramTotal - $this->ramAvailable;
+        return ($this->ramTotal - $this->ramAvailable) / 1024;
     }
 
     public function getUptime(): string
