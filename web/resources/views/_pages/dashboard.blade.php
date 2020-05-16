@@ -15,33 +15,33 @@
                 <table class="table has-background-light is-fullwidth">
                     <tr>
                         <th>Hostname</th>
-                        <td><span class="has-text-grey-light">{{ $system->hostname }}</span></td>
+                        <td><span class="has-text-grey-darker">{{ $system->hostname }}</span></td>
                     </tr>
                     <tr>
                         <th>Model</th>
-                        <td><span class="has-text-grey-light">{{ $system->hardware_model }}</span></td>
+                        <td><span class="has-text-grey-darker">{{ $system->hardware_model }}</span></td>
                     </tr>
                     <tr>
                         <th>Serial #</th>
-                        <td><span class="has-text-grey-light">{{ $system->hardware_serial }}</span></td>
+                        <td><span class="has-text-grey-darker">{{ $system->hardware_serial }}</span></td>
                     </tr>
                     <tr>
                         <th>Processor</th>
-                        <td><span class="has-text-grey-light"><abbr
-                                    title="CPU Cores">{{ $system->hardware_cpu_count }}</abbr> @ {{ number_format(($system->hardware_cpu_freq / 1000),1,'.','') }}MHz ({{ $system->hardware_cpu_arch }})</span>
+                        <td><span class="has-text-grey-darker"><abbr
+                                    title="CPU Cores">{{ $system->hardware_cpu_count}} core(s) </abbr> at {{ number_format(($system->hardware_cpu_freq / 1000),1,'.','') }} GHz ({{ $system->hardware_cpu_arch }})</span>
                         </td>
                     </tr>
                     <tr>
-                        <th>Operating System</th>
-                        <td><span class="has-text-grey-light">{{ $system->version_raspbian }}</span></td>
+                        <th>OS</th>
+                        <td><span class="has-text-grey-darker">{{ $system->version_raspbian }}</span></td>
                     </tr>
                     <tr>
                         <th>Kernel</th>
-                        <td><span class="has-text-grey-light">{{ $system->version_kernel }}</span></td>
+                        <td><span class="has-text-grey-darker">{{ $system->version_kernel }}</span></td>
                     </tr>
                     <tr>
-                        <th>Pirrot Version</th>
-                        <td><span class="has-text-grey-light">{{ $system->version_pirrot }}</span></td>
+                        <th>Pirrot</th>
+                        <td><span class="has-text-grey-darker">v{{ $system->version_pirrot }}</span></td>
                     </tr>
                 </table>
             </article>
@@ -60,7 +60,7 @@
                     </tr>
                     <tr>
                         <th>System Time</th>
-                        <td id="s_uptime"><span class="has-text-grey-light">Loading</span></td>
+                        <td id="s_systime"><span class="has-text-grey-light">Loading</span></td>
                     </tr>
                     <tr>
                         <th>CPU</th>
@@ -72,7 +72,7 @@
                     </tr>
                     <tr>
                         <th>Disk</th>
-                        <td id="s_ram"><span class="has-text-grey-light">Loading</span></td>
+                        <td id="s_disk"><span class="has-text-grey-light">Loading</span></td>
                     </tr>
                     <tr>
                         <th>Temperature</th>
@@ -82,7 +82,7 @@
             </article>
 
             <article class="message">
-                @if(true)
+                @if(!$system->gps_configured)
                     <div class="message-header has-background-grey-light">
                         <p>GPS</p>
                     </div>
@@ -103,8 +103,8 @@
                             <td id="s_lng"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th>Connected Satelites</th>
-                            <td id="s_sats"><span class="has-text-grey-light">Loading</span></td>
+                            <th>Altitude</th>
+                            <td id="s_alt"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                     </table>
                 @endif
