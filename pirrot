@@ -27,15 +27,15 @@ $app->add('ident', IdentCommand::class);
 $app->add('voice', VoiceCommand::class);
 $app->add('web', WebCommand::class);
 
-// System/BackgroundApp commands
-$app->add('tripwire', TripwireCommand::class);
-
 // User CLI commands
 $app->add('update', UpdateCommand::class);
 $app->add('help', HelpCommand::class);
 $app->add('version', VersionCommand::class);
-$app->add('cleanup', TerminateCommand::class);
 $app->add('setwebpwd', SetAdminPwdCommand::class);
+
+// System/BackgroundApp commands
+$app->add('cleanup', TerminateCommand::class);
+$app->add('tripwire', TripwireCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {
