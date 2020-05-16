@@ -13,12 +13,20 @@ class SystemResourceService
 
     private $ramAvailable = 0;
 
+    private $diskTotal = 0;
+
+    private $diskUsed = 0;
+
+    private $diskAvailable = 0;
+
+
     public function toArray()
     {
 
         $tempDegreesC = $this->getTemperature();
         $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
         $ramUsage = $this->getRamUsage();
+        $diskUsage = $this->getDiskUsage();
 
         return [
 
@@ -32,8 +40,9 @@ class SystemResourceService
             'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
             'ram_usage' => $ramUsage,
             'ram_total' => $this->ramTotal,
-            'disk_percent' => '100', // @todo Add this later
-            'disk_total' => '600', // @todo Add this laster
+            'disk_percent' => ceil(($diskUsage / $this->diskTotal) * 100),
+            'disk' => $this->diskUsed,
+            'disk_total' => $this->diskTotal,
 
             // Temperature
             'temp_c' => $tempDegreesC,
@@ -68,6 +77,24 @@ class SystemResourceService
         $this->ramFree = $this->removeKbSuffix(shell_exec("grep 'MemFree' /proc/meminfo | cut -d : -f2")) / 1024;
         $this->ramAvailable = $this->removeKbSuffix(shell_exec("grep 'MemAvailable' /proc/meminfo | cut -d : -f2")) / 1024;
         return $this->ramTotal - $this->ramAvailable;
+    }
+
+    public function getDiskUsage(): int
+    {
+        $data = shell_exec('df -m');
+
+        $lines = explode(PHP_EOL, $data);
+        foreach ($lines as $line) {
+            $columns = explode(" ", $line);
+            if ($columns[5] == '/') { // RPi images use "/" as the main partition, that's all we're worried about!!
+                $this->diskUsed = $columns[2];
+                $this->diskAvailable = $columns[3];
+                $this->diskTotal = $this->diskUsed + $this->diskAvailable;
+                break;
+            }
+        }
+        return $this->diskUsed;
+
     }
 
     public function getUptime(): string
