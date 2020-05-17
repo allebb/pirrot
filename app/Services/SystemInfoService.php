@@ -179,9 +179,7 @@ class SystemInfoService
         ob_start();
         $serialNumber = system("cat /proc/cpuinfo |grep Serial|cut -d' ' -f2");
         ob_clean();
-
         $this->hardwareSerial = trim($serialNumber);
-
     }
 
     /**
@@ -190,10 +188,10 @@ class SystemInfoService
      */
     protected function detectGpsHardware()
     {
+        $this->hasGpsConfigured = false;
         if (file_exists('/etc/default/gpsd')) {
             $this->hasGpsConfigured = true;
         }
-        $this->hasGpsConfigured = false;
     }
 
     /**
