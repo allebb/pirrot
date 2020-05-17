@@ -64,15 +64,21 @@
                     </tr>
                     <tr>
                         <th>CPU</th>
-                        <td id="s_cpu"><span class="has-text-grey-light">Loading</span></td>
+                        <td id="s_cpu">
+                            <progress id="bar_cpu" class="progress is-small" max="100">10%</progress>
+                        </td>
                     </tr>
                     <tr>
                         <th>Memory</th>
-                        <td id="s_ram"><span class="has-text-grey-light">Loading</span></td>
+                        <td id="s_ram">
+                            <progress id="bar_memory" class="progress is-small" max="100">10%</progress>
+                        </td>
                     </tr>
                     <tr>
                         <th>Disk</th>
-                        <td id="s_disk"><span class="has-text-grey-light">Loading</span></td>
+                        <td id="s_disk">
+                            <progress id="bar_disk" class="progress is-small" max="100">10%</progress>
+                        </td>
                     </tr>
                     <tr>
                         <th>Temperature</th>
@@ -127,7 +133,8 @@
                         </tr>
                         <tr id="map_view_link" hidden="hidden">
                             <th>Map View</th>
-                            <td><a id="s_mapview" target="_blank">Show in OpenStreetMap</a><br><span class="has-text-grey-light is-small">* requires an internet connection</span>
+                            <td><a id="s_mapview" target="_blank">Show in OpenStreetMap</a><br><span
+                                    class="has-text-grey-light is-small">* requires an internet connection</span>
                             </td>
                         </tr>
                     </table>
@@ -145,9 +152,15 @@
         function renderStats(result) {
             $("#s_uptime").text(result.uptime_time);
             $("#s_systime").text(result.system_time);
-            $("#s_cpu").text(result.cpu_percent + '%');
-            $("#s_ram").text(result.ram_percent + '%');
-            $("#s_disk").text(result.disk_percent + '%');
+
+            //$("#s_cpu").text(result.cpu_percent + '%');
+            //$("#s_ram").text(result.ram_percent + '%');
+            //$("#s_disk").text(result.disk_percent + '%');
+
+            $("#bar_cpu").val(result.cpu_percent).text(result.cpu_percent + '%');
+            $("#bar_memory").val(result.ram_percent).text(result.ram_percent + '%');
+            $("#bar_disk").val(result.disk_percent).text(result.disk_percent + '%');
+
             $("#s_temp").text(result.temp_c + '°C / ' + result.temp_f + '°F');
             $("#s_gdev").text(result.gps_device);
             $("#s_gtime").text(result.gps_time);
