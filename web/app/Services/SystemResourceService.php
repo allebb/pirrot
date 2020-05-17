@@ -39,7 +39,7 @@ class SystemResourceService
             'system_time' => date(self::DATE_OUTPUT_FORMAT),
 
             // Usage Percentages
-            'cpu_percent' => $this->getCpuUsage(),
+            'cpu_percent' => round($this->getCpuUsage(),1),
             'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
             'ram_usage' => $ramUsage,
             'ram_total' => $this->ramTotal,
@@ -77,7 +77,7 @@ class SystemResourceService
 
     public function getCpuUsage(): int
     {
-        $cpuUsage = trim(shell_exec("grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage \"%\"}'"));
+        $cpuUsage = trim(shell_exec("awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else print ($2+$4-u1) * 100 / (t-t1) \"%\"; }' <(grep 'cpu ' /proc/stat) <(sleep 0.5;grep 'cpu ' /proc/stat)"));
         return rtrim($cpuUsage, "%");
     }
 
@@ -138,7 +138,7 @@ class SystemResourceService
         }
 
         // No GPS fix available as yet, we'll return early (so "Loading" appears) this will update as soon as the GPS device has a satellite fix.
-        if(!isset($gpsDataArray['SKY'])){
+        if (!isset($gpsDataArray['SKY'])) {
             return $gps;
         }
 
