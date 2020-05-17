@@ -87,10 +87,11 @@ class SystemResourceService
         $data = shell_exec('df -m /');
         $line = explode(PHP_EOL, $data);
         preg_match('/(.*)\b(.*)\b(.*)\b(.*)\b(.*)\b(.*)/', $line[1], $columnArray);
-        $this->diskUsed = $columnArray[3];
-        $this->diskAvailable = $columnArray[4];
-        $this->diskTotal = $this->diskUsed + $this->diskAvailable;
-        return $this->diskUsed;
+        //$this->diskUsed = $columnArray[3];
+        //$this->diskAvailable = $columnArray[4];
+        //$this->diskTotal = $this->diskUsed + $this->diskAvailable;
+        return 0;
+        //return $this->diskUsed;
     }
 
     public function getUptime(): string
@@ -126,7 +127,7 @@ class SystemResourceService
         // Loop over each line from the feed, JSON decode each line and associate in an array.
         foreach (explode(PHP_EOL, $gpsData) as $line) {
             $dataClass = json_decode(trim($line), true);
-            $gpsDataArray[$dataClass->class] = $line;
+            $gpsDataArray[$dataClass->class] = $dataClass;
         }
 
         // Get satellite PRN's reporting the positional data..
