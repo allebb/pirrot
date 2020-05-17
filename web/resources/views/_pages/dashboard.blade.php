@@ -125,9 +125,10 @@
                             </th>
                             <td id="s_fix"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
-                        <tr>
+                        <tr id="map_view_link" hidden="hidden">
                             <th>Map View</th>
-                            <td><a id="s_mapview">Open position in OpenStreetMap</a> (requires internet connection)</td>
+                            <td><a id="s_mapview" target="_blank">Show in OpenStreetMap</a><span class="has-text-grey-light is-small">* requires an internet connection</span>
+                            </td>
                         </tr>
                     </table>
                 @endif
@@ -156,6 +157,12 @@
             $("#s_spd").text(result.gps_spd_mph + 'mph / ' + result.gps_spd_kph + 'kph');
             $("#s_fix").text(result.gps_fixes);
 
+            // Hide/show map link only if a fix has been established.
+            if (result.gps_time) {
+                $("#map_view_link").prop('hidden', false);
+            } else {
+                $("#map_view_link").prop('hidden', 'hidden');
+            }
             $("#s_mapview").attr('href', 'http://www.openstreetmap.org/?mlat=' + result.gps_lat + '&mlon=' + result.gps_lng + '&zoom=12');
         }
 
