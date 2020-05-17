@@ -95,6 +95,18 @@
                     </div>
                     <table class="table is-fullwidth has-background-light">
                         <tr>
+                            <th>Device</th>
+                            <td id="s_gdev"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th>Time</th>
+                            <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td id="s_lat"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
                             <th>Latitude</th>
                             <td id="s_lat"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
@@ -109,6 +121,10 @@
                         <tr>
                             <th>Speed</th>
                             <td id="s_spd"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th>Fixes</th>
+                            <td id="s_fix"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                     </table>
                 @endif
@@ -129,10 +145,13 @@
             $("#s_ram").text(result.ram_percent + '%');
             $("#s_disk").text('TBC');
             $("#s_temp").text(result.temp_c + '°C / ' + result.temp_f + '°F');
-            $("#s_lat").text('TBC');
-            $("#s_lng").text('TBC');
-            $("#s_alt").text('TBC');
-            $("#s_spd").text('TBC');
+            $("#s_gdev").text(result.gps_device);
+            $("#s_gtime").text(result.gps_time);
+            $("#s_lat").text(result.gps_lat);
+            $("#s_lng").text(result.gps_lng);
+            $("#s_alt").text(result.gps_alt);
+            $("#s_spd").text(result.gps_spd);
+            $("#s_fix").text(result.gps_fixes);
         }
 
         window.setInterval(function () {

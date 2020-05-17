@@ -53,10 +53,13 @@ class SystemResourceService
             'temp_f' => $tempDegreesF,
 
             // GPS Data
+            'gps_device' => $gpsData->device,
+            'gps_time' => $gpsData->time,
             'gps_lat' => $gpsData->latitude,
             'gps_lng' => $gpsData->longitude,
             'gps_alt' => $gpsData->altitude,
             'gps_spd' => $gpsData->speed,
+            'gps_fixes' => count($gpsData->satellites),
         ];
     }
 
@@ -139,7 +142,7 @@ class SystemResourceService
         }
 
         // Any satellite fix data available as yet?
-        if(!isset($gpsDataArray['TPV'])){
+        if (!isset($gpsDataArray['TPV'])) {
             return $gps;
         }
         $gps->device = $gpsDataArray['TPV']['device'];
