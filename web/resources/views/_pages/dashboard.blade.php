@@ -115,12 +115,19 @@
                             <td id="s_spd"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th><abbr title="The (highly accurate, atomic clock) satellite reported timestamp.">GPS Time</abbr></th>
+                            <th><abbr title="The (highly accurate, atomic clock) satellite reported timestamp.">GPS
+                                    Time</abbr></th>
                             <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th><abbr title="The number of satellites that provided the position data.">Satellites</abbr></th>
+                            <th><abbr
+                                    title="The number of satellites that provided the position data.">Satellites</abbr>
+                            </th>
                             <td id="s_fix"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th>Map View</th>
+                            <td><a id="s_mapview">Open position in OpenStreetMap</a> (requires internet connection)</td>
                         </tr>
                     </table>
                 @endif
@@ -145,9 +152,11 @@
             $("#s_gtime").text(result.gps_time);
             $("#s_lat").text(result.gps_lat);
             $("#s_lng").text(result.gps_lng);
-            $("#s_alt").text(result.gps_alt);
-            $("#s_spd").text(result.gps_spd);
+            $("#s_alt").text(result.gps_alt_msl + 'm / ' + result.gps_alt_fsl + 'ft');
+            $("#s_spd").text(result.gps_spd_mph + 'mph / ' + result.gps_spd_kph + 'kph');
             $("#s_fix").text(result.gps_fixes);
+
+            $("#s_mapview").attr('href', 'http://www.openstreetmap.org/?mlat=' + result.gps_lat + '&mlon=' + result.gps_lng + '&zoom=12');
         }
 
         window.setInterval(function () {

@@ -55,10 +55,13 @@ class SystemResourceService
             // GPS Data
             'gps_device' => $gpsData->device,
             'gps_time' => $gpsData->time,
-            'gps_lat' => $gpsData->latitude,
-            'gps_lng' => $gpsData->longitude,
-            'gps_alt' => $gpsData->altitude,
-            'gps_spd' => $gpsData->speed,
+            'gps_lat' => number_format($gpsData->latitude, 7),
+            'gps_lng' => number_format($gpsData->longitude, 7),
+            'gps_alt_msl' => round($gpsData->altitude, 1),
+            'gps_alt_fsl' => round($gpsData->altitude * 3.28084, 1),
+            'gps_spd_mps' => round($gpsData->speed, 1),
+            'gps_spd_mph' => round($gpsData->speed * 2.23694, 1),
+            'gps_spd_kph' => round($gpsData->speed * 3.6, 1),
             'gps_fixes' => count($gpsData->satellites),
         ];
     }
