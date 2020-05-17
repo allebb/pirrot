@@ -137,6 +137,11 @@ class SystemResourceService
             $gpsDataArray[$dataClass['class']] = $dataClass;
         }
 
+        // No GPS fix available as yet, we'll return early (so "Loading" appears) this will update as soon as the GPS device has a satellite fix.
+        if(!isset($gpsDataArray['SKY'])){
+            return $gps;
+        }
+
         // Get satellite PRN's reporting the positional data..
         foreach ($gpsDataArray['SKY']['satellites'] as $satellite) {
             if ($satellite['used']) {
