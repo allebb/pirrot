@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Services\DTO\Gps;
+
 class SystemResourceService
 {
 
@@ -27,6 +29,7 @@ class SystemResourceService
         $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
         $ramUsage = $this->getRamUsage();
         $diskUsage = $this->getDiskUsage();
+        $gpsData = $this->getGpsData();
 
         return [
 
@@ -49,10 +52,10 @@ class SystemResourceService
             'temp_f' => $tempDegreesF,
 
             // GPS Data
-            'gps_lat' => '0.0',
-            'gps_lng' => '0.0.',
-            'gps_alt' => '0',
-            'gps_spd' => '0',
+            'gps_lat' => $gpsData->latitude,
+            'gps_lng' => $gpsData->longitude,
+            'gps_alt' => $gpsData->altitude,
+            'gps_spd' => $gpsData->speed,
         ];
     }
 
@@ -108,6 +111,16 @@ class SystemResourceService
     {
         $data = shell_exec('uptime -s');
         return \DateTime::createFromFormat('Y-m-d H:i:s', trim($data))->format(self::DATE_OUTPUT_FORMAT);
+    }
+
+    public function getGpsData(): Gps
+    {
+        if (!file_exists('/etc/default/gpsd')) {
+            return;
+        }
+        $gpsData = trim(shell_exec("gpspipe -w -n 10"));
+
+        dd($gpsData);
     }
 
     private function removeKbSuffix(string $string)
