@@ -101,8 +101,9 @@
                     </div>
                     <table class="table is-fullwidth has-background-light">
                         <tr>
-                            <th>Receiver</th>
-                            <td id="s_gdev"><span class="has-text-grey-light">Loading</span></td>
+                            <th><abbr title="The (highly accurate, atomic clock) satellite reported timestamp.">GPS
+                                    Time</abbr></th>
+                            <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
                             <th>Latitude</th>
@@ -113,7 +114,7 @@
                             <td id="s_lng"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th>Altitude</th>
+                            <th><abbr title="Above Sea Level">Altitude</abbr></th>
                             <td id="s_alt"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
@@ -121,15 +122,14 @@
                             <td id="s_spd"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th><abbr title="The (highly accurate, atomic clock) satellite reported timestamp.">GPS
-                                    Time</abbr></th>
-                            <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
-                        </tr>
-                        <tr>
                             <th><abbr
                                     title="The number of satellites that provided the position data.">Satellites</abbr>
                             </th>
                             <td id="s_fix"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th>Receiver</th>
+                            <td id="s_gdev"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr id="map_view_link" hidden="hidden">
                             <th>Map View</th>

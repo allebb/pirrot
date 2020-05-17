@@ -51,12 +51,12 @@ class SystemResourceService
         $this->diskUsed = trim($parts[2]);
         $this->diskTotal = trim($parts[1]);
         $this->diskAvailable = $this->diskTotal - $this->diskUsed;
-        return rtim(trim($parts[4]), "%");
+        return rtrim(trim($parts[4]), "%");
     }
 
     public function getUptime(): string
     {
-        if (file_exists('/proc/uptime')) {
+        if (!file_exists('/proc/uptime')) {
             return '**not detected**';
         }
         $data = file_get_contents('/proc/uptime');
