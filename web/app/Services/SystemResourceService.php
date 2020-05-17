@@ -21,51 +21,6 @@ class SystemResourceService
 
     private $diskAvailable = 0;
 
-
-    public function toArray()
-    {
-
-        $tempDegreesC = $this->getTemperature();
-        $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
-        $ramUsage = $this->getRamUsage();
-        $diskUsage = $this->getDiskUsage();
-        $gpsData = $this->getGpsData();
-
-        return [
-
-            // Times
-            'booted' => $this->getBootTime(),
-            'uptime_time' => $this->getUptime(),
-            'system_time' => date(self::DATE_OUTPUT_FORMAT),
-
-            // Usage Percentages
-            'cpu_percent' => round($this->getCpuUsage(),1),
-            'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
-            'ram_usage' => $ramUsage,
-            'ram_total' => $this->ramTotal,
-            //'disk_percent' => ceil(($diskUsage / $this->diskTotal) * 100),
-            'disk_percent' => 0,
-            'disk' => $this->diskUsed,
-            'disk_total' => $this->diskTotal,
-
-            // Temperature
-            'temp_c' => $tempDegreesC,
-            'temp_f' => $tempDegreesF,
-
-            // GPS Data
-            'gps_device' => $gpsData->device,
-            'gps_time' => $gpsData->time,
-            'gps_lat' => number_format($gpsData->latitude, 7),
-            'gps_lng' => number_format($gpsData->longitude, 7),
-            'gps_alt_msl' => round($gpsData->altitude, 1),
-            'gps_alt_fsl' => round($gpsData->altitude * 3.28084, 1),
-            'gps_spd_mps' => round($gpsData->speed, 1),
-            'gps_spd_mph' => round($gpsData->speed * 2.23694, 1),
-            'gps_spd_kph' => round($gpsData->speed * 3.6, 1),
-            'gps_fixes' => count($gpsData->satellites),
-        ];
-    }
-
     public function getTemperature(): string
     {
         $data = shell_exec('vcgencmd measure_temp | cut -d \'=\' -f2');
@@ -91,20 +46,21 @@ class SystemResourceService
 
     public function getDiskUsage(): int
     {
-        $data = shell_exec('df -m /');
-        $line = explode(PHP_EOL, $data);
-        preg_match('/(.*)\b(.*)\b(.*)\b(.*)\b(.*)\b(.*)/', $line[1], $columnArray);
-        //$this->diskUsed = $columnArray[3];
-        //$this->diskAvailable = $columnArray[4];
-        //$this->diskTotal = $this->diskUsed + $this->diskAvailable;
-        return 0;
-        //return $this->diskUsed;
+        $data = shell_exec("df -l | grep '/dev/root' | awk '{print $1,$2,$3,$4,$5}'");
+        $parts = explode(' ', $data);
+        $this->diskUsed = $parts[2];
+        $this->diskTotal = $parts[1];
+        $this->diskAvailable = $parts[1] - $parts[2];
+        return rtrim($parts[4], '%');
     }
 
     public function getUptime(): string
     {
-        $str = @file_get_contents('/proc/uptime');
-        $num = floatval($str);
+        if (file_exists('/proc/uptime')) {
+            return '**not detected**';
+        }
+        $data = file_get_contents('/proc/uptime');
+        $num = floatval($data);
         $num = intdiv($num, 60);
         $mins = $num % 60;
         $num = intdiv($num, 60);
@@ -126,13 +82,13 @@ class SystemResourceService
         if (!file_exists('/etc/default/gpsd')) {
             return $gps;
         }
-        $gpsData = trim(shell_exec("gpspipe -w -n 10"));
+        $data = trim(shell_exec("gpspipe -w -n 10"));
 
         // Data format buffer...
         $gpsDataArray = [];
 
         // Loop over each line from the feed, JSON decode each line and associate in an array.
-        foreach (explode(PHP_EOL, $gpsData) as $line) {
+        foreach (explode(PHP_EOL, $data) as $line) {
             $dataClass = json_decode(trim($line), true);
             $gpsDataArray[$dataClass['class']] = $dataClass;
         }
@@ -168,5 +124,50 @@ class SystemResourceService
         return str_replace(' kB', '', trim($string));
     }
 
+    public function toArray()
+    {
+
+        $tempDegreesC = $this->getTemperature();
+        $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
+        $tempDegreesC = round($tempDegreesC, 1);
+
+        $cpuUsage = $this->getCpuUsage();
+        $ramUsage = $this->getRamUsage();
+        $diskUsage = $this->getDiskUsage();
+        $gpsData = $this->getGpsData();
+
+        return [
+
+            // Times
+            'booted' => $this->getBootTime(),
+            'uptime_time' => $this->getUptime(),
+            'system_time' => date(self::DATE_OUTPUT_FORMAT),
+
+            // Usage Percentages
+            'cpu_percent' => round($cpuUsage, 1),
+            'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
+            'ram_usage' => $ramUsage,
+            'ram_total' => $this->ramTotal,
+            'disk_percent' => $diskUsage,
+            'disk' => $this->diskUsed / 1048576,
+            'disk_total' => $this->diskTotal / 1048576,
+
+            // Temperature
+            'temp_c' => $tempDegreesC,
+            'temp_f' => $tempDegreesF,
+
+            // GPS Data
+            'gps_device' => $gpsData->device,
+            'gps_time' => $gpsData->time,
+            'gps_lat' => number_format($gpsData->latitude, 7),
+            'gps_lng' => number_format($gpsData->longitude, 7),
+            'gps_alt_msl' => round($gpsData->altitude, 1),
+            'gps_alt_fsl' => round($gpsData->altitude * 3.28084, 1),
+            'gps_spd_mps' => round($gpsData->speed, 1),
+            'gps_spd_mph' => round($gpsData->speed * 2.23694, 1),
+            'gps_spd_kph' => round($gpsData->speed * 3.6, 1),
+            'gps_fixes' => count($gpsData->satellites),
+        ];
+    }
 
 }
