@@ -86,12 +86,11 @@ class SystemResourceService
     {
         $data = shell_exec('df -m /');
         $line = explode(PHP_EOL, $data);
-        preg_match('/(.*) (.*) (.*) (.*) (.*) (.*)/', $line[1], $columnArray);
+        preg_match('/(.*)\b(.*)\b(.*)\b(.*)\b(.*)\b(.*)/', $line[1], $columnArray);
         $this->diskUsed = $columnArray[3];
         $this->diskAvailable = $columnArray[4];
         $this->diskTotal = $this->diskUsed + $this->diskAvailable;
         return $this->diskUsed;
-
     }
 
     public function getUptime(): string
@@ -115,12 +114,40 @@ class SystemResourceService
 
     public function getGpsData(): Gps
     {
+        $gps = new Gps();
         if (!file_exists('/etc/default/gpsd')) {
-            return;
+            return $gps;
         }
         $gpsData = trim(shell_exec("gpspipe -w -n 10"));
 
-        dd($gpsData);
+        // Data format buffer...
+        $gpsDataArray = [];
+
+        // Loop over each line from the feed, JSON decode each line and associate in an array.
+        foreach (explode(PHP_EOL, $gpsData) as $line) {
+            $dataClass = json_decode(trim($line), true);
+            $gpsDataArray[$dataClass->class] = $line;
+        }
+
+        // Get satellite PRN's reporting the positional data..
+        foreach ($gpsDataArray['SKY']['satellites'] as $satellite) {
+            if ($satellite['used']) {
+                $gps->satellites[][$satellite['PRN']];
+            }
+        }
+
+        // Any satellite fix data available as yet?
+        if(isset($gpsDataArray['TPV'])){
+            return $gps;
+        }
+        $gps->device = $gpsDataArray['TPV']['device'];
+        $gps->time = $gpsDataArray['TPV']['time'];
+        $gps->latitude = $gpsDataArray['TPV']['lat'];
+        $gps->longitude = $gpsDataArray['TPV']['lon'];
+        $gps->altitude = $gpsDataArray['TPV']['alt'];
+        $gps->speed = $gpsDataArray['TVP']['speed'];
+
+        return $gps;
     }
 
     private function removeKbSuffix(string $string)
