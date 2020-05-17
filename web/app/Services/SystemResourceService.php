@@ -43,7 +43,8 @@ class SystemResourceService
             'ram_percent' => ceil(($ramUsage / $this->ramTotal) * 100),
             'ram_usage' => $ramUsage,
             'ram_total' => $this->ramTotal,
-            'disk_percent' => ceil(($diskUsage / $this->diskTotal) * 100),
+            //'disk_percent' => ceil(($diskUsage / $this->diskTotal) * 100),
+            'disk_percent' => 0,
             'disk' => $this->diskUsed,
             'disk_total' => $this->diskTotal,
 
@@ -133,12 +134,12 @@ class SystemResourceService
         // Get satellite PRN's reporting the positional data..
         foreach ($gpsDataArray['SKY']['satellites'] as $satellite) {
             if ($satellite['used']) {
-                $gps->satellites[][$satellite['PRN']];
+                $gps->satellites[] = $satellite['PRN'];
             }
         }
 
         // Any satellite fix data available as yet?
-        if(isset($gpsDataArray['TPV'])){
+        if(!isset($gpsDataArray['TPV'])){
             return $gps;
         }
         $gps->device = $gpsDataArray['TPV']['device'];
