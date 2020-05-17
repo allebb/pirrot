@@ -127,7 +127,7 @@
                         </tr>
                         <tr id="map_view_link" hidden="hidden">
                             <th>Map View</th>
-                            <td><a id="s_mapview" target="_blank">Show in OpenStreetMap</a><span class="has-text-grey-light is-small">* requires an internet connection</span>
+                            <td><a id="s_mapview" target="_blank">Show in OpenStreetMap</a><br><span class="has-text-grey-light is-small">* requires an internet connection</span>
                             </td>
                         </tr>
                     </table>
