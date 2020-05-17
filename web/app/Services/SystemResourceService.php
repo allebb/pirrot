@@ -150,7 +150,7 @@ class SystemResourceService
         $gps->latitude = $gpsDataArray['TPV']['lat'];
         $gps->longitude = $gpsDataArray['TPV']['lon'];
         $gps->altitude = $gpsDataArray['TPV']['alt'];
-        $gps->speed = $gpsDataArray['TVP']['speed'];
+        $gps->speed = $gpsDataArray['TPV']['speed'];
 
         return $gps;
     }
