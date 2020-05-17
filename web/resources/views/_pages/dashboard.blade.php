@@ -95,16 +95,8 @@
                     </div>
                     <table class="table is-fullwidth has-background-light">
                         <tr>
-                            <th>Device</th>
+                            <th>Receiver</th>
                             <td id="s_gdev"><span class="has-text-grey-light">Loading</span></td>
-                        </tr>
-                        <tr>
-                            <th>Time</th>
-                            <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td id="s_lat"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
                             <th>Latitude</th>
@@ -123,7 +115,11 @@
                             <td id="s_spd"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                         <tr>
-                            <th>Fixes</th>
+                            <th><abbr title="The (highly accurate, atomic clock) satellite reported timestamp.">GPS Time</abbr></th>
+                            <td id="s_gtime"><span class="has-text-grey-light">Loading</span></td>
+                        </tr>
+                        <tr>
+                            <th><abbr title="The number of satellites that provided the position data.">Satellites</abbr></th>
                             <td id="s_fix"><span class="has-text-grey-light">Loading</span></td>
                         </tr>
                     </table>
@@ -143,7 +139,7 @@
             $("#s_systime").text(result.system_time);
             $("#s_cpu").text(result.cpu_percent + '%');
             $("#s_ram").text(result.ram_percent + '%');
-            $("#s_disk").text('TBC');
+            $("#s_disk").text(result.disk_percent + '%');
             $("#s_temp").text(result.temp_c + '°C / ' + result.temp_f + '°F');
             $("#s_gdev").text(result.gps_device);
             $("#s_gtime").text(result.gps_time);
