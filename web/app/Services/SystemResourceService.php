@@ -128,7 +128,7 @@ class SystemResourceService
         // Loop over each line from the feed, JSON decode each line and associate in an array.
         foreach (explode(PHP_EOL, $gpsData) as $line) {
             $dataClass = json_decode(trim($line), true);
-            $gpsDataArray[$dataClass->class] = $dataClass;
+            $gpsDataArray[$dataClass['class']] = $dataClass;
         }
 
         // Get satellite PRN's reporting the positional data..
