@@ -106,6 +106,7 @@ class SystemInfoService
         $this->detectGpsHardware();
         $this->detectRaspbianVersion();
         $this->detectPirrotVersion();
+        $this->detectGpsHardware();
     }
 
 
