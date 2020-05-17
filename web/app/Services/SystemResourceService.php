@@ -32,8 +32,8 @@ class SystemResourceService
 
     public function getCpuUsage(): int
     {
-        $cpuUsage = shell_exec("echo \$(vmstat 1 2 | tail -1 | awk '{print $15}')");
-        return 100 - trim($cpuUsage);
+        $data = shell_exec("echo \$(vmstat 1 2 | tail -1 | awk '{print $15}')");
+        return 100 - trim($data);
     }
 
     function getRamUsage(): int
@@ -48,10 +48,10 @@ class SystemResourceService
     {
         $data = shell_exec("df -l | grep '/dev/root' | awk '{print $1,$2,$3,$4,$5}'");
         $parts = explode(' ', $data);
-        $this->diskUsed = $parts[2];
-        $this->diskTotal = $parts[1];
-        $this->diskAvailable = $parts[1] - $parts[2];
-        return rtrim($parts[4], '%');
+        $this->diskUsed = trim($parts[2]);
+        $this->diskTotal = trim($parts[1]);
+        $this->diskAvailable = $this->diskTotal - $this->diskUsed;
+        return rtim(trim($parts[4]), "%");
     }
 
     public function getUptime(): string
