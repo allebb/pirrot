@@ -62,17 +62,17 @@
                     <p>Settings</p>
                 </div>
                 <div class="message-body">
-                    <p class="is-size-5 pb-3 is-center">
-                    <div class="sk-chase">
-                        <div class="sk-chase-dot"></div>
-                        <div class="sk-chase-dot"></div>
-                        <div class="sk-chase-dot"></div>
-                        <div class="sk-chase-dot"></div>
-                        <div class="sk-chase-dot"></div>
-                        <div class="sk-chase-dot"></div>
+                    <div class="pb-5">
+                        <div class="sk-chase pt-3">
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                            <div class="sk-chase-dot"></div>
+                        </div>
                     </div>
-                    </p>
-                    <p class="pb-3 is-center">Please wait whilst your changes are being applied...</p>
+                    <p class="pb-3 has-text-centered">Please wait whilst your changes are being applied...</p>
 
                     <p class="is-size-7" style="padding-top: 2rem;">If something went wrong with your new settings, a
                         copy of your old <code>pirrot.conf</code>
