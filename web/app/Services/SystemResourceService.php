@@ -127,6 +127,11 @@ class SystemResourceService
     public function toArray()
     {
 
+        // If this is running in a "dev" environment, we'll return randomised data instead!
+        if (env('APP_ENV') != 'production') {
+            return $this->randomiseOutput();
+        }
+
         $tempDegreesC = $this->getTemperature();
         $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
         $tempDegreesC = round($tempDegreesC, 1);
@@ -167,6 +172,55 @@ class SystemResourceService
             'gps_spd_mph' => round($gpsData->speed * 2.23694, 1),
             'gps_spd_kph' => round($gpsData->speed * 3.6, 1),
             'gps_fixes' => count($gpsData->satellites),
+        ];
+    }
+
+    /**
+     * Provides randomised dummy data for when using a non-Raspberry Pi development machine but need dashboard and
+     * AJAX output to simulate a working Raspberry Pi device..
+     * @return array
+     */
+    private function randomiseOutput()
+    {
+
+        $tempDegreesC = rand(32,43);
+        $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
+        $tempDegreesC = round($tempDegreesC, 1);
+        $alt = 49.0728; // feet asl
+        $spd = rand(0, 2) / 10; // Randomise a static location by account for GPS "noise".
+        $randomBootTime = time() - 224; // 2hr 30m and 14s go...
+
+        return [
+
+            // Times
+            'booted' => date(self::DATE_OUTPUT_FORMAT, $randomBootTime),
+            'uptime_time' => '0d 2h 30m',
+            'system_time' => date(self::DATE_OUTPUT_FORMAT),
+
+            // Usage Percentages
+            'cpu_percent' => rand(1, 87),
+            'ram_percent' => rand(1, 80),
+            'ram_usage' => rand(25, 39),
+            'ram_total' => 1024,
+            'disk_percent' => 25,
+            'disk' => $this->diskUsed / 1048576,
+            'disk_total' => $this->diskTotal / 1048576,
+
+            // Temperature
+            'temp_c' => $tempDegreesC,
+            'temp_f' => $tempDegreesF,
+
+            // GPS Data
+            'gps_device' => '/dev/ttyACM0',
+            'gps_time' => date('c'),
+            'gps_lat' => number_format(52.008882, 7),
+            'gps_lng' => number_format(1.048687, 7),
+            'gps_alt_msl' => round(49.0728, 1),
+            'gps_alt_fsl' => round($alt * 3.28084, 1),
+            'gps_spd_mps' => round($spd, 1),
+            'gps_spd_mph' => round($spd * 2.23694, 1),
+            'gps_spd_kph' => round($spd * 3.6, 1),
+            'gps_fixes' => rand(5, 9),
         ];
     }
 

@@ -1,0 +1,1 @@
+{"hostname":"pirrotdev.local","hardware_model":"Raspberry Pi X Model B Rev X.X","hardware_serial":"00000000abcdefgh","hardware_cpu_arch":"armv7l","hardware_cpu_count":4,"hardware_cpu_freq":1200,"version_kernel":"4.19.97-v7+","version_raspbian":"Raspbian 10 (buster)","version_php":"7.3.14-1~deb10u1","version_pirrot":"2.0.0","gps_configured":true}
