@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ConfManagerService;
-use App\Services\SettingEntity;
+use App\Services\Setting;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -15,47 +15,48 @@ class SettingsController extends Controller
      */
     private $fieldGroups = [
 
-        'timezone' => SettingEntity::GROUP_GENERAL,
-        'callsign' => SettingEntity::GROUP_GENERAL,
-        'enabled' => SettingEntity::GROUP_GENERAL,
-        'courtesy_tone' => SettingEntity::GROUP_GENERAL,
-        'auto_ident' => SettingEntity::GROUP_GENERAL,
-        'ident_interval' => SettingEntity::GROUP_GENERAL,
-        'delayed_playback_interval' => SettingEntity::GROUP_GENERAL,
-        'pl_tone' => SettingEntity::GROUP_GENERAL,
-        'transmit_mode' => SettingEntity::GROUP_GENERAL,
-        'ident_time' => SettingEntity::GROUP_GENERAL,
-        'ident_morse' => SettingEntity::GROUP_GENERAL,
+        'timezone' => Setting::GROUP_GENERAL,
+        'callsign' => Setting::GROUP_GENERAL,
+        'enabled' => Setting::GROUP_GENERAL,
+        'courtesy_tone' => Setting::GROUP_GENERAL,
+        'auto_ident' => Setting::GROUP_GENERAL,
+        'ident_interval' => Setting::GROUP_GENERAL,
+        'delayed_playback_interval' => Setting::GROUP_GENERAL,
+        'pl_tone' => Setting::GROUP_GENERAL,
+        'transmit_mode' => Setting::GROUP_GENERAL,
+        'ident_time' => Setting::GROUP_GENERAL,
+        'ident_morse' => Setting::GROUP_GENERAL,
 
         //'record_device' => SettingEntity::GROUP_AUDIO,
 
-        'morse_wpm' => SettingEntity::GROUP_MORSE,
-        'morse_frequency' => SettingEntity::GROUP_MORSE,
-        'morse_output_volume' => SettingEntity::GROUP_MORSE,
+        'morse_wpm' => Setting::GROUP_MORSE,
+        'morse_frequency' => Setting::GROUP_MORSE,
+        'morse_output_volume' => Setting::GROUP_MORSE,
 
-        'store_recordings' => SettingEntity::GROUP_STORAGE,
-        'purge_recording_after' => SettingEntity::GROUP_STORAGE,
+        'store_recordings' => Setting::GROUP_STORAGE,
+        'purge_recording_after' => Setting::GROUP_STORAGE,
 
-        'web_interface_enabled' => SettingEntity::GROUP_WEBINTERFACE,
-        'web_interface_port' => SettingEntity::GROUP_WEBINTERFACE,
-        'web_interface_bind_ip' => SettingEntity::GROUP_WEBINTERFACE,
-        'web_interface_logging' => SettingEntity::GROUP_WEBINTERFACE,
+        'web_interface_enabled' => Setting::GROUP_WEBINTERFACE,
+        'web_interface_port' => Setting::GROUP_WEBINTERFACE,
+        'web_interface_bind_ip' => Setting::GROUP_WEBINTERFACE,
+        'web_interface_logging' => Setting::GROUP_WEBINTERFACE,
+        'web_gps_enabled' => Setting::GROUP_WEBINTERFACE,
 
-        'tripwire_enabled' => SettingEntity::GROUP_TRIPWIRE,
-        'tripwire_url' => SettingEntity::GROUP_TRIPWIRE,
-        'tripwire_ignore_interval' => SettingEntity::GROUP_TRIPWIRE,
-        'tripwire_request_timeout' => SettingEntity::GROUP_TRIPWIRE,
+        'tripwire_enabled' => Setting::GROUP_TRIPWIRE,
+        'tripwire_url' => Setting::GROUP_TRIPWIRE,
+        'tripwire_ignore_interval' => Setting::GROUP_TRIPWIRE,
+        'tripwire_request_timeout' => Setting::GROUP_TRIPWIRE,
 
-        'in_cor_pin' => SettingEntity::GROUP_GPIO,
-        'out_ptt_pin' => SettingEntity::GROUP_GPIO,
-        'out_ready_led_pin' => SettingEntity::GROUP_GPIO,
-        'out_rx_led_pin' => SettingEntity::GROUP_GPIO,
-        'out_tx_led_pin' => SettingEntity::GROUP_GPIO,
-        'cos_pin_invert' => SettingEntity::GROUP_GPIO,
-        'ptt_pin_invert' => SettingEntity::GROUP_GPIO,
-        'ready_pin_invert' => SettingEntity::GROUP_GPIO,
-        'rx_pin_invert' => SettingEntity::GROUP_GPIO,
-        'tx_pin_invert' => SettingEntity::GROUP_GPIO,
+        'in_cor_pin' => Setting::GROUP_GPIO,
+        'out_ptt_pin' => Setting::GROUP_GPIO,
+        'out_ready_led_pin' => Setting::GROUP_GPIO,
+        'out_rx_led_pin' => Setting::GROUP_GPIO,
+        'out_tx_led_pin' => Setting::GROUP_GPIO,
+        'cos_pin_invert' => Setting::GROUP_GPIO,
+        'ptt_pin_invert' => Setting::GROUP_GPIO,
+        'ready_pin_invert' => Setting::GROUP_GPIO,
+        'rx_pin_invert' => Setting::GROUP_GPIO,
+        'tx_pin_invert' => Setting::GROUP_GPIO,
 
     ];
 
@@ -71,6 +72,7 @@ class SettingsController extends Controller
         'store_recordings',
         'web_interface_enabled',
         'web_interface_logging',
+        'web_gps_enabled',
         'tripwire_enabled',
         'rx_pin_invert',
         'tx_pin_invert',
@@ -85,7 +87,8 @@ class SettingsController extends Controller
      */
     private $labelOverrides = [
         'enabled' => 'Enable Repeater',
-        'tripwire_enabled' => 'Enable Tripwire'
+        'tripwire_enabled' => 'Enable Tripwire',
+        'web_gps_enabled' => 'Web GPS Data Enabled'
     ];
 
     private $fieldComments = [
@@ -97,6 +100,11 @@ class SettingsController extends Controller
         'courtesy_tone' => [
             'To disable courtesy tones set to: false',
             'Otherwise use the filename of the courtesy tone, eg. BeeBoo (without the .wav extension)'
+        ],
+        'web_gps_enabled' => [
+            'Enable GPS position and other data on the web dashboard view.',
+            '** You MUST setup and configure the device and ensure that the GPS receiver is connected to the RaspberryPi.',
+            '** Having this setting enabled but no device connected will cause the web interface to become unresponsive!'
         ],
     ];
 
@@ -128,9 +136,9 @@ class SettingsController extends Controller
             // Get the value from the settings file...
             $value = $configValues[$field];
 
-            $inputType = SettingEntity::TYPE_TEXT;
+            $inputType = Setting::TYPE_TEXT;
             if (in_array($field, $this->booleanFields)) {
-                $inputType = SettingEntity::TYPE_BOOL;
+                $inputType = Setting::TYPE_BOOL;
             }
 
             $inputComments = null;
@@ -138,7 +146,7 @@ class SettingsController extends Controller
                 $inputComments = $this->fieldComments[$field];
             }
 
-            $panelInputs[$group][] = new SettingEntity($field, $label, $group, $value, $inputType, $inputComments);
+            $panelInputs[$group][] = new Setting($field, $label, $group, $value, $inputType, $inputComments);
         }
 
 

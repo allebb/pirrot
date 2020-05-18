@@ -78,7 +78,13 @@ class SystemResourceService
 
     public function getGpsData(): Gps
     {
+
         $gps = new Gps();
+
+        if (!app('pirrot-config')->web_gps_enabled) {
+            return $gps;
+        }
+
         if (!file_exists('/etc/default/gpsd')) {
             return $gps;
         }
@@ -183,7 +189,7 @@ class SystemResourceService
     private function randomiseOutput()
     {
 
-        $tempDegreesC = rand(32,43);
+        $tempDegreesC = rand(32, 43);
         $tempDegreesF = round((($tempDegreesC / 5) * 9) + 32, 1);
         $tempDegreesC = round($tempDegreesC, 1);
         $alt = 49.0728; // feet asl

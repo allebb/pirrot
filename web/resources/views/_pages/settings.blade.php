@@ -27,7 +27,7 @@
                                 <div class="field">
 
                                     <p class="control">
-                                        @if($value->inputType === \App\Services\SettingEntity::TYPE_BOOL)
+                                        @if($value->inputType === \App\Services\Setting::TYPE_BOOL)
                                             <input type="checkbox" id="input_{{ $value->name }}"
                                                    name="{{ $value->name }}" value="true"
                                                    @if($value->value == 'true') checked @endif>

@@ -91,9 +91,10 @@ class SystemInfoService
 
     /**
      * Detect and cache all.
+     * @param $gpsEnabled
      * @return void
      */
-    public function detect()
+    public function detect($gpsEnabled)
     {
         $this->detectHostname();
         $this->detectPhpVersion();
@@ -106,7 +107,11 @@ class SystemInfoService
         $this->detectGpsHardware();
         $this->detectRaspbianVersion();
         $this->detectPirrotVersion();
-        $this->detectGpsHardware();
+
+        if ($gpsEnabled) {
+            $this->detectGpsHardware();
+        }
+
     }
 
 

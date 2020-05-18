@@ -24,11 +24,11 @@ class VersionCommand extends BaseCommand implements CommandInterface
 
         $systemInfo = new SystemInfoService();
 
-        $systemInfo->detect();
+        $systemInfo->detect($this->config->get('web_gps_enabled', false));
 
         if ($this->arguments()->isFlagSet('dump')) {
             $systemInfo = new SystemInfoService();
-            $systemInfo->detect();
+            $systemInfo->detect($this->config->get('web_gps_enabled', false));
             $this->write(json_encode([
                 'hostname' => $systemInfo->hostname,
                 'hardware_model' => $systemInfo->hardwareModel,

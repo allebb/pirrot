@@ -4,7 +4,7 @@
 namespace App\Services;
 
 
-class SettingEntity
+class Setting
 {
 
     const GROUP_GENERAL = 'General';
