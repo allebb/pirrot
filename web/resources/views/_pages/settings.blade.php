@@ -62,9 +62,20 @@
                     <p>Settings</p>
                 </div>
                 <div class="message-body">
-                    <p class="is-size-5 pb-3">Please wait whilst your changes are being applied...</p>
+                    <p class="is-size-5 pb-3 is-center">
+                    <div class="sk-chase">
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                        <div class="sk-chase-dot"></div>
+                    </div>
+                    </p>
+                    <p class="pb-3 is-center">Please wait whilst your changes are being applied...</p>
 
-                    <p class="is-size-7" style="padding-top: 2rem;">If something went wrong with your new settings, a copy of your old <code>pirrot.conf</code>
+                    <p class="is-size-7" style="padding-top: 2rem;">If something went wrong with your new settings, a
+                        copy of your old <code>pirrot.conf</code>
                         file
                         has been backed up under <code>/opt/pirrot/storage/backups</code> which you can revert back to
                         if
