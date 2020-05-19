@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ConfManagerService;
-use App\Services\Setting;
+use App\Services\DTO\Setting;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
