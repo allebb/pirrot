@@ -81,7 +81,7 @@ class SystemResourceService
 
         $gps = new Gps();
 
-        if (!app('pirrot-config')->web_gps_enabled) {
+        if (!app('pirrot.config')->web_gps_enabled) {
             return $gps;
         }
 
