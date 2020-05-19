@@ -66,8 +66,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         // Detect if the repeater is enabled/disabled...
         if (!$this->config->get('enabled', false)) {
-            $this->writeln('Repeater disabled in the configuration file!');
-            $this->exitWithSuccess();
+            $this->writeln('Repeater disabled in the configuration file, will run in "listen only" mode');
         }
 
         // Detect and handle the current RX/TX mode...
