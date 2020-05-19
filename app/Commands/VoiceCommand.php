@@ -90,6 +90,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
+
+            if(!$this->config->get('enabled', false)){
+                return; // If the repeater is not enabled, return early so we don't transmit...
+            }
+
             $this->outputLedTx->setValue(GPIO::HIGH);
             $this->processDelayTransmissionSettings();
             $this->outputPtt->setValue(GPIO::HIGH);
@@ -103,7 +108,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     /**
      * Main loop handler for COR transmission operations.
      *
-     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @throws GPIOException
      * @retun void
      */
     private function mainCor()
@@ -150,7 +155,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     /**
      * Handles the COR recording logic
      * @return void
-     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @throws GPIOException
      */
     private function processCorRecording()
     {
@@ -169,6 +174,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
                     $this->storeRecording();
+
+                    if(!$this->config->get('enabled', false)){
+                        $this->corRecording = false;
+                        break;  // If the repeater is not enabled, break out early so we don't transmit...
+                    }
+
                     $this->outputLedTx->setValue(GPIO::HIGH);
                     $this->processDelayTransmissionSettings();
                     $this->outputPtt->setValue(GPIO::HIGH);
