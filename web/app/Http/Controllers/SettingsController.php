@@ -25,13 +25,13 @@ class SettingsController extends Controller
         'pl_tone' => Setting::GROUP_GENERAL,
         'transmit_mode' => Setting::GROUP_GENERAL,
         'ident_time' => Setting::GROUP_GENERAL,
-        'ident_morse' => Setting::GROUP_GENERAL,
+        //'ident_morse' => Setting::GROUP_GENERAL,
 
         //'record_device' => SettingEntity::GROUP_AUDIO,
 
-        'morse_wpm' => Setting::GROUP_MORSE,
-        'morse_frequency' => Setting::GROUP_MORSE,
-        'morse_output_volume' => Setting::GROUP_MORSE,
+        //'morse_wpm' => Setting::GROUP_MORSE,
+        //'morse_frequency' => Setting::GROUP_MORSE,
+        //'morse_output_volume' => Setting::GROUP_MORSE,
 
         'store_recordings' => Setting::GROUP_STORAGE,
         'purge_recording_after' => Setting::GROUP_STORAGE,
@@ -88,24 +88,99 @@ class SettingsController extends Controller
     private $labelOverrides = [
         'enabled' => 'Enable Repeater',
         'tripwire_enabled' => 'Enable Tripwire',
-        'web_gps_enabled' => 'Web GPS Data Enabled'
+        'purge_recording_after' => 'Purge recordings after (days)',
+        'web_interface_bind_ip' => 'Web Interface Bind IP',
+        'web_gps_enabled' => 'Web GPS Data Enabled',
     ];
 
     private $fieldComments = [
+
+        // General
         'timezone' => ['The timezone you wish to use for logging, TTS services, and the web interface (if enabled)'],
+        'callsign' => [
+            'Simplex repeater (ident) code',
+            'This is phonetically transmitted if you enable the "Auto Ident" feature below.'
+        ],
         'enabled' => [
             'Enable the "repeat" functionality.',
-            'Optionally you can disable the repeater thus not "repeating" the communications received.'
+            'Optionally you can disable the repeater and therefore disabling transmission. This is',
+            'useful if you wanted to record received transmissions eg. running Pirrot in surveillance mode.'
+        ],
+        'auto_ident' => [
+            'Enable automatic identification?',
+        ],
+        'ident_interval' => [
+            'When automatic identification is enabled, Pirrot will transmit the repeater identification every X seconds.',
+            'The default value is "600" seconds (every 10 minutes).',
+        ],
+        'delayed_playback_interval' => [
+            'You can optionally add a delay (in seconds) between the received transmission being re-transmitted by Pirrot.',
+            'The default value is "0" (no delay, Pirrot will immediately repeat the transmission)',
         ],
         'courtesy_tone' => [
             'To disable courtesy tones set to: false',
             'Otherwise use the filename of the courtesy tone, eg. BeeBoo (without the .wav extension)'
         ],
+        'pl_tone' => [
+            'The PL/CTCSS to access the repeater',
+            'Set to "false" if you do not have a CTCSS/PL code to access the repeater, otherwise set',
+            'the CTCSS/PL tone here eg. "110.9" this will be "spoken" when the repeater transmits it\'s ident',
+        ],
+        'transmit_mode' => [
+            'The Pirrot "listen" and transmission operation mode',
+            '"vox" = Voice Operated (auto-record and then transmit when it "hears" mic input on the USB sound card.)',
+            '"cor" = Carrier Operated Relay/Switch (record and then transmit when the COR/COS GPIO pin is ON (aka. "high"))',
+        ],
+        'ident_time' => [
+            'Transmit the time with the ident message.',
+        ],
+        'ident_morse' => [
+            'Send morse code with the ident (coming in the future!)',
+        ],
+
+        // Storage
+        'store_recordings' => [
+            'Enable saving of recordings. These can then be played or downloaded from the "Audio Recordings" section ',
+            'of the Pirrot Web Interface.',
+        ],
+        'purge_recording_after' => [
+            'Purge recording after (X days), 0 to disable purging of recordings.',
+        ],
+
+        // Web Interface
+        'web_interface_enabled' => ['Enable the light-weight web interface'],
+        'web_interface_port' => ['The TCP port to listen on'],
+        'web_interface_bind_ip' => ['The IP address to bind to (default: 0.0.0.0)'],
+        'web_interface_logging' => ['Enable logging of web server access logs to /var/log/pirrot-web.log'],
         'web_gps_enabled' => [
             'Enable GPS position and other data on the web dashboard view.',
-            '** You MUST setup and configure the device and ensure that the GPS receiver is connected to the RaspberryPi.',
-            '** Having this setting enabled but no device connected will cause the web interface to become unresponsive!'
+            '* You MUST setup and configure the device and ensure that the GPS receiver is connected to the RaspberryPi.',
+            '* Having this setting enabled but no device connected will cause the web interface to become unresponsive!'
         ],
+
+        // Tripwire
+        'tripwire_enabled' => ['Enable the tripwire feature (sends a web hook when transmission is received)'],
+        'tripwire_url' => [
+            'The URL to send the HTTP request payload to when the "tripwire" is activated (a transmission is received)',
+            'eg. http://yourwebsite.com/my-tripwire-handler-endpoint'
+        ],
+        'tripwire_ignore_interval' => [
+            'This value will ensure that further transmissions within this time period (in seconds) do not trigger',
+            'additional HTTP web hook requests (default value is 300)'
+        ],
+        'tripwire_request_timeout' => ['HTTP request timeout (in seconds)'],
+
+        // GPIO
+        'in_cor_pin' => ['The GPIO input pin (BCM) number to use for the COS relay (required if running in COS mode).'],
+        'out_ptt_pin' => ['The GPIO output pin (BCM) number to use for the PTT relay.'],
+        'out_ready_led_pin' => ['The "Ready status" LED output pin (BCM) number'],
+        'out_rx_led_pin' => ['The "RX" LED output pin (BCM) number'],
+        'out_tx_led_pin' => ['The "TX" LED output pin (BCM) number'],
+        'cos_pin_invert' => ['COS Pin is inverted?'],
+        'ptt_pin_invert' => ['PTT Pin is inverted?'],
+        'ready_pin_invert' => ['Ready LED pin is inverted?'],
+        'rx_pin_invert' => ['RX (Recieve) LED pin is inverted?'],
+        'tx_pin_invert' => ['TX (Transmit) LED pin is inverted?'],
     ];
 
     /**
