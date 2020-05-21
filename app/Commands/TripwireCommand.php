@@ -47,7 +47,7 @@ class TripwireCommand extends BaseCommand implements CommandInterface
     private function checkIntervalHasPassed($ttl): bool
     {
         if (!file_exists($this->basePath . self::INTERVAL_CACHE_FILE)) {
-            return false;
+            return true;
         }
         if (filemtime($this->basePath . self::INTERVAL_CACHE_FILE) > (time() - $ttl)) {
             return false;

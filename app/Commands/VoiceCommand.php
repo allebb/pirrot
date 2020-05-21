@@ -209,7 +209,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function dispatchTripwire(): void
     {
         if ($this->config->get('tripwire_enabled', false)) {
-            system('/opt/pirrot/pirrot tripwire --url="' . $this->config->get('tripwire_url',
+            shell_exec('/opt/pirrot/pirrot tripwire --url="' . $this->config->get('tripwire_url',
                     null) . '" 2> /dev/null &');
         }
     }
