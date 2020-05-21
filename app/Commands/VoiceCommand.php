@@ -91,7 +91,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
 
-            if(!$this->config->get('enabled', false)){
+            if (!$this->config->get('enabled', false)) {
                 return; // If the repeater is not enabled, return early so we don't transmit...
             }
 
@@ -102,6 +102,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $this->sendCourtesyTone();
             $this->outputLedTx->setValue(GPIO::LOW);
             $this->outputPtt->setValue(GPIO::LOW);
+            $this->dispatchTripwire();
         }
     }
 
@@ -165,18 +166,22 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->corRecording = true;
             $timeout = microtime(true) + $this->debounceTime;
+
             while (true) {
+
                 if ($this->inputCos->getValue() == GPIO::HIGH) {
                     $timeout = microtime(true) + $this->debounceTime;
                 }
+
                 usleep(10000);
                 if ($timeout < microtime(true)) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
+                    $this->corRecording = false;
+
                     $this->storeRecording();
 
-                    if(!$this->config->get('enabled', false)){
-                        $this->corRecording = false;
+                    if (!$this->config->get('enabled', false)) {
                         break;  // If the repeater is not enabled, break out early so we don't transmit...
                     }
 
@@ -188,6 +193,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     $this->outputPtt->setValue(GPIO::LOW);
                     $this->outputLedTx->setValue(GPIO::LOW);
                     $this->corRecording = false;
+                    $this->dispatchTripwire();
                     break;
                 }
             }
@@ -195,4 +201,14 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         usleep(10000); // Sleep a tenth of a second...
     }
 
+    /**
+     * Dispatches a new "Tripwire" request (HTTP Webhook).
+     * @return void
+     */
+    private function dispatchTripwire(): void
+    {
+        if ($this->config->get('tripwire_enabled', false)) {
+            system('/opt/pirrot/pirrot tripwire --url="' . $this->config->get('tripwire_url', null) . '" 2> /dev/null &');
+        }
+    }
 }
