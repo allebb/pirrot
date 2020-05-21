@@ -17,19 +17,21 @@ To access and develop the web interface on a dedicated Development machine (that
 cd ~/path/to/where/you/store/your/code
 sudo git clone https://github.com/allebb/pirrot
 
+# Change into the main "web" root...
+cd web/
+
 # Copy over the "dev" specific environment settings
 # Important as this will override Raspbian specific OS paths etc.
 cp .env.dev .env
 
 # Install the composer dependencies for the web interface
-cd pirrot
 composer install
 
 # Create a sqlite databse
-touch database.sqlite
+touch database/database.sqlite
 
 # Run database migrations
-php artistan migrate
+php artisan migrate
 
 # Start the development web server by running
 php -S localhost:8000 -t public
