@@ -35,7 +35,8 @@
     "ballen/executioner": "^3.0",
     "ballen/gpio": "^1.0",
     "ext-pcntl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-curl": "*"
   },
   "autoload": {
     "psr-4": {
