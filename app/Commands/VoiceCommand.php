@@ -177,11 +177,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                 if ($timeout < microtime(true)) {
                     system('kill ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
-                    $this->corRecording = false;
 
                     $this->storeRecording();
 
                     if (!$this->config->get('enabled', false)) {
+                        $this->corRecording = false;
                         break;  // If the repeater is not enabled, break out early so we don't transmit...
                     }
 
