@@ -128,7 +128,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     {
         if ($this->config->get('store_recordings')) {
             $date = date('YmdHis');
-            system('cp ' . $this->basePath . '/storage/input/buffer.ogg ' . $this->basePath . '/storage/recordings/' . $date . '.ogg');
+            copy($this->basePath . '/storage/input/buffer.ogg',
+                $this->basePath . '/storage/recordings/' . $date . '.ogg');
         }
     }
 
@@ -208,7 +209,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function dispatchTripwire(): void
     {
         if ($this->config->get('tripwire_enabled', false)) {
-            system('/opt/pirrot/pirrot tripwire --url="' . $this->config->get('tripwire_url', null) . '" 2> /dev/null &');
+            system('/opt/pirrot/pirrot tripwire --url="' . $this->config->get('tripwire_url',
+                    null) . '" 2> /dev/null &');
         }
     }
 }
