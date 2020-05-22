@@ -45,13 +45,12 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->exitWithSuccess();
         }
 
-
         while (true) {
 
             // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)
             if (!$this->isBooted) {
                 sleep(5);
-                $isBooted = true;
+                $this->isBooted = true;
             }
 
             $this->outputPtt->setValue(GPIO::HIGH);

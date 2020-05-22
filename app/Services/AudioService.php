@@ -269,7 +269,7 @@ class AudioService
 
         // Number is direct and we'll just convert to the sound path...
         if (isset($this->pheoneticNumbers[$number])) {
-            return $this->sequenceOutput($this->soundPath . 'pheonetics/' . $this->pheoneticNumbers[$number]);
+            return $this->sequenceOutput([$this->soundPath . 'pheonetics/' . $this->pheoneticNumbers[$number]]);
         }
 
         // Number is a variation of multiples...
