@@ -86,9 +86,10 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      */
     private function mainVox()
     {
+
         while (true) {
-            system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
+            system($this->audioService->audioRecordBin . ' -t ' . trim($this->config->get('record_device',
+                    'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
             $this->storeRecording();
 
             if (!$this->config->get('enabled', false)) {
@@ -163,8 +164,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     {
         if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
-            $pid = system($this->audioService->audioRecordBin . ' -t ' . $this->config->get('record_device',
-                    'alsa') . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
+            $pid = system($this->audioService->audioRecordBin . ' -t ' . trim($this->config->get('record_device',
+                    'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
             $this->corRecording = true;
             $timeout = microtime(true) + $this->debounceTime;
 

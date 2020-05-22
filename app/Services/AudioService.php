@@ -17,14 +17,14 @@ class AudioService
      *
      * @var string
      */
-    public $audioPlayerBin = '/usr/bin/play -q';
+    public $audioPlayerBin = '/usr/bin/play';
 
     /**
      * The audio record binary path
      *
      * @var string
      */
-    public $audioRecordBin = '/usr/bin/sox -q';
+    public $audioRecordBin = '/usr/bin/sox';
 
     /**
      * The audio morse generator binary path.
