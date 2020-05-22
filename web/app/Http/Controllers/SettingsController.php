@@ -93,6 +93,18 @@ class SettingsController extends Controller
         'web_gps_enabled' => 'Web GPS Data Enabled',
     ];
 
+    /**
+     * Settings that should be ignored (not outputted to the settings screen)
+     * @var array
+     */
+    private $ignoredSettings = [
+        'ident_morse', // Future feature
+        'record_device', // Disabling as this should ALWAYS be 'alsa' when running on a RPi
+        'morse_wpm', // Future feature
+        'morse_frequency', // Future feature
+        'morse_output_volume', // Future feature
+    ];
+
     private $fieldComments = [
 
         // General
@@ -250,8 +262,10 @@ class SettingsController extends Controller
             $newSettings[$setting['name']] = $setting['value'];
         }
 
+        // Remove settings that are on the "blacklist"/ignored list (prevent them being overwritten with "false")
+
         // Set all "boolean" type config items to "false" if the checkbox is not checked.
-        $falseBooleanValues = array_diff_key($currentSettings, $newSettings);
+        $falseBooleanValues = array_diff_key($currentSettings, $newSettings, $this->ignoredSettings);
         foreach ($falseBooleanValues as $key => $value) {
             $newSettings[$key] = "false";
         }
