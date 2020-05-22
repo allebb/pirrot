@@ -262,14 +262,14 @@ class SettingsController extends Controller
             $newSettings[$setting['name']] = $setting['value'];
         }
 
-        // Remove settings that are on the "blacklist"/ignored list (prevent them being overwritten with "false")
-
         // Set all "boolean" type config items to "false" if the checkbox is not checked.
-        $falseBooleanValues = array_diff_key($currentSettings, $newSettings, $this->ignoredSettings);
+        $falseBooleanValues = array_diff_key($currentSettings, $newSettings);
         foreach ($falseBooleanValues as $key => $value) {
-            $newSettings[$key] = "false";
+            // Ignore settings that are on the "blacklist"/ignored list (to prevent them being overwritten with "false")
+            if (!in_array($key, $this->ignoredSettings)) {
+                $newSettings[$key] = "false"; // Yes, really set this to a string and NOT a boolean type (as we're witting it to a text file)
+            }
         }
-
         $updatedConfig = $config->update($newSettings);
 
         // Get the current request URL so we can manipulate it for the auto-refresh after the service has been restarted.
