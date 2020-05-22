@@ -177,7 +177,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
                 usleep(10000);
                 if ($timeout < microtime(true)) {
-                    system('kill ' . $pid);
+                    sleep(1); // Ensures that the EoT is not cut from the recording and gives SOX time to write to the disk before the kernel kills the process.
+                    system('kill -2 ' . $pid);
                     $this->outputLedRx->setValue(GPIO::LOW);
 
                     $this->storeRecording();
