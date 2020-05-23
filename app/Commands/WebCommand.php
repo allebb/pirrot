@@ -5,15 +5,13 @@ namespace Ballen\Pirrot\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
-use Ballen\GPIO\GPIO;
-use Ballen\GPIO\Exceptions\GPIOException;
 
 /**
- * Class DaemonCommand
+ * Class WebCommand
  *
  * @package Ballen\Pirrot\Commands
  */
-class WebCommand extends AudioCommand implements CommandInterface
+class WebCommand extends BaseCommand implements CommandInterface
 {
 
     use RecievesArgumentsTrait;
@@ -28,7 +26,6 @@ class WebCommand extends AudioCommand implements CommandInterface
     /**
      * IdentCommand constructor.
      * @param ArgumentsParser $argv
-     * @throws GPIOException
      */
     public function __construct(ArgumentsParser $argv)
     {

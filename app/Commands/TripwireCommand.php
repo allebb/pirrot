@@ -6,7 +6,7 @@ use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 
 /**
- * Class HelpCommand
+ * Class TripwireCommand
  *
  * @package Ballen\Pirrot\Commands
  */

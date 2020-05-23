@@ -36,7 +36,8 @@
     "ballen/gpio": "^1.0",
     "ext-pcntl": "*",
     "ext-json": "*",
-    "ext-curl": "*"
+    "ext-curl": "*",
+    "ext-ftp": "*"
   },
   "autoload": {
     "psr-4": {

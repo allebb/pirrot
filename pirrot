@@ -4,6 +4,7 @@ pcntl_async_signals(true);
 
 use Ballen\Clip\Utilities\CommandRouter;
 use Ballen\Clip\Exceptions\CommandNotFoundException;
+use Ballen\Pirrot\Commands\ArchiveCommand;
 use Ballen\Pirrot\Commands\IdentCommand;
 use Ballen\Pirrot\Commands\SetAdminPwdCommand;
 use Ballen\Pirrot\Commands\TripwireCommand;
@@ -36,6 +37,7 @@ $app->add('setwebpwd', SetAdminPwdCommand::class);
 // System/BackgroundApp commands
 $app->add('cleanup', TerminateCommand::class);
 $app->add('tripwire', TripwireCommand::class);
+$app->add('archive', ArchiveCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {

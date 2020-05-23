@@ -4,6 +4,7 @@ namespace Ballen\Pirrot\Commands;
 
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
+use Ballen\GPIO\Exceptions\GPIOException;
 use Ballen\GPIO\GPIO;
 
 /**
@@ -23,7 +24,7 @@ class TerminateCommand extends AudioCommand implements CommandInterface
     /**
      * Handle the command.
      * @return void
-     * @throws \Ballen\GPIO\Exceptions\GPIOException
+     * @throws GPIOException
      */
     public function handle()
     {

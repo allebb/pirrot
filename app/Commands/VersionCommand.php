@@ -7,7 +7,7 @@ use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Pirrot\Services\SystemInfoService;
 
 /**
- * Class HelpCommand
+ * Class VersionCommand
  *
  * @package Ballen\Pirrot\Commands
  */
