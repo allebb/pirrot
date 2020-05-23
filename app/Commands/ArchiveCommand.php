@@ -73,6 +73,7 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         foreach ($filesToArchive as $file) {
             if (!ftp_put($connection, $ftpPath . $file->filename, $recordingsStoragePath . $file->filename, FTP_BINARY)) {
                 $this->writeln('An error occurred attempting to upload the file: ' . $recordingsStoragePath . $file->filename);
+                continue; // Prevent the failed file from being deleted (if local file deletion is enabled).
             }
             if($deleteLocal){
                 unlink($recordingsStoragePath . $file->filename);
