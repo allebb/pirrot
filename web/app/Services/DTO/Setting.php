@@ -14,6 +14,7 @@ class Setting
     const GROUP_WEBINTERFACE = 'Web Interface';
     const GROUP_TRIPWIRE = 'Tripwire';
     const GROUP_GPIO = 'GPIO';
+    const GROUP_ARCHIVE = 'Archive (Audio Recordings)';
 
     const TYPE_TEXT = 'text';
     const TYPE_BOOL = 'bool';

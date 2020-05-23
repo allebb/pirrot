@@ -58,6 +58,13 @@ class SettingsController extends Controller
         'rx_pin_invert' => Setting::GROUP_GPIO,
         'tx_pin_invert' => Setting::GROUP_GPIO,
 
+        'archive_enabled' => Setting::GROUP_ARCHIVE,
+        'ftp_host' => Setting::GROUP_ARCHIVE,
+        'ftp_user' => Setting::GROUP_ARCHIVE,
+        'ftp_pass' => Setting::GROUP_ARCHIVE,
+        'ftp_path' => Setting::GROUP_ARCHIVE,
+        'ftp_delete_on_success' => Setting::GROUP_ARCHIVE,
+
     ];
 
     /**
@@ -79,6 +86,8 @@ class SettingsController extends Controller
         'cos_pin_invert',
         'ptt_pin_invert',
         'ready_pin_invert',
+        'archive_enabled',
+        'ftp_delete_on_success',
     ];
 
     /**
@@ -91,6 +100,12 @@ class SettingsController extends Controller
         'purge_recording_after' => 'Purge recordings after (days)',
         'web_interface_bind_ip' => 'Web Interface Bind IP',
         'web_gps_enabled' => 'Web GPS Data Enabled',
+        'archive_enabled' => 'Enable auto archiving',
+        'ftp_host' => 'FTP Host',
+        'ftp_user' => 'FTP Username',
+        'ftp_pass' => 'FTP Password',
+        'ftp_path' => 'FTP Path',
+        'ftp_delete_on_success' => 'Delete local recording on successful upload',
     ];
 
     /**
@@ -193,6 +208,17 @@ class SettingsController extends Controller
         'ready_pin_invert' => ['Ready LED pin is inverted?'],
         'rx_pin_invert' => ['RX (Recieve) LED pin is inverted?'],
         'tx_pin_invert' => ['TX (Transmit) LED pin is inverted?'],
+
+        // Audio Archives
+        'archive_enabled' => [
+            'Enables audio recording archiving to a remote FTP server.',
+            'This will automatically archive all recordings nightly to a remote FTP server.'
+        ],
+        'ftp_host' => ['The FTP server address (FQDN or IP address)'],
+        'ftp_user' => ['The FTP account username.'],
+        'ftp_pass' => ['The FTP account password.'],
+        'ftp_path' => ['Remote server path (directory, folder etc) to upload the files to.'],
+        'ftp_delete_on_success' => ['Delete the local recording if the upload to FTP was successful?'],
     ];
 
     /**
