@@ -70,13 +70,13 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         }
 
         // Attempt to upload (and delete locally, if set) each of the audio recordings found on disk.
-        foreach ($filesToArchive as $file) {
-            if (!ftp_put($connection, $ftpPath . $file->filename, $recordingsStoragePath . $file->filename, FTP_BINARY)) {
-                $this->writeln('An error occurred attempting to upload the file: ' . $recordingsStoragePath . $file->filename);
+        foreach ($filesToArchive->all()->toArray() as $file) {
+            if (!ftp_put($connection, $ftpPath . $file->getBasename(), $file->getRealPath(), FTP_BINARY)) {
+                $this->writeln('An error occurred attempting to upload the file: ' . $file->getRealPath());
                 continue; // Prevent the failed file from being deleted (if local file deletion is enabled).
             }
-            if($deleteLocal){
-                unlink($recordingsStoragePath . $file->filename);
+            if ($deleteLocal) {
+                unlink($file->getRealPath());
             }
         }
 
