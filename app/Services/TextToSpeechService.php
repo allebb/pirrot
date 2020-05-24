@@ -48,7 +48,7 @@ class TextToSpeechService
     public function download($text)
     {
 
-        if ($this->apiKey == null || $this->apiKey === '') {
+        if ($this->apiKey == null || $this->apiKey === '' || $this->apiKey == 'null') {
             throw new \InvalidArgumentException('No API key has been set, an API key must be set first!');
         }
 

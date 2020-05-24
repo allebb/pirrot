@@ -70,7 +70,7 @@ class SettingsController extends Controller
         'ftp_timeout' => Setting::GROUP_ARCHIVE,
 
         'tts_api_key' => Setting::GROUP_TTS,
-        'tts_language ' => Setting::GROUP_TTS,
+        'tts_language' => Setting::GROUP_TTS,
 
         'owm_api_key' => Setting::GROUP_WX,
         'owm_enabled' => Setting::GROUP_WX,
@@ -249,12 +249,12 @@ class SettingsController extends Controller
 
         // Google Translate API service
         'tts_api_key' => ['Your API key for the Google Translate Service.'],
-        'tts_language' => ['The language used for the TTS output.', 'A list of valid options can be found here: https://cloud.google.com/translate/docs/languages'],
+        'tts_language' => ['The language (ISO-639-1 code) used for the TTS output.', 'A list of valid options can be found here: https://cloud.google.com/translate/docs/languages'],
 
         // OpenWeatherMap API service.
         'owm_api_key' => ['Your OpenWeatherMap.org API key', 'Don\'t have one? Register for free here: https://openweathermap.org/'],
-        'owm_enabled' => ['Broadcast the current weather after the auto station ident?', '* This feature requires a valid Google API key (set it above) for the Text-To-Speech functionality.'],
-        'own_template' => ['The "spoken" format for the weather broadcast', 'A full list of all "placeholder" tags can be found here: http://pirrot.hallinet.com/weather-tags'],
+        'owm_enabled' => ['Broadcast the current weather at the station identification interval?', '* This feature requires a valid Google API key (set it above) for the Text-To-Speech functionality.'],
+        'owm_template' => ['The "spoken" format for the weather broadcast', 'A full list of all "placeholder" tags can be found here: https://pirrot.hallinet.com/weather-tags'],
 
     ];
 

@@ -152,6 +152,10 @@ class WeatherService
      */
     private function checkDataIsValid()
     {
+        if ($this->apiKey == null || $this->apiKey === '' || $this->apiKey == 'null') {
+            throw new \InvalidArgumentException('No API key has been set, an API key must be set first!');
+        }
+
         if ($this->response == '') {
             throw new \RuntimeException('No API response data available, did you call fromLatLon() or fromLocationName()?');
         }
