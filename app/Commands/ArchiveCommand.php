@@ -54,13 +54,27 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
 
         // Resolve FTP server details from the Pirrot configuration file.
         $ftpHost = $this->config->get('ftp_host');
+        $ftpPort = $this->config->get('ftp_port', 21);
+        $ftpPassive = $this->config->get('ftp_passive', false);
+        $ftpSsl = $this->config->get('ftp_ssl', false);
+        $ftpTimeout = $this->config->get('ftp_timeout', 30);
         $ftpUser = $this->config->get('ftp_user');
         $ftpPass = $this->config->get('ftp_pass');
         $ftpPath = $this->config->get('ftp_path');
         $delete_local = $this->config->get('ftp_delete_on_success');
 
-        if (!$connection = ftp_connect($ftpHost)) {
-            $this->writeln($this->getCurrentLogTimestamp() . 'Unable to connect to the FTP (recording archive) server at: ' . $ftpHost);
+        if ($ftpSsl) {
+            $connection = ftp_ssl_connect($ftpHost, $ftpPort, $ftpTimeout);
+        } else {
+            $connection = ftp_connect($ftpHost, $ftpPort, $ftpTimeout);
+        }
+
+        if($ftpPassive){
+            ftp_pasv($connection, true);
+        }
+
+        if (!$connection) {
+            $this->writeln($this->getCurrentLogTimestamp() . 'Unable to connect to the FTP(S) (recording archive) server at: ' . $ftpHost . ':' . $ftpPort);
             $this->exitWithError();
         }
 

@@ -60,10 +60,14 @@ class SettingsController extends Controller
 
         'archive_enabled' => Setting::GROUP_ARCHIVE,
         'ftp_host' => Setting::GROUP_ARCHIVE,
+        'ftp_ssl' => Setting::GROUP_ARCHIVE,
+        'ftp_port' => Setting::GROUP_ARCHIVE,
+        'ftp_passive' => Setting::GROUP_ARCHIVE,
         'ftp_user' => Setting::GROUP_ARCHIVE,
         'ftp_pass' => Setting::GROUP_ARCHIVE,
         'ftp_path' => Setting::GROUP_ARCHIVE,
         'ftp_delete_on_success' => Setting::GROUP_ARCHIVE,
+        'ftp_timeout' => Setting::GROUP_ARCHIVE,
 
     ];
 
@@ -87,6 +91,8 @@ class SettingsController extends Controller
         'ptt_pin_invert',
         'ready_pin_invert',
         'archive_enabled',
+        'ftp_ssl',
+        'ftp_passive',
         'ftp_delete_on_success',
     ];
 
@@ -102,10 +108,14 @@ class SettingsController extends Controller
         'web_gps_enabled' => 'Web GPS Data Enabled',
         'archive_enabled' => 'Enable auto archiving',
         'ftp_host' => 'FTP Host',
+        'ftp_ssl' => 'Use SSL (FTPS)',
+        'ftp_port' => 'FTP Port',
+        'ftp_passive' => 'FTP Passive (PASV) mode',
         'ftp_user' => 'FTP Username',
         'ftp_pass' => 'FTP Password',
         'ftp_path' => 'FTP Path',
         'ftp_delete_on_success' => 'Delete local recording on successful upload',
+        'ftp_timeout' => 'FTP Timeout',
     ];
 
     /**
@@ -215,10 +225,14 @@ class SettingsController extends Controller
             'This will automatically archive all recordings nightly to a remote FTP server.'
         ],
         'ftp_host' => ['The FTP server address (FQDN or IP address)'],
+        'ftp_ssl' => ['If the server implements FTP over SSL (FTPS), you should enable this feature for added security.'],
+        'ftp_port' => ['The FTP server port'],
+        'ftp_passive' => ['Use "Passive" FTP (PASV) mode?'],
         'ftp_user' => ['The FTP account username.'],
         'ftp_pass' => ['The FTP account password.'],
         'ftp_path' => ['Remote server path (directory, folder etc) to upload the files to.'],
         'ftp_delete_on_success' => ['Delete the local recording if the upload to FTP was successful?'],
+        'ftp_timeout' => ['The number of seconds before the FTP connection to the server should timeout.'],
     ];
 
     /**
