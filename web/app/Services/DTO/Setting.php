@@ -15,6 +15,8 @@ class Setting
     const GROUP_TRIPWIRE = 'Tripwire';
     const GROUP_GPIO = 'GPIO';
     const GROUP_ARCHIVE = 'Archive (Audio Recordings)';
+    const GROUP_TTS = 'Google Text-To-Speech';
+    const GROUP_WX = 'Weather Broadcasts';
 
     const TYPE_TEXT = 'text';
     const TYPE_BOOL = 'bool';
