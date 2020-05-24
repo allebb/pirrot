@@ -38,6 +38,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
     public function handle()
     {
 
+        $this->setPowerLed();
 
         // Detect if the repeater 'ident' is enabled/disabled...
         if (!$this->config->get('auto_ident')) {
@@ -50,13 +51,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
             // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)
             if (!$this->isBooted) {
-
-                // Check to ensure that the power LED is on, if not, force it on!
-                if($this->outputLedPwr->getValue() == GPIO::LOW){
-                    $this->outputLedPwr->setValue(GPIO::HIGH);
-                }
-
                 sleep(2);
+                $this->setPowerLed();
                 $this->isBooted = true;
             }
 

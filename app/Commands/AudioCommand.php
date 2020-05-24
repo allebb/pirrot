@@ -132,13 +132,17 @@ class AudioCommand extends BaseCommand
             $this->config->get('tx_pin_invert', false)
         );
 
-        // Set I/O defaults
-//        $this->outputLedPwr->setValue(GPIO::HIGH);
-//        $this->outputLedRx->setValue(GPIO::LOW);
-//        $this->outputLedTx->setValue(GPIO::LOW);
-//        $this->outputPtt->setValue(GPIO::LOW);
-
         return $gpio;
+    }
+
+    /**
+     * Ensures that the Power LED is ON.
+     * @throws GPIOException
+     */
+    protected function setPowerLed(){
+        if($this->outputLedPwr->getValue() == GPIO::LOW){
+            $this->outputLedPwr->setValue(GPIO::HIGH);
+        }
     }
 
 }

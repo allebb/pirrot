@@ -75,10 +75,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         $this->setProcessName('pirrot-repeater');
 
-        // Check to ensure that the power LED is on, if not, force it on!
-        if($this->outputLedPwr->getValue() == GPIO::LOW){
-            $this->outputLedPwr->setValue(GPIO::HIGH);
-        }
+        $this->setPowerLed();
 
         // Detect and handle the current RX/TX mode...
         $modeHandler = "main{$this->mode}";
