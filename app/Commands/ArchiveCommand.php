@@ -37,18 +37,18 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
             $this->exitWithSuccess();
         }
 
-        $recordingsStoragePath = $this->basePath . '/storage/recordings/';
+        $recordings_storage_path = $this->basePath . '/storage/recordings/';
 
         // Get a list of recording to upload...
         $filesToArchive = new Collection();
-        $recordingsInDirectory = array_diff(scandir($recordingsStoragePath), array('.', '..'));
+        $recordings_in_directory = array_diff(scandir($recordings_storage_path), array('.', '..'));
 
         // Create a new File object from each file and add to our file collection.
-        foreach ($recordingsInDirectory as $file) {
-            $filesToArchive->push(new \SplFileInfo($recordingsStoragePath . $file));
+        foreach ($recordings_in_directory as $file) {
+            $filesToArchive->push(new \SplFileInfo($recordings_storage_path . $file));
         }
 
-        if (count($recordingsInDirectory) < 1) {
+        if (count($recordings_in_directory) < 1) {
             $this->writeln('No recordings found, exiting!');
         }
 
@@ -57,7 +57,7 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         $ftpUser = $this->config->get('ftp_user');
         $ftpPass = $this->config->get('ftp_pass');
         $ftpPath = $this->config->get('ftp_path');
-        $deleteLocal = $this->config->get('ftp_delete_on_success');
+        $delete_local = $this->config->get('ftp_delete_on_success');
 
         if (!$connection = ftp_connect($ftpHost)) {
             $this->writeln('Unable to connect to the FTP (recording archive) server at: ' . $ftpHost);
@@ -69,18 +69,22 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
             $this->exitWithError();
         }
 
+        $total_uploaded = 0;
+
         // Attempt to upload (and delete locally, if set) each of the audio recordings found on disk.
         foreach ($filesToArchive->all()->toArray() as $file) {
             if (!ftp_put($connection, $ftpPath . $file->getBasename(), $file->getRealPath(), FTP_BINARY)) {
                 $this->writeln('An error occurred attempting to upload the file: ' . $file->getRealPath());
                 continue; // Prevent the failed file from being deleted (if local file deletion is enabled).
             }
-            if ($deleteLocal) {
+            if ($delete_local) {
                 unlink($file->getRealPath());
             }
+            $total_uploaded++;
         }
 
         ftp_close($connection);
+        $this->writeln('Remote archive task uploaded ' . $total_uploaded . ' files.');
 
     }
 

@@ -14,6 +14,7 @@ use Ballen\Pirrot\Commands\UpdateCommand;
 use Ballen\Pirrot\Commands\HelpCommand;
 use Ballen\Pirrot\Commands\TerminateCommand;
 use Ballen\Pirrot\Commands\WebCommand;
+use Ballen\Pirrot\Commands\PurgeCommand;
 
 // Set the current directory of the CLI script.
 $bindir = dirname(__FILE__);
@@ -38,6 +39,7 @@ $app->add('setwebpwd', SetAdminPwdCommand::class);
 $app->add('cleanup', TerminateCommand::class);
 $app->add('tripwire', TripwireCommand::class);
 $app->add('archive', ArchiveCommand::class);
+$app->add('purge', PurgeCommand::class);
 
 // Register process signal handlers
 pcntl_signal(SIGINT, function ($signal) use ($app) {
