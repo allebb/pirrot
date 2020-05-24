@@ -33,7 +33,7 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
     public function handle()
     {
         if (!$this->config->get('archive_enabled', false)) {
-            $this->writeln('The archive recording setting is not enabled, exiting!');
+            $this->writeln($this->getCurrentLogTimestamp() . 'The archive recording setting is not enabled, exiting!');
             $this->exitWithSuccess();
         }
 
@@ -60,12 +60,12 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         $delete_local = $this->config->get('ftp_delete_on_success');
 
         if (!$connection = ftp_connect($ftpHost)) {
-            $this->writeln('Unable to connect to the FTP (recording archive) server at: ' . $ftpHost);
+            $this->writeln($this->getCurrentLogTimestamp() . 'Unable to connect to the FTP (recording archive) server at: ' . $ftpHost);
             $this->exitWithError();
         }
 
         if (!$session = ftp_login($connection, $ftpUser, $ftpPass)) {
-            $this->writeln('Invalid user credentials provided, check username and password and try again!');
+            $this->writeln($this->getCurrentLogTimestamp() . 'Invalid user credentials provided, check username and password and try again!');
             $this->exitWithError();
         }
 
@@ -74,7 +74,7 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         // Attempt to upload (and delete locally, if set) each of the audio recordings found on disk.
         foreach ($filesToArchive->all()->toArray() as $file) {
             if (!ftp_put($connection, $ftpPath . $file->getBasename(), $file->getRealPath(), FTP_BINARY)) {
-                $this->writeln('An error occurred attempting to upload the file: ' . $file->getRealPath());
+                $this->writeln($this->getCurrentLogTimestamp() . 'An error occurred attempting to upload the file: ' . $file->getRealPath());
                 continue; // Prevent the failed file from being deleted (if local file deletion is enabled).
             }
             if ($delete_local) {
@@ -84,7 +84,7 @@ class ArchiveCommand extends BaseCommand implements CommandInterface
         }
 
         ftp_close($connection);
-        $this->writeln('Remote archive task uploaded ' . $total_uploaded . ' files.');
+        $this->writeln($this->getCurrentLogTimestamp() . 'Remote archive task uploaded ' . $total_uploaded . ' files.');
 
     }
 

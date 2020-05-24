@@ -36,7 +36,7 @@ class PurgeCommand extends BaseCommand implements CommandInterface
         $purge_after_days = $this->config->get('purge_recording_after', 0);
 
         if ($purge_after_days < 1) {
-            $this->writeln('Purging of recordings is disabled in the configuration, exiting!');
+            $this->writeln($this->getCurrentLogTimestamp() . 'Purging of recordings is disabled in the configuration, exiting!');
             $this->exitWithSuccess();
         }
 
@@ -61,7 +61,7 @@ class PurgeCommand extends BaseCommand implements CommandInterface
             }
         }
 
-        $this->writeln('Recordings purge task deleted ' . $total_purged . ' files.');
+        $this->writeln($this->getCurrentLogTimestamp() . 'Recordings purge task deleted ' . $total_purged . ' files.');
 
     }
 

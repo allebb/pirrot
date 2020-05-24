@@ -40,6 +40,8 @@ class TerminateCommand extends AudioCommand implements CommandInterface
         $this->outputLedRx->setValue(GPIO::LOW);
         $this->outputLedTx->setValue(GPIO::LOW);
 
+        $this->writeln($this->getCurrentLogTimestamp() . 'The Pirrot daemon has been stopped!');
+
         exit(0);
     }
 }

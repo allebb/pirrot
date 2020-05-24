@@ -116,4 +116,12 @@ class BaseCommand extends ConsoleApplication
         date_default_timezone_set($timezone);
     }
 
+    /**
+     * Provides a simple helper method to get a formatted timestamp for log file output.
+     */
+    protected function getCurrentLogTimestamp()
+    {
+        return date('c') . ' - ';
+    }
+
 }

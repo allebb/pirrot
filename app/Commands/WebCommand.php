@@ -47,7 +47,7 @@ class WebCommand extends BaseCommand implements CommandInterface
         }
 
         if ($this->config->get('web_interface_enabled')) {
-            $this->writeln('Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
+            $this->writeln($this->getCurrentLogTimestamp() . 'Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
             $this->readAndCacheSystemInfo();
             system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . $this->basePath . '/web/public 2> ' . $logger . ' &');
             $this->exitWithSuccess();

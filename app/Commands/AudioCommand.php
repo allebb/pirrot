@@ -72,7 +72,7 @@ class AudioCommand extends BaseCommand
             try {
                 $executioner->execute();
             } catch (ExecutionException $ex) {
-                $this->writeln("ERROR: The dependency \"{$bin}\" was not found; please install and/or reference it in your \$PATH!");
+                $this->writeln($this->getCurrentLogTimestamp() . 'ERROR: The dependency "' . $bin . '" was not found; please install and/or reference it in your $PATH!');
                 $this->exitWithError();
             }
             $this->binPaths[$bin] = trim($executioner->resultAsText());

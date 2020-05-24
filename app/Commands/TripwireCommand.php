@@ -24,7 +24,7 @@ class TripwireCommand extends BaseCommand implements CommandInterface
         $url = $this->arguments()->getOption('url', null);
 
         if (!$url) {
-            $this->writeln('No --url parameter set, exiting!');
+            $this->writeln($this->getCurrentLogTimestamp() . 'No --url parameter set, exiting!');
             return $this->exitWithError();
         }
 
@@ -32,7 +32,7 @@ class TripwireCommand extends BaseCommand implements CommandInterface
             $this->exitWithSuccess(); // Interval has not passed, don't send another HTTP request... yet!
         }
 
-        $this->writeln('Sending tripwire hook to: ' . $url);
+        $this->writeln($this->getCurrentLogTimestamp() . 'Sending tripwire hook to: ' . $url);
         $this->sendHttpWebhookRequest($this->config->get('tripwire_url', null), $this->config->get('tripwire_request_timeout', 30));
 
         touch($this->basePath . self::INTERVAL_CACHE_FILE);
