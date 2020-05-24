@@ -64,6 +64,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     public function handle()
     {
 
+        $this->writeln($this->getCurrentLogTimestamp() . 'Pirrot is starting...');
+
         // Detect if the repeater is enabled/disabled...
         if (!$this->config->get('enabled', false)) {
             $this->writeln('Repeater disabled in the configuration file, will run in "listen only" mode');

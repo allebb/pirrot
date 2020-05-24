@@ -17,6 +17,7 @@ class TerminateCommand extends AudioCommand implements CommandInterface
     use RecievesArgumentsTrait;
 
     private $managedProcessPaths = [
+        '/opt/pirrot/web/public', # Will kill the Pirrot Web Interface (if it's running)
         '/usr/bin/play',
         '/usr/bin/sox',
     ];
@@ -40,7 +41,7 @@ class TerminateCommand extends AudioCommand implements CommandInterface
         $this->outputLedRx->setValue(GPIO::LOW);
         $this->outputLedTx->setValue(GPIO::LOW);
 
-        $this->writeln($this->getCurrentLogTimestamp() . 'The Pirrot daemon has been stopped!');
+        $this->writeln($this->getCurrentLogTimestamp() . 'Pirrot has been stopped!');
 
         exit(0);
     }
