@@ -124,4 +124,15 @@ class BaseCommand extends ConsoleApplication
         return date('c') . ' - ';
     }
 
+    /**
+     * Sets the process name.
+     * @param string $name The process name to use.
+     * @return bool
+     */
+    protected function setProcessName($name)
+    {
+        $pid = getmypid();
+        return cli_set_process_title($name);
+    }
+
 }

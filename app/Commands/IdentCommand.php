@@ -44,6 +44,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->exitWithSuccess();
         }
 
+        $this->setProcessName('pirrot-beacon');
+
         while (true) {
 
             // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)

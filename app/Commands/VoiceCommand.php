@@ -69,6 +69,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             $this->writeln('Repeater disabled in the configuration file, will run in "listen only" mode');
         }
 
+        $this->setProcessName('pirrot-repeater');
+
         // Detect and handle the current RX/TX mode...
         $modeHandler = "main{$this->mode}";
         if (method_exists($this, $modeHandler)) {

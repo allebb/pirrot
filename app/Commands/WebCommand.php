@@ -41,6 +41,8 @@ class WebCommand extends BaseCommand implements CommandInterface
         $webInterfacePort = $this->config->get('web_interface_port', 8440);
         $webInterfaceBindIp = $this->config->get('web_interface_bind_ip', '0.0.0.0');
 
+        $this->setProcessName('pirrot-web');
+
         $logger = '/dev/null'; // Default the logger to use /dev/null
         if ($this->config->get('web_interface_logging', false)) {
             $logger = '/var/log/pirrot-web.log';

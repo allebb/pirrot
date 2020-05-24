@@ -21,7 +21,8 @@ start(){
 
 stop(){
     echo "Stopping Pirrot..." >&2
-    killall -w php
+    #killall -w php
+    pkill -f pirrot-
     echo "done!" >&2
 }
 
