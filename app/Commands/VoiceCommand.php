@@ -52,6 +52,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         $this->mode = ucwords($this->config->get('transmit_mode'));
 
         // Sets the default LED's and outputs
+        $this->outputLedPwr->setValue(GPIO::HIGH);
         $this->outputPtt->setValue(GPIO::LOW);
         $this->outputLedRx->setValue(GPIO::LOW);
         $this->outputLedTx->setValue(GPIO::LOW);

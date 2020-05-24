@@ -133,10 +133,10 @@ class AudioCommand extends BaseCommand
         );
 
         // Set I/O defaults
-        $this->outputLedPwr->setValue(GPIO::HIGH);
-        $this->outputLedRx->setValue(GPIO::LOW);
-        $this->outputLedTx->setValue(GPIO::LOW);
-        $this->outputPtt->setValue(GPIO::LOW);
+//        $this->outputLedPwr->setValue(GPIO::HIGH);
+//        $this->outputLedRx->setValue(GPIO::LOW);
+//        $this->outputLedTx->setValue(GPIO::LOW);
+//        $this->outputPtt->setValue(GPIO::LOW);
 
         return $gpio;
     }
