@@ -34,6 +34,8 @@ sudo sed -i "s|#options snd-usb-audio index=-2|options snd-usb-audio index=-2|" 
 sudo truncate -s 0 /etc/modprobe.d/raspi-blacklist.conf
 echo " - Deleting Pirrot Configuration file..."
 sudo rm -f /etc/pirrot.conf
+echo " - Removing the Pirrot Scheduler..."
+sudo rm -f /etc/cron.d/pirrot
 echo " - Disabling Pirrot auto-start..."
 sudo update-rc.d -f pirrot remove
 echo " - Removing the Pirrot daemon..."

@@ -1,0 +1,8 @@
+# The Pirrot Scheduler (CRON)
+# Provides scheduling functionality for the Pirrot Repeater System
+
+# Every day at 00:05, upload (aka. archive) all recordings to remote storage (if enabled in the /etc/pirrot.conf)
+5 0 * * *   root    /opt/pirrot/pirrot archive > /var/log/pirrot.log
+
+# Every day at 00:20, clear out recordings older than X days (if enabled in the /etc/pirrot.conf)
+20 0 * * *  root    /opt/pirrot/pirrot purge > /var/log/pirrot.log

@@ -39,6 +39,10 @@ if [[ ! -f /etc/pirrot.conf ]]; then
     sudo chmod 0644 /etc/pirrot.conf
 fi
 
+echo " # Installing the Pirrot Scheduler..."
+sudo cp /opt/pirrot/build/configs/pirrot_scheduler /etc/cron.d/pirrot
+sudo chmod 0644 /etc/cron.d/pirrot
+
 echo " # Checking for Pirrot Web Interface configuration..."
 if [[ ! -f /opt/pirrot/web/.env ]]; then
     echo " - Setting default configuration for Pirrot Web interface..."
