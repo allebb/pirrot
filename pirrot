@@ -48,9 +48,6 @@ pcntl_signal(SIGINT, function ($signal) use ($app) {
 pcntl_signal(SIGTERM, function ($signal) use ($app) {
     $app->dispatch('cleanup');
 });
-pcntl_signal(SIGHUP, function ($signal) use ($app) {
-    $app->dispatch('cleanup');
-});
 
 // Boot the application/daemon
 try {
