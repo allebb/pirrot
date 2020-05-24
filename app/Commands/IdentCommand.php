@@ -50,8 +50,13 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
             // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)
             if (!$this->isBooted) {
-                sleep(5);
+                sleep(2);
                 $this->isBooted = true;
+
+                // Check to ensure that the power LED is on, if not, force it on!
+                if($this->outputLedPwr->getValue() == GPIO::LOW){
+                    $this->outputLedPwr->setValue(GPIO::HIGH);
+                }
             }
 
             $this->outputPtt->setValue(GPIO::HIGH);
