@@ -41,7 +41,7 @@ class WebCommand extends BaseCommand implements CommandInterface
         $webInterfacePort = $this->config->get('web_interface_port', 8440);
         $webInterfaceBindIp = $this->config->get('web_interface_bind_ip', '0.0.0.0');
 
-        $this->setProcessName('pirrot-web');
+        //$this->setProcessName('pirrot-web');
 
         $logger = '/dev/null'; // Default the logger to use /dev/null
         if ($this->config->get('web_interface_logging', false)) {
@@ -51,9 +51,12 @@ class WebCommand extends BaseCommand implements CommandInterface
         if ($this->config->get('web_interface_enabled')) {
             $this->writeln($this->getCurrentLogTimestamp() . 'Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
             $this->readAndCacheSystemInfo();
-            system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . $this->basePath . '/web/public 2> ' . $logger . ' &');
+            shell_exec($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . $this->basePath . '/web/public 2> ' . $logger . ' 2>&1');
             $this->exitWithSuccess();
         }
+
+        // Web interface isn't enabled so we'll simply exit at this point.
+        $this->exitWithSuccess();
     }
 
     /**

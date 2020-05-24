@@ -35,6 +35,8 @@ class TerminateCommand extends AudioCommand implements CommandInterface
             system("pkill -f " . $process);
         }
 
+        sleep(2); // Wait a couple of seconds for all processes to be killed.
+
         // Set the GPIO LED's back to default and stop transmitting (all outputs should be off)
         $this->outputLedPwr->setValue(GPIO::LOW);
         $this->outputPtt->setValue(GPIO::LOW);
