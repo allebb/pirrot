@@ -59,7 +59,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
         }
 
         // If we have nothing to transmit (on an interval) then we'll exit the process (making sure the power LED is on!!)
-        if (!$transmit) {
+        if (!$transmit || $this->config->get('enabled', false) == 'false') {
             sleep(2);
             $this->setPowerLed();
             $this->exitWithSuccess();
