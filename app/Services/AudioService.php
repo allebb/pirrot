@@ -91,7 +91,7 @@ class AudioService
     ];
 
     /**
-     * Array of pheonetic numbers that the audio service can output.
+     * Array of phonetic numbers that the audio service can output.
      *
      * @var array
      */
@@ -217,7 +217,7 @@ class AudioService
     }
 
     /**
-     * Reads the given string in the pheonetic alphabet.
+     * Reads the given string in the phonetic alphabet.
      *
      * @param string $string The string of characters to read.
      * @return void
