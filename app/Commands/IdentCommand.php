@@ -44,12 +44,26 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         $this->setPowerLed();
 
-        // Detect if the repeater 'ident' is enabled/disabled...
-        if (!$this->config->get('auto_ident')) {
+        // Do we need to 'key up'?
+        $transmit = false;
+        if ($broadcastBasicIdent = !in_array($this->config->get('auto_ident'), [false, 'false'])) {
+            $transmit = true;
+        }
+        if ($broadcastCustomTts = !in_array($this->config->get('tts_ident_custom', ''), [null, 'null', ''])) {
+            $transmit = true;
+        }
+        if ($broadcastWeather = !in_array($this->config->get('owm_enabled', false), [null, 'null', ''])) {
+            $transmit = true;
+        }
+
+        if (!$transmit) {
             $this->exitWithSuccess();
         }
 
         $this->setProcessName('pirrot-beacon');
+
+        $customTtsMessage = $this->config->get('tts_ident_custom', '');
+        $loopInterval = $this->config->get('ident_interval');
 
         while (true) {
 
@@ -63,14 +77,22 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->outputPtt->setValue(GPIO::HIGH);
             $this->outputLedTx->setValue(GPIO::HIGH);
 
-            $this->announceBasicIdent();
-            $this->announceCustomMessage($this->config->get('tts_ident_custom', ''));
-            $this->announceWeather();
+            if ($broadcastBasicIdent) {
+                $this->announceBasicIdent();
+            }
+
+            if ($broadcastCustomTts) {
+                $this->announceCustomMessage($customTtsMessage);
+            }
+
+            if ($broadcastWeather) {
+                $this->announceWeather();
+            }
 
             $this->outputPtt->setValue(GPIO::LOW);
             $this->outputLedTx->setValue(GPIO::LOW);
 
-            sleep($this->config->get('ident_interval'));
+            sleep($loopInterval);
         }
     }
 
@@ -97,6 +119,22 @@ class IdentCommand extends AudioCommand implements CommandInterface
     public function announceCustomMessage($message)
     {
 
+        $ttsService = new TextToSpeechService($this->config->get('tts_api_key'));
+        $ttsService->setLanguage($this->config->get('tts_language', 'en'));
+
+        $message = $this->config->get('tts_custom_ident');
+        $filename = $this->basePath . self::TTS_FILE_PATH . 'cm_' . md5($message) . '.mp3';
+
+        if (file_exists($filename)) {
+            // Let's play this file and return!!
+            return;
+        }
+
+        $output = $ttsService->download($message);
+        file_put_contents($filename, $output);
+
+        // Play the file..
+
     }
 
     /**
@@ -105,10 +143,6 @@ class IdentCommand extends AudioCommand implements CommandInterface
      */
     public function announceWeather()
     {
-
-        if (!$this->config->get('owm_enabled', false)) {
-            return;
-        }
 
         $weatherService = new WeatherService($this->config->get('owm_api_key'));
         $weatherService->fromLocationName($this->config->get('owm_locale'));
@@ -122,7 +156,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         // TTS it
         $report = $weatherService->toFormattedString($this->config->get('owm_template'));
-        $filename = $this->basePath . self::TTS_FILE_PATH . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
+        $filename = $this->basePath . self::TTS_FILE_PATH . 'wx_' . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
 
         if (file_exists($filename)) {
             // Let's play this file and return!!

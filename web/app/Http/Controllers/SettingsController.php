@@ -159,10 +159,12 @@ class SettingsController extends Controller
             'useful if you wanted to record received transmissions eg. running Pirrot in surveillance mode.'
         ],
         'auto_ident' => [
-            'Enable automatic identification?',
+            'Enable the "basic" station automatic identification?',
+            'This will automatically broadcast the repeater call sign, PL tone etc. at the ident_interval period.',
         ],
         'ident_interval' => [
             'When automatic identification is enabled, Pirrot will transmit the repeater identification every X seconds.',
+            'If you want to disable all interval transmissions (station, custom message and weather), set this value to 0.',
             'The default value is "600" seconds (every 10 minutes).',
         ],
         'delayed_playback_interval' => [
@@ -207,7 +209,7 @@ class SettingsController extends Controller
         'web_gps_enabled' => [
             'Enable GPS position and other data on the web dashboard view.',
             '* You MUST setup and configure the device and ensure that the GPS receiver is connected to the RaspberryPi.',
-            '* Having this setting enabled but no device connected will cause the web interface to become unresponsive!'
+            '* Having this setting enabled but no device connected will cause the web interface to become unresponsive!',
         ],
 
         // Tripwire
