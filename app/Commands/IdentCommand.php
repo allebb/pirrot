@@ -44,6 +44,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         $this->setPowerLed();
 
+        $this->setProcessName('pirrot-beacon');
+
         // Do we need to 'key up'?
         $transmit = false;
         if ($broadcastBasicIdent = !in_array($this->config->get('auto_ident'), [false, 'false'])) {
@@ -56,11 +58,12 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $transmit = true;
         }
 
+        // If we have nothing to transmit (on an interval) then we'll exit the process (making sure the power LED is on!!)
         if (!$transmit) {
+            sleep(2);
+            $this->setPowerLed();
             $this->exitWithSuccess();
         }
-
-        $this->setProcessName('pirrot-beacon');
 
         $customTtsMessage = $this->config->get('tts_ident_custom', '');
         $loopInterval = $this->config->get('ident_interval');

@@ -71,6 +71,7 @@ class SettingsController extends Controller
 
         'tts_api_key' => Setting::GROUP_TTS,
         'tts_language' => Setting::GROUP_TTS,
+        'tts_ident_custom' => Setting::GROUP_TTS,
 
         'owm_api_key' => Setting::GROUP_WX,
         'owm_enabled' => Setting::GROUP_WX,
@@ -127,6 +128,7 @@ class SettingsController extends Controller
         'ftp_timeout' => 'FTP Timeout',
         'tts_api_key' => 'Google API Key',
         'tts_language' => 'Language',
+        'tts_ident_custom' => 'Custom Interval Message',
         'owm_api_key'=> 'OpenWeatherMap API Key',
         'owm_enabled' => 'Enable Weather Reports',
         'owm_locale' => 'Location Name',
@@ -254,6 +256,7 @@ class SettingsController extends Controller
         // Google Translate API service
         'tts_api_key' => ['Your API key for the Google Translate Service.'],
         'tts_language' => ['The language (ISO-639-1 code) used for the TTS output.', 'A list of valid options can be found here: https://cloud.google.com/translate/docs/languages'],
+        'tts_ident_custom' => ['An optional custom message to be broadcast at the ident interval.', 'This could be used as a replacement for the \'auto_ident\' feature allowing for a custom station ident', 'alternatively could be used to broadcast useful news/messages.', 'Set this to \'null\' to disable this feature.'],
 
         // OpenWeatherMap API service.
         'owm_api_key' => ['Your OpenWeatherMap.org API key', 'Don\'t have one? Register for free here: https://openweathermap.org/'],
