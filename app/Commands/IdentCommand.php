@@ -20,7 +20,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
     use RecievesArgumentsTrait;
 
-    const TTS_FILE_PATH = '';
+    const TTS_FILE_PATH = '/storage/tts/';
 
     private $isBooted = false;
 
@@ -122,15 +122,15 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         // TTS it
         $report = $weatherService->toFormattedString($this->config->get('owm_template'));
-        $filename = md5($report); // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
+        $filename = $this->basePath . self::TTS_FILE_PATH . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
 
-        if(file_exists($filename)){
+        if (file_exists($filename)) {
             // Let's play this file and return!!
             return;
         }
 
         $output = $ttsService->download($report);
-        file_put_contents($filename,$output);
+        file_put_contents($filename, $output);
 
         // Play the file..
 
