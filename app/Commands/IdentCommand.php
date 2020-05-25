@@ -51,7 +51,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
         if ($broadcastBasicIdent = !in_array($this->config->get('auto_ident'), [false, 'false'])) {
             $transmit = true;
         }
-        if ($broadcastCustomTts = !in_array($this->config->get('tts_ident_custom', ''), [null, 'null', ''])) {
+        if ($broadcastCustomTts = !in_array($this->config->get('tts_custom_ident', ''), [null, 'null', ''])) {
             $transmit = true;
         }
         if ($broadcastWeather = !in_array($this->config->get('owm_enabled', false), [null, 'null', ''])) {
