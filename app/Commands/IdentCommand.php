@@ -129,14 +129,14 @@ class IdentCommand extends AudioCommand implements CommandInterface
         $filename = $this->basePath . self::TTS_FILE_PATH . 'cm_' . md5($message) . '.mp3';
 
         if (file_exists($filename)) {
-            $this->audioService->play($filename);
+            $this->audioService->playMp3($filename);
             return;
         }
 
         $output = $ttsService->download($message);
         file_put_contents($filename, $output);
 
-        $this->audioService->play($filename);
+        $this->audioService->playMp3($filename);
 
     }
 
@@ -162,14 +162,14 @@ class IdentCommand extends AudioCommand implements CommandInterface
         $filename = $this->basePath . self::TTS_FILE_PATH . 'wx_' . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
 
         if (file_exists($filename)) {
-            $this->audioService->play($filename);
+            $this->audioService->playMp3($filename);
             return;
         }
 
         $output = $ttsService->download($report);
         file_put_contents($filename, $output);
 
-        $this->audioService->play($filename);
+        $this->audioService->playMp3($filename);
 
     }
 
