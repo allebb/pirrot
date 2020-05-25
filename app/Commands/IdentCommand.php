@@ -48,7 +48,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         // Do we need to 'key up'?
         $transmit = false;
-        if ($broadcastBasicIdent = !in_array($this->config->get('auto_ident'), [false, 'false'])) {
+        if ($broadcastBasicIdent = (!in_array($this->config->get('auto_ident'), [false, 'false']))) {
             $transmit = true;
         }
         if ($broadcastCustomTts = !in_array($this->config->get('tts_custom_ident', ''), [null, 'null', ''])) {
@@ -81,15 +81,27 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->outputLedTx->setValue(GPIO::HIGH);
 
             if ($broadcastBasicIdent) {
-                $this->announceBasicIdent();
+                if (!$this->config->get('ident_use_custom')) {
+                    $this->announceBasicIdent();
+                } else {
+                    $this->announceCustomRecording();
+                }
             }
 
             if ($broadcastCustomTts) {
-                $this->announceCustomMessage($customTtsMessage);
+                try {
+                    $this->announceCustomTtsMessage($customTtsMessage);
+                } catch (\Exception $exception) {
+                    $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for custom TTS message [' . $exception->getMessage() . ']');
+                }
             }
 
             if ($broadcastWeather) {
-                $this->announceWeather();
+                try {
+                    $this->announceWeather();
+                } catch (\Exception $exception) {
+                    $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for weather announcement [' . $exception->getMessage() . ']');
+                }
             }
 
             $this->outputPtt->setValue(GPIO::LOW);
@@ -119,7 +131,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * This could obviously be used for a custom broadcast message (if you didn't care about repeater identification) too!
      * @param string $message The message that should be TTS converted and broadcast.
      */
-    public function announceCustomMessage($message)
+    public function announceCustomTtsMessage($message)
     {
 
         $ttsService = new TextToSpeechService($this->config->get('tts_api_key'));
@@ -137,6 +149,24 @@ class IdentCommand extends AudioCommand implements CommandInterface
         file_put_contents($filename, $output);
 
         $this->audioService->playMp3($filename);
+
+    }
+
+    /**
+     * Announces a custom pre-recorded repeater/station identification or other message.
+     * This could obviously be used for a custom broadcast message (if you didn't care about repeater identification) too!
+     * This will play the custom file uploaded to /opt/pirrot/storage/input/custom.mp3
+     */
+    public function announceCustomRecording()
+    {
+
+        $filename = $this->basePath . '/storage/input/custom.mp3';
+        if (file_exists($filename)) {
+            $this->audioService->playMp3($filename);
+            return;
+        }
+
+        $this->writeln($this->getCurrentLogTimestamp() . 'Custom recording file was not found at: ' . $filename);
 
     }
 

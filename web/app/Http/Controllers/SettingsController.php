@@ -18,13 +18,15 @@ class SettingsController extends Controller
         'timezone' => Setting::GROUP_GENERAL,
         'callsign' => Setting::GROUP_GENERAL,
         'enabled' => Setting::GROUP_GENERAL,
+        'transmit_mode' => Setting::GROUP_GENERAL,
         'courtesy_tone' => Setting::GROUP_GENERAL,
         'auto_ident' => Setting::GROUP_GENERAL,
+        'ident_use_custom' => Setting::GROUP_GENERAL,
         'ident_interval' => Setting::GROUP_GENERAL,
-        'delayed_playback_interval' => Setting::GROUP_GENERAL,
-        'pl_tone' => Setting::GROUP_GENERAL,
-        'transmit_mode' => Setting::GROUP_GENERAL,
         'ident_time' => Setting::GROUP_GENERAL,
+        'pl_tone' => Setting::GROUP_GENERAL,
+        'delayed_playback_interval' => Setting::GROUP_GENERAL,
+
         //'ident_morse' => Setting::GROUP_GENERAL,
 
         //'record_device' => SettingEntity::GROUP_AUDIO,
@@ -87,6 +89,7 @@ class SettingsController extends Controller
     private $booleanFields = [
         'enabled',
         'auto_ident',
+        'ident_use_custom',
         'ident_time',
         'ident_morse',
         'store_recordings',
@@ -112,6 +115,7 @@ class SettingsController extends Controller
      */
     private $labelOverrides = [
         'enabled' => 'Enable Repeater',
+        'ident_use_custom' => 'Override default ident',
         'tripwire_enabled' => 'Enable Tripwire',
         'purge_recording_after' => 'Purge recordings after (days)',
         'web_interface_bind_ip' => 'Web Interface Bind IP',
@@ -163,6 +167,10 @@ class SettingsController extends Controller
         'auto_ident' => [
             'Enable the "basic" station automatic identification?',
             'This will automatically broadcast the repeater call sign, PL tone etc. at the ident_interval period.',
+        ],
+        'ident_use_custom' => [
+            'This feature will override the computer spoken "auto_ident" repeater ident message and will instead play a custom',
+            'uploaded MP3 file of your choice, this file should be uploaded to: /opt/pirrot/storage/input/custom.mp3',
         ],
         'ident_interval' => [
             'When automatic identification is enabled, Pirrot will transmit the repeater identification every X seconds.',
@@ -255,14 +263,34 @@ class SettingsController extends Controller
 
         // Google Translate API service
         'tts_api_key' => ['Your API key for the Google Translate Service.'],
-        'tts_language' => ['The language (ISO-639-1 code) used for the TTS output.', 'A list of valid options can be found here: https://cloud.google.com/translate/docs/languages'],
-        'tts_custom_ident' => ['An optional custom message to be broadcast at the ident interval.', 'This could be used as a replacement for the \'auto_ident\' feature allowing for a custom station ident', 'alternatively could be used to broadcast useful news/messages.', 'Set this to \'null\' to disable this feature.'],
+        'tts_language' => [
+            'The language (ISO-639-1 code) used for the TTS output.',
+            'A list of valid options can be found here: https://cloud.google.com/translate/docs/languages'
+        ],
+        'tts_custom_ident' => [
+            'An optional custom message to be broadcast at the ident interval.',
+            'This could be used as a replacement for the \'auto_ident\' feature allowing for a custom station ident',
+            'alternatively could be used to broadcast useful news/messages.',
+            'Set this to \'null\' to disable this feature.'
+        ],
 
         // OpenWeatherMap API service.
-        'owm_api_key' => ['Your OpenWeatherMap.org API key', 'Don\'t have one? Register for free here: https://openweathermap.org/'],
-        'owm_enabled' => ['Broadcast the current weather at the station identification interval?', '* This feature requires a valid Google API key (set it above) for the Text-To-Speech functionality.'],
-        'owm_locale' => ['The location of your station or where you want the weather report taken from.', 'For example: "London,UK". You can test location names on the OpenWeatherMap.org site if you\'re not sure.'],
-        'owm_template' => ['The "spoken" format for the weather broadcast', 'A full list of all "placeholder" tags can be found here: https://pirrot.hallinet.com/weather-tags'],
+        'owm_api_key' => [
+            'Your OpenWeatherMap.org API key',
+            'Don\'t have one? Register for free here: https://openweathermap.org/'
+        ],
+        'owm_enabled' => [
+            'Broadcast the current weather at the station identification interval?',
+            '* This feature requires a valid Google API key (set it above) for the Text-To-Speech functionality.'
+        ],
+        'owm_locale' => [
+            'The location of your station or where you want the weather report taken from.',
+            'For example: "London,UK". You can test location names on the OpenWeatherMap.org site if you\'re not sure.'
+        ],
+        'owm_template' => [
+            'The "spoken" format for the weather broadcast',
+            'A full list of all "placeholder" tags can be found here: https://pirrot.hallinet.com/weather-tags'
+        ],
 
     ];
 
