@@ -33,6 +33,12 @@ class AudioService
     public $audioMorseBin = '/usr/bin/morse';
 
     /**
+     * The LAME binary path.
+     * @var string
+     */
+    public $audioLameBin = '/usr/bin/lame';
+
+    /**
      * The sound path (with trailing slash)
      *
      * @var string
@@ -335,6 +341,17 @@ class AudioService
     public function play($files)
     {
         system($this->audioPlayerBin . ' ' . $files . ' -t alsa');
+    }
+
+    /**
+     * Execute the audio player command (decoding an MP3 file on the fly.)
+     *
+     * @param string $file The file path to the MP3 file.
+     * @return void
+     */
+    public function playMp3($file)
+    {
+        system($this->audioLameBin . ' --decode ' . $file . ' - | ' . $this->audioPlayerBin . ' - -t alsa');
     }
 
     /**

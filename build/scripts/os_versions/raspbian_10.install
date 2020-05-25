@@ -1,1 +1,1 @@
-sudo apt-get install -y sox morse wget php-cli php-json php-curl php-mbstring php-sqlite3
+sudo apt-get install -y sox morse wget lame php-cli php-json php-curl php-mbstring php-sqlite3
