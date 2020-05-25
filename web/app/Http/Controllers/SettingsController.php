@@ -74,6 +74,7 @@ class SettingsController extends Controller
 
         'owm_api_key' => Setting::GROUP_WX,
         'owm_enabled' => Setting::GROUP_WX,
+        'owm_locale' => Setting::GROUP_WX,
         'owm_template' => Setting::GROUP_WX,
 
     ];
@@ -128,6 +129,7 @@ class SettingsController extends Controller
         'tts_language' => 'Language',
         'owm_api_key'=> 'OpenWeatherMap API Key',
         'owm_enabled' => 'Enable Weather Reports',
+        'owm_locale' => 'Location Name',
         'owm_template' => 'Text-To-Speech Template',
     ];
 
@@ -254,6 +256,7 @@ class SettingsController extends Controller
         // OpenWeatherMap API service.
         'owm_api_key' => ['Your OpenWeatherMap.org API key', 'Don\'t have one? Register for free here: https://openweathermap.org/'],
         'owm_enabled' => ['Broadcast the current weather at the station identification interval?', '* This feature requires a valid Google API key (set it above) for the Text-To-Speech functionality.'],
+        'owm_locale' => ['The location of your station or where you want the weather report taken from.', 'For example: "London,UK". You can test location names on the OpenWeatherMap.org site if you\'re not sure.'],
         'owm_template' => ['The "spoken" format for the weather broadcast', 'A full list of all "placeholder" tags can be found here: https://pirrot.hallinet.com/weather-tags'],
 
     ];
