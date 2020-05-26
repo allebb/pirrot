@@ -133,7 +133,7 @@ class SettingsController extends Controller
         'tts_api_key' => 'Google API Key',
         'tts_language' => 'Language',
         'tts_custom_ident' => 'Custom Interval Message',
-        'owm_api_key'=> 'OpenWeatherMap API Key',
+        'owm_api_key' => 'OpenWeatherMap API Key',
         'owm_enabled' => 'Enable Weather Reports',
         'owm_locale' => 'Location Name',
         'owm_template' => 'Text-To-Speech Template',
@@ -191,9 +191,10 @@ class SettingsController extends Controller
             'the CTCSS/PL tone here eg. "110.9" this will be "spoken" when the repeater transmits it\'s ident',
         ],
         'transmit_mode' => [
-            'The Pirrot "listen" and transmission operation mode',
-            '"vox" = Voice Operated (auto-record and then transmit when it "hears" mic input on the USB sound card.)',
-            '"cor" = Carrier Operated Relay/Switch (record and then transmit when the COR/COS GPIO pin is ON (aka. "high"))',
+            'The repeater operation mode',
+            '\'simplex-vox\' = Simplex Mode - Voice Operated (auto-record and then transmit when it "hears" mic input on the USB sound card.)',
+            '\'simplex-cor\' = Simplex Mode - Carrier Operated Relay/Switch (record and then transmit when the COR/COS GPIO pin is ON (aka. "high")',
+            '\'duplex-cor\' = Duplex Mode - Carrier Operated Relay/Switch (pass-through transmission when the COR/COS GPIO pin is ON (aka. "high")',
         ],
         'ident_time' => [
             'Transmit the time with the ident message.',

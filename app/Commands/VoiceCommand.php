@@ -77,8 +77,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         $this->setPowerLed();
 
+        // Format method name from the setting value
+        $initMethod = str_replace(' ', '', ucwords(str_replace('-', ' ', $this->mode)));
+
         // Detect and handle the current RX/TX mode...
-        $modeHandler = "main{$this->mode}";
+        $modeHandler = "main{$initMethod}";
         if (method_exists($this, $modeHandler)) {
             return $this->{$modeHandler}();
         }
@@ -92,7 +95,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      * @throws GPIOException
      * @retun void
      */
-    private function mainVox()
+    private function mainSimplexVox()
     {
 
         while (true) {
@@ -121,10 +124,23 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      * @throws GPIOException
      * @retun void
      */
-    private function mainCor()
+    private function mainSimplexCor()
     {
         while (true) {
-            $this->processCorRecording();
+            $this->processSimplexCorRecording();
+        }
+    }
+
+    /**
+     * Main loop handler for COR duplex mode operations.
+     *
+     * @throws GPIOException
+     * @retun void
+     */
+    private function mainDuplexCor()
+    {
+        while (true) {
+            $this->processDuplexCorRecording();
         }
     }
 
@@ -168,7 +184,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      * @return void
      * @throws GPIOException
      */
-    private function processCorRecording()
+    private function processSimplexCorRecording()
     {
         if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $this->outputLedRx->setValue(GPIO::HIGH);
@@ -206,6 +222,54 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                     $this->outputPtt->setValue(GPIO::LOW);
                     $this->outputLedTx->setValue(GPIO::LOW);
                     $this->corRecording = false;
+                    $this->dispatchTripwire();
+                    break;
+                }
+            }
+        }
+        usleep(10000); // Sleep a tenth of a second...
+    }
+
+    /**
+     * Handles the Duplex COR logic
+     * @return void
+     * @throws GPIOException
+     */
+    private function processDuplexCorRecording()
+    {
+        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+            $this->outputLedRx->setValue(GPIO::HIGH);
+            $this->outputPtt->setValue(GPIO::HIGH);
+            $this->outputLedTx->setValue(GPIO::HIGH);
+
+            // Record (if the system option is set to do so)
+            $pid = system($this->audioService->audioRecordBin . ' -t ' . trim($this->config->get('record_device',
+                    'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
+            $this->corRecording = true;
+            $timeout = microtime(true) + $this->debounceTime;
+
+            while (true) {
+
+                if ($this->inputCos->getValue() == GPIO::HIGH) {
+                    $timeout = microtime(true) + $this->debounceTime;
+                }
+
+                usleep(10000);
+                if ($timeout < microtime(true)) {
+
+                    $this->outputLedRx->setValue(GPIO::LOW);
+
+                    sleep(1); // Ensures that the EoT is not cut from the recording and gives SOX time to write to the disk before the kernel kills the process.
+                    system('kill -2 ' . $pid);
+
+                    $this->sendCourtesyTone();
+                    $this->outputPtt->setValue(GPIO::LOW);
+                    $this->outputLedTx->setValue(GPIO::LOW);
+
+                    $this->storeRecording();
+
+                    $this->corRecording = false;
+
                     $this->dispatchTripwire();
                     break;
                 }
