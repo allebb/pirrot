@@ -46,7 +46,7 @@ class WeatherReportViewModel extends ViewModel
         $this->pressure = $report->pressure;
         $this->humidity = $report->humidity;
 
-        $this->wind_dir_crd = "North";
+        $this->wind_dir_crd = self::degreesToCardinals($report->wind_dir);
         $this->wind_dir_hdg = $report->wind_dir;
         $this->wind_mph = round($report->wind_spd, 1);
         $this->wind_kph = round(($report->wind_spd * 1.609), 1);
@@ -57,5 +57,26 @@ class WeatherReportViewModel extends ViewModel
 
         $this->reported_at = date(self::TIME_FORMAT . ' ' . self::DATE_FORMAT, $report->reported_at);
         $this->broadcast_at = date(self::TIME_FORMAT . ' ' . self::DATE_FORMAT, $report->created_at);
+    }
+
+    /**
+     * Converts degrees to compass cardinal heading.
+     * @param $degrees
+     * @return mixed
+     */
+    protected static function degreesToCardinals($degrees)
+    {
+        $caridnals = [
+            "North",
+            "North East",
+            "East",
+            "South East",
+            "South",
+            "South West",
+            "West",
+            "North West",
+            "North"
+        ];
+        return $caridnals[(int)round(($degrees % 360) / 45)];
     }
 }

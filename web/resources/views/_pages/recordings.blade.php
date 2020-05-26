@@ -25,28 +25,50 @@
             <div class="message-header">
                 <p>Stored transmissions</p>
             </div>
-            <table id="recordings-table" class="table is-fullwidth">
-                @foreach($recordings as $recording)
+            <table class="message-body table is-striped is-fullwidth">
+                <thead>
+                <tr>
+                    <th>File</th>
+                    <th></th>
+                    <th>Size</th>
+                    <th>Recorded</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($recordings as $audio)
                     <tr>
-                        <td>{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}
-                            .{{ $recording->getExtension() }} ({{ ($recording->getSize() / 1024) }}KB)
-                            Created at: {{ date('H:i:s jS M Y', $recording->getMTime()) }}
-
+                        <td>{{ $audio->filename }}</td>
+                        <td>
                             <button class="button is-small is-outlined btn-play-audio"
-                                    data-filename="{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}">
-                                Playback
+                                    data-filename="{{ $audio->name }}">
+                                Play
                             </button>
                             <button class="button is-small is-outlined btn-download-audio"
-                                    data-filename="{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}">
+                                    data-filename="{{ $audio->name }}">
                                 Download
                             </button>
+                        </td>
+                        <td>{{ $audio->filesize }} <small>KB</small></td>
+                        <td>{{ $audio->created_at }}</td>
+                        <td>
                             <button class="button is-small is-outlined is-danger btn-delete-audio"
-                                    data-filename="{{ rtrim($recording->getFilename(), '.'.$recording->getExtension()) }}">
+                                    data-filename="{{ $audio->name }}">
                                 Delete
                             </button>
                         </td>
                     </tr>
                 @endforeach
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>File</th>
+                    <th></th>
+                    <th>Size</th>
+                    <th>Recorded</th>
+                    <th></th>
+                </tr>
+                </tfoot>
             </table>
         </article>
     @else
@@ -61,7 +83,8 @@
     @endif
 
     @if(app('pirrot.config')->purge_recording_after > 0)
-        <p class="has-text-danger">* Based on your current configuration, these recordings are automatically purged
+        <p class="has-text-danger">* Based on your current configuration, these recordings are automatically
+            purged
             after {{ number_format(app('pirrot.config')->purge_recording_after) }} days. </p>
     @endif
 
@@ -76,7 +99,8 @@
                 <div class="message-body">
                     <audio id="audio-player" controls autoplay>
                         <source id="player-source" type="audio/ogg">
-                        Oh no! Your browser does not support the HTML5 audio player, we'd recommend you download the
+                        Oh no! Your browser does not support the HTML5 audio player, we'd recommend you download
+                        the
                         recording
                         files instead!
                     </audio>

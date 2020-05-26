@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Collection;
-use RuntimeException;
+use App\Http\ViewModels\RecordingViewModel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class RecordingsController extends Controller
@@ -25,8 +25,13 @@ class RecordingsController extends Controller
         $filesInDirectory = array_diff(scandir($recordingsPath), array('.', '..'));
 
         foreach ($filesInDirectory as $file) {
-            $audioFiles->add(new \SplFileInfo($recordingsPath . $file));
+            $recording = new \SplFileInfo($recordingsPath . $file);
+            $audioFiles->add(new RecordingViewModel($recording));
         }
+
+        $audioFiles = $audioFiles->sortByDesc(function ($f) {
+            return $f->timestamp;
+        });
 
         return view('_pages.recordings')->with('recordings', $audioFiles);
     }
