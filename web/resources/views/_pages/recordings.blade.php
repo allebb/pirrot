@@ -8,7 +8,6 @@
     <h2 class="subtitle">Manage stored transmission recordings</h2>
 
     @if(!app('pirrot.config')->store_recordings)
-
         <article class="message is-danger">
             <div class="message-body">
                 Your settings are currently set to not record transmissions, if you wish to listen back or download
