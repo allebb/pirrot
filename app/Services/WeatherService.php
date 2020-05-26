@@ -58,7 +58,6 @@ class WeatherService
     public function fromLocationName($location)
     {
         $this->response = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q={$location}}&units=metric&appid={$this->apiKey}");
-        $this->toDatabase();
         return $this;
     }
 
@@ -71,7 +70,6 @@ class WeatherService
     public function fromLatLon($lat, $lon)
     {
         $this->response = file_get_contents("https://api.openweathermap.org/data/2.5/weather?lat={$lat}&lon={$lon}&units=metric&appid={$this->apiKey}");
-        $this->toDatabase();
         return $this;
     }
 
