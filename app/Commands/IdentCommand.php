@@ -183,10 +183,6 @@ class IdentCommand extends AudioCommand implements CommandInterface
         $ttsService = new TextToSpeechService($this->config->get('tts_api_key'));
         $ttsService->setLanguage($this->config->get('tts_language', 'en'));
 
-        // Add it to the SQLite database (so can see previous weather reports)
-        // @todo Will add this later!!
-        // $weatherService->toObject();
-
         // TTS it
         $report = $weatherService->toFormattedString($this->config->get('owm_template'));
         $filename = $this->basePath . self::TTS_FILE_PATH . 'wx_' . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
@@ -198,6 +194,13 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         $output = $ttsService->download($report);
         file_put_contents($filename, $output);
+
+        // Save the weather update to the database (as it's changed since the last report)
+        $dbPath = $this->basePath.'/web/database/database.sqlite';
+        if(file_exists('/opt/pirrot/storage/pirrot-web.database')){
+            $dbPath = '/opt/pirrot/storage/pirrot-web.database';
+        }
+        $weatherService->toSqliteDatabase($dbPath, 'weather_reports');
 
         $this->audioService->playMp3($filename);
 
