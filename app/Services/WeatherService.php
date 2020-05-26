@@ -177,7 +177,7 @@ class WeatherService
 
         $db = new \SQLite3($path);
 
-        $stm = $db->prepare("INSERT INTO {$table} (description, temp, wind_dir, wind_spd, pressure, humidity, reported_lat, reported_lon, reported_at, created_at) VALUE (?,?,?,?,?,?,?,?,?,?)");
+        $stm = $db->prepare("INSERT INTO {$table} (description, temp, wind_dir, wind_spd, pressure, humidity, reported_lat, reported_lon, reported_at, created_at) VALUES (?,?,?,?,?,?,?,?,?,?)");
         $stm->bindParam(1, $data->weather[0]->description);
         $stm->bindParam(2, $data->main->temp);
         $stm->bindParam(3, $data->wind->deg);

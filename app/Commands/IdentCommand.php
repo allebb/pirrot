@@ -9,6 +9,7 @@ use Ballen\GPIO\Exceptions\GPIOException;
 use Ballen\GPIO\GPIO;
 use Ballen\Pirrot\Services\TextToSpeechService;
 use Ballen\Pirrot\Services\WeatherService;
+use Mockery\Exception;
 
 /**
  * Class DaemonCommand
@@ -187,6 +188,18 @@ class IdentCommand extends AudioCommand implements CommandInterface
         $report = $weatherService->toFormattedString($this->config->get('owm_template'));
         $filename = $this->basePath . self::TTS_FILE_PATH . 'wx_' . md5($report) . '.mp3'; // We'll MD5 the formatted string, if the file already exists, we'll play that instead of making another API request to Google ;)
 
+        // Store the weather report data to the Pirrot SQLite database.
+        $dbPath = $this->basePath . '/web/database/database.sqlite';
+        if (file_exists('/opt/pirrot/storage/pirrot-web.database')) {
+            $dbPath = '/opt/pirrot/storage/pirrot-web.database';
+        }
+        try {
+            $weatherService->toSqliteDatabase($dbPath, 'weather_reports');
+        } catch (\Exception $exception) {
+            // We will ensure that any errors saving data to the database does not affect the broadcast!
+            $this->writeln($this->getCurrentLogTimestamp() . 'Unable to write weather information to the Pirrot SQLite database.');
+        }
+
         if (file_exists($filename)) {
             $this->audioService->playMp3($filename);
             return;
@@ -194,13 +207,6 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         $output = $ttsService->download($report);
         file_put_contents($filename, $output);
-
-        // Save the weather update to the database (as it's changed since the last report)
-        $dbPath = $this->basePath.'/web/database/database.sqlite';
-        if(file_exists('/opt/pirrot/storage/pirrot-web.database')){
-            $dbPath = '/opt/pirrot/storage/pirrot-web.database';
-        }
-        $weatherService->toSqliteDatabase($dbPath, 'weather_reports');
 
         $this->audioService->playMp3($filename);
 
