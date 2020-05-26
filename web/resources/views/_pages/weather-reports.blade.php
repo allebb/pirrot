@@ -42,7 +42,7 @@
                 @foreach($reports as $report)
                     <tr>
                         <td nowrap>{{ $report->description }}</td>
-                        <td><small>{{ $report->temp_c }}&deg;C / {{ $report->temp_f }}&deg;</small></td>
+                        <td><small>{{ $report->temp_c }}&deg;C / {{ $report->temp_f }}&deg;F</small></td>
                         <td><small><abbr title="{{ $report->wind_dir_hdg }}&deg;">{{ $report->wind_dir_crd }}</abbr>
                                 at {{ $report->wind_mph }}mph / {{ $report->wind_kph }}
                                 kph</small>
