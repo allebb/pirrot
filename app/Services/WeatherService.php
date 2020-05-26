@@ -58,6 +58,7 @@ class WeatherService
     public function fromLocationName($location)
     {
         $this->response = file_get_contents("https://api.openweathermap.org/data/2.5/weather?q={$location}}&units=metric&appid={$this->apiKey}");
+        $this->toDatabase();
         return $this;
     }
 
@@ -70,6 +71,7 @@ class WeatherService
     public function fromLatLon($lat, $lon)
     {
         $this->response = file_get_contents("https://api.openweathermap.org/data/2.5/weather?lat={$lat}&lon={$lon}&units=metric&appid={$this->apiKey}");
+        $this->toDatabase();
         return $this;
     }
 
@@ -160,6 +162,36 @@ class WeatherService
             throw new \RuntimeException('No API response data available, did you call fromLatLon() or fromLocationName()?');
         }
         return true;
+    }
+
+    /**
+     * Write the weather data to an SQLite database file.
+     * @param string $path The path to the SQLite3 database.
+     * @param string $table The database table name to write the data to.
+     */
+    public function toSqliteDatabase($path, $table)
+    {
+        if (!file_exists($path)) {
+            throw new \InvalidArgumentException('The SQLite database does not exist at the path (' . $path . ') specified.');
+        }
+
+        $data = $this->toObject();
+
+        $db = new \SQLite3($path);
+
+        $stm = $db->prepare("INSERT INTO {$table} (description, temp, wind_dir, wind_spd, pressure, humidity, reported_lat, reported_lon, reported_at, created_at) VALUE (?,?,?,?,?,?,?,?,?,?)");
+        $stm->bindParam(1, $data->weather[0]->description);
+        $stm->bindParam(2, $data->main->temp);
+        $stm->bindParam(3, $data->wind->deg);
+        $stm->bindParam(4, $data->wind->speed);
+        $stm->bindParam(5, $data->main->pressure);
+        $stm->bindParam(6, $data->main->humidity);
+        $stm->bindParam(7, $data->coord->lat);
+        $stm->bindParam(8, $data->coord->lon);
+        $stm->bindParam(9, $data->dt);
+        $stm->bindParam(10, time());
+        $stm->execute();
+
     }
 
 }

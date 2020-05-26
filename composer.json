@@ -37,7 +37,8 @@
     "ext-pcntl": "*",
     "ext-json": "*",
     "ext-curl": "*",
-    "ext-ftp": "*"
+    "ext-ftp": "*",
+    "ext-sqlite3": "*"
   },
   "autoload": {
     "psr-4": {
