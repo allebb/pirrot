@@ -33,6 +33,8 @@ class UpdateCommand extends BaseCommand implements CommandInterface
         system("cd /opt/pirrot/web && sudo git reset --hard");
         system("cd /opt/pirrot/web && sudo git pull");
         system("sudo composer install --working-dir /opt/pirrot/web --no-dev --no-interaction");
+        $this->writeln('Applying schema updates to the Pirrot Web database...');
+        system("sudo /usr/bin/php /opt/pirrot/web/artisan migrate --force");
         $this->writeln('Upgrade completed!');
         $this->writeln();
         $this->writeln('** REMEMBER TO RESTART THE PIRROT DAEMON **');
