@@ -1,18 +1,31 @@
-# Pirrot - A Simplex Radio Repeater controller for RaspberryPi
+![](build/res/pirrotsmalllogo.png)![](build/res/pirrot_txt_large.png)
 
-The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex repeater controller.
+# Pirrot - An Open-source Radio Repeater controller for RaspberryPi
 
-Pirrot also offers other operation modes and features that most off-the-shelf simplex repeaters do not come with as standard such as automatic identification and the ability to operate in "surveillance mode".
+The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex or duplex repeater controller.
+
+Pirrot also offers other operation modes and features that most off-the-shelf repeater controllers do not come with as standard such as automatic identification, the ability to operate in "surveillance mode" (recording transmissions).
 
 You can find a list of user projects to get inspiration from [below](https://github.com/allebb/pirrot/blob/master/README.md#pirrot-being-used-in-the-wild).
 
 ## Features
 
-* Ability to set a courtesy tone on end of transmission.
-* Ability to configure the repeater to identify itself automatically on a schedule.
+* Operate a Simplex or Duplex (since version 2.0.0) repeater from a Raspberry Pi 2, 3, 4, Zero or Zero W!
+* An optional web interface (disabled by default for lower spec hardware) to update settings, view system resource usage, access (download, play or delete) audio recordings.
 * Ability to enable or disable automatic repeater identifier (disabled by default).
-* Ability to transmit on VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
+* Ability to "speak" the PL/CTCSS tone as part of the repeater ident broadcast.
+* Ability to configure the repeater to "speak" identify itself phonetically automatically on a schedule.
+* Ability to transmit a custom (MP3 file) broadcast/repeater identification message.
+* Ability to trigger repeater transmission on VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
 * Save recordings of received transmissions (disabled by default).
+* Ability to automatically backup and archive audio recordings to a remote server (FTP and FTPS supported).
+* Ability to automatically purge old recording from the SD card (if not using automatic remote archiving).
+* Integration with GPS hardware for "field" or "mobile" operations, ensuring the RPi has accurate satellite time.
+* Optional Weather report broadcasts for your location (requires an internet connection and a free [OpenWeatherMap account](https://openweathermap.org/) API key)
+* Optional Google Text-To-Speech for translatable broadcasts and generating synthesised weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
+* Ability to dispatch a web hook when the repeater is activated (requires an internet connection)
+* Ability to optionally delay the transmission of Simplex messages for a configurable time period.
+* Ability to set a custom courtesy tone on end of transmission.
 
 See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
 
