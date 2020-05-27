@@ -153,10 +153,6 @@
             $("#s_uptime").text(result.uptime_time);
             $("#s_systime").text(result.system_time);
 
-            //$("#s_cpu").text(result.cpu_percent + '%');
-            //$("#s_ram").text(result.ram_percent + '%');
-            //$("#s_disk").text(result.disk_percent + '%');
-
             $("#bar_cpu").val(result.cpu_percent).text(result.cpu_percent + '%');
             $("#bar_memory").val(result.ram_percent).text(result.ram_percent + '%');
             $("#bar_disk").val(result.disk_percent).text(result.disk_percent + '%');
@@ -184,7 +180,7 @@
                     .then(response => response.json())
                     .then(result => {
                         renderStats(result);
-                        console.log(result);
+                        //console.log(result);
                     })
                     .catch(error => {
                         console.log('No data returned from the stats endpoint.');
