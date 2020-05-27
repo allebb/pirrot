@@ -50,7 +50,7 @@
         @endforeach
 
 
-        <button type="submit" class="button is-success is-outlined">Save and apply changes</button>
+        <button type="submit" class="button is-success">Save and apply changes</button>
     </form>
 
 

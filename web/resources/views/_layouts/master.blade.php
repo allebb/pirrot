@@ -14,6 +14,9 @@
         <div class="columns is-mobile">
             <div class="column is-one-quarter">
                 <aside class="menu">
+
+                    <a href="{{ route('dashboard') }}"><img src="/img/pirrot_logo.png" title="Pirrot - Open-source Repeater Controller Software"></a>
+
                     <p class="menu-label">
                         General
                     </p>
@@ -32,7 +35,7 @@
                         Other
                     </p>
                     <ul class="menu-list">
-                        <li><a href="{{ route('support') }}">Help & Support</a></li>
+                        <li><a href="{{ route('support') }}">Help & About</a></li>
                     </ul>
                 </aside>
             </div>
@@ -41,6 +44,17 @@
                 @yield('content')
             </div>
         </div>
+
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+                    Powered by <strong><a href="https://pirrot.hallinet.com/" target="_blank">Pirrot</a></strong> an open-source repeater controller system.
+                </p>
+                <p>
+                    <a href="https://github.com/allebb/pirrot" target="_blank"><img src="/img/pirrot_footer.png" alt="Pirrot Footer Logo" title="Pirrot - Open-source Repeater Controller Software"></a>
+                </p>
+            </div>
+        </footer>
 
     </div>
 </section>

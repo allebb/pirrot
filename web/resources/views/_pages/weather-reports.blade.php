@@ -5,7 +5,7 @@
 @section('title', 'Weather Reports')
 
 @section('content')
-    <h2 class="subtitle">Auto-broadcasting of weather reports</h2>
+    <h2 class="subtitle">Recent weather reports</h2>
 
     @if(!app('pirrot.config')->owm_enabled)
         <article class="message is-danger">

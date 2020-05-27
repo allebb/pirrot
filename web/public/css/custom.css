@@ -25,6 +25,14 @@
     animation: sk-chase-dot-before 2.0s infinite ease-in-out both;
 }
 
+.footer {
+    background-color: transparent;
+}
+
+.footer a, a:link, a:hover{
+    color: #1b1e21;
+}
+
 .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
 .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
 .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }

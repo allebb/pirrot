@@ -4,7 +4,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <h2 class="subtitle">System statistics</h2>
+    <h2 class="subtitle">System overview</h2>
 
     <div class="columns">
         <div class="column is-half">

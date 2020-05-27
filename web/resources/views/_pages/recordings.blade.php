@@ -1,11 +1,11 @@
 @extends('_layouts.master')
 
 
-@section('html-title', 'Recordings - Pirrot Web Interface')
-@section('title', 'Recordings')
+@section('html-title', 'Audio Recordings - Pirrot Web Interface')
+@section('title', 'Audio Recordings')
 
 @section('content')
-    <h2 class="subtitle">Manage stored transmission recordings</h2>
+    <h2 class="subtitle">Recent audio transmission recordings</h2>
 
     @if(!app('pirrot.config')->store_recordings)
         <article class="message is-danger">
