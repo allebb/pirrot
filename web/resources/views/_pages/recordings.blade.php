@@ -166,7 +166,7 @@
                     window.location.reload();
                 }
             }).catch(error => {
-                alert('An error occurred and the recording could not be deleted, please refresh and try again!');
+                //alert('An error occurred and the recording could not be deleted, please refresh and try again!');
             });
 
         });
