@@ -1,8 +1,8 @@
-![](build/res/pirrotsmalllogo.png)![](build/res/pirrot_txt_large.png)
+![](build/res/pirrotsmalllogo.png)
 
 # Pirrot - An Open-source Radio Repeater controller for RaspberryPi
 
-The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex or duplex repeater controller.
+The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex or duplex radio repeater controller.
 
 Pirrot also offers other operation modes and features that most off-the-shelf repeater controllers do not come with as standard such as automatic identification, the ability to operate in "surveillance mode" (recording transmissions).
 
@@ -10,21 +10,21 @@ You can find a list of user projects to get inspiration from [below](https://git
 
 ## Features
 
-* Operate a Simplex or Duplex (since version 2.0.0) repeater from a Raspberry Pi 2, 3, 4, Zero or Zero W!
-* An optional web interface (disabled by default for lower spec hardware) to update settings, view system resource usage, access (download, play or delete) audio recordings.
-* Ability to enable or disable automatic repeater identifier (disabled by default).
-* Ability to "speak" the PL/CTCSS tone as part of the repeater ident broadcast.
-* Ability to configure the repeater to "speak" identify itself phonetically automatically on a schedule.
-* Ability to transmit a custom (MP3 file) broadcast/repeater identification message.
+* Operate a Simplex or Duplex repeater system (since version 2.0.0) - By default, Pirrot runs as a Simplex repeater!
+* Optional web admin interface to update settings, view system resource usage, access (download, play or delete) audio recordings.
+* Optional automatic repeater identification broadcasts (disabled by default).
+* Ability to "speak" the PL/CTCSS tone as part of the repeater identification broadcast.
+* Ability to transmit a custom (MP3 file recording) broadcast or repeater identification message.
+* Ability to broadcast custom Text-to-speech messages.
 * Ability to trigger repeater transmission on VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
-* Save recordings of received transmissions (disabled by default).
-* Ability to automatically backup and archive audio recordings to a remote server (FTP and FTPS supported).
-* Ability to automatically purge old recording from the SD card (if not using automatic remote archiving).
-* Integration with GPS hardware for "field" or "mobile" operations, ensuring the RPi has accurate satellite time.
-* Optional Weather report broadcasts for your location (requires an internet connection and a free [OpenWeatherMap account](https://openweathermap.org/) API key)
-* Optional Google Text-To-Speech for translatable broadcasts and generating synthesised weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
+* Optionally enable or disable recordings of received transmissions (disabled by default).
+* Optionally automatically backup and archive audio recordings to a remote server (FTP and FTPS supported).
+* Automatically purge old recording from the SD card (if not using automatic remote archiving).
+* Optional integration with GPS hardware for "field" or "mobile" operations, ensuring the RPi has accurate time (using the atomic clocks from GPS satellites).
+* Optional weather report broadcasts for a specified location (requires an internet connection and a free [OpenWeatherMap account](https://openweathermap.org/) API key)
+* Optional Google Text-To-Speech functionality for translatable broadcasts and generating synthesised weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
 * Ability to dispatch a web hook when the repeater is activated (requires an internet connection)
-* Ability to optionally delay the transmission of Simplex messages for a configurable time period.
+* Ability to optionally delay the transmission of simplex messages for a configurable time period.
 * Ability to set a custom courtesy tone on end of transmission.
 
 See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
@@ -188,3 +188,5 @@ In this scenario I will assume that you primarily use the RaspberryPi remotely a
 The solution is to configure the RaspberryPi to "switch" it's WiFi adapter into "Hot Spot" mode (and advertise a WiFi network that we can connect to from our mobile devices) when it cannot detect and connect our Home or Office WiFi network.
 
 Follow [this guide](#) to configure your RaspberryPi as an "auto" remote hotspot.
+
+![](build/res/pirrot_txt_large.png)
