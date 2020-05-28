@@ -154,6 +154,8 @@ To enable the web interface, you must edit ``/etc/pirrot.conf`` and change the s
 
 You can set a new admin password for the web interface (and I highly encourage you to do so) by running the following command at the console: ```sudo pirrot setwebpwd --password={YourPasswordHere}```.
 
+![](build/res/screenshots.jpg)
+
 # Pirrot being used in the wild
 
 Below is a compiled list of known projects and/or articles that have been created by users of Pirrot.
