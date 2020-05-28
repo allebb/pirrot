@@ -40,6 +40,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private $debounceTime = 0.25;
 
     /**
+     * Provides a transmitter timeout protection state.
+     * @var bool
+     */
+    private $timeoutReset = true;
+
+    /**
      * VoiceCommand constructor.
      * @param ArgumentsParser $argv
      * @throws GPIOException
@@ -240,7 +246,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      */
     private function processDuplexCorRecording()
     {
-        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH) && $this->timeoutReset) {
 
             $transmit_timeout = time() + $this->config->get('transmit_timeout', 120);
 
@@ -261,7 +267,12 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                 }
 
                 usleep(10000);
-                if (($timeout < microtime(true)) || (time() > $transmit_timeout)) {
+                if ($tor = (time() > $transmit_timeout) || ($timeout < microtime(true))) {
+
+                    if($tor){ // Timeout reached..
+                        $this->writeln($this->getCurrentLogTimestamp(). 'Timeout reached');
+                        $this->timeoutReset = false;
+                    }
 
                     $this->outputLedRx->setValue(GPIO::LOW);
 
@@ -282,6 +293,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             }
         }
         usleep(10000); // Sleep a tenth of a second...
+        $this->timeoutReset = true;
     }
 
     /**
