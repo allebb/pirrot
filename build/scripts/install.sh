@@ -112,10 +112,29 @@ sudo composer install -q --working-dir /opt/pirrot/web --no-dev --no-interaction
 echo " - Running database updates..."
 sudo /usr/bin/php /opt/pirrot/web/artisan migrate --force
 
-# Disable onboard audio device (to enable USB device)
+# Disable the on-board audio device (to enable USB device)
 echo " - Disabling on-board audio device"
 sudo sed -i "s|options snd-usb-audio index=-2|#options snd-usb-audio index=-2|" /lib/modprobe.d/aliases.conf
 echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
+
+# Ask if the user wants to enable the web interface
+read -n 1 -p "Do you want to enable the admin web interface? (y/n)? " enableweb
+if [ "$enableweb" == "${enableweb#[Yy]}" ] ;then
+    sed -i "s|web_interface_enabled = false|web_interface_enabled = true|" /etc/pirrot.conf
+    echo ""
+    echo " **Web interface has been enabled!**"
+    echo ""
+    echo "The default credentials are:"
+    echo ""
+    echo "    URL:      http://{IP_ADDRESS}:8440"
+    echo "    Username: admin"
+    echo "    Password: pirrot"
+    echo ""
+    echo "You can reset the password at anytime using the following command:"
+    echo ""
+    echo " sudo pirrot setwebpwd --password={YourPasswordHere}"
+    echo ""
+fi
 
 # Finished!
 echo ""
