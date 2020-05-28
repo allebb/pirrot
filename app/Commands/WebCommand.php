@@ -5,6 +5,7 @@ namespace Ballen\Pirrot\Commands;
 use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
+use Ballen\Pirrot\Services\VersionCheckService;
 
 /**
  * Class WebCommand
@@ -51,6 +52,7 @@ class WebCommand extends BaseCommand implements CommandInterface
         if ($this->config->get('web_interface_enabled')) {
             $this->writeln($this->getCurrentLogTimestamp() . 'Starting web interface on ' . $webInterfaceBindIp . ':' . $webInterfacePort);
             $this->readAndCacheSystemInfo();
+            $this->readAndLatestVersionInfo();
             system($this->phpBin . ' -S ' . $webInterfaceBindIp . ':' . $webInterfacePort . ' -t ' . $this->basePath . '/web/public 2> ' . $logger . ' &');
             $this->exitWithSuccess();
         }
@@ -64,6 +66,18 @@ class WebCommand extends BaseCommand implements CommandInterface
     {
         $sysInfo = shell_exec($this->basePath . '/pirrot version --dump');
         file_put_contents($this->basePath . '/storage/sysinfo.cache', trim($sysInfo));
+    }
+
+    /**
+     * Reads and caches latest version information to improve performance on the on web interface dashboard..
+     * @return void
+     */
+    private function readAndLatestVersionInfo()
+    {
+        $vcs = new VersionCheckService();
+        if ($version = $vcs->getLatestVersion()) { // Only update the cache file if we was able to contact the version checker service!
+            file_put_contents($this->basePath . '/storage/version.cache', $vcs->getLatestVersion());
+        }
     }
 
 

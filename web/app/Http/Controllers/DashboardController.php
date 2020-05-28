@@ -32,9 +32,16 @@ class DashboardController extends Controller
         }
 
         $systemInfoCache = env('PIRROT_PATH') . '/storage/sysinfo.cache';
+        $versionInfoCache = env('PIRROT_PATH') . '/storage/version.cache';
+
         $systemInfo = [];
         if (file_exists($systemInfoCache)) {
             $systemInfo = file_get_contents($systemInfoCache);
+        }
+        if(file_exists($versionInfoCache)){
+            $latest_version = trim(file_get_contents($versionInfoCache));
+            $last_check = date('jS F Y at H:i:s',filemtime($versionInfoCache));
+            $systemInfo = array_merge($systemInfo, ['version_latest' => $latest_version, 'version_checked' => $last_check]);
         }
         return json_decode($systemInfo);
     }

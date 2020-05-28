@@ -6,6 +6,7 @@ use Ballen\Clip\Traits\RecievesArgumentsTrait;
 use Ballen\Clip\Interfaces\CommandInterface;
 use Ballen\Clip\Utilities\ArgumentsParser;
 use Ballen\Collection\Collection;
+use Ballen\Pirrot\Services\VersionCheckService;
 
 /**
  * Class PurgeCommand
@@ -33,6 +34,13 @@ class PurgeCommand extends BaseCommand implements CommandInterface
     public function handle()
     {
 
+        // Check for new versions...
+        $vcs = new VersionCheckService();
+        if ($version = $vcs->getLatestVersion()) { // Only update the cache file if we was able to contact the version checker service!
+            file_put_contents($this->basePath . '/storage/version.cache', $vcs->getLatestVersion());
+        }
+
+        // Purge recordings and general cleanup tasks.
         $purge_after_days = $this->config->get('purge_recording_after', 0);
 
         if ($purge_after_days < 1) {
