@@ -9,7 +9,6 @@ use Ballen\GPIO\Exceptions\GPIOException;
 use Ballen\GPIO\GPIO;
 use Ballen\Pirrot\Services\TextToSpeechService;
 use Ballen\Pirrot\Services\WeatherService;
-use Mockery\Exception;
 
 /**
  * Class DaemonCommand
@@ -66,8 +65,28 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->exitWithSuccess();
         }
 
+        // Let's make our HTTP API requests here, if they fail or take a while (on a slow connection) we are not leaving the transmitter open (causing damage)...
         $customTtsMessage = $this->config->get('tts_ident_custom', '');
         $loopInterval = $this->config->get('ident_interval');
+
+        if ($broadcastCustomTts) {
+            try {
+                $customTtsFile = $this->announceCustomTtsMessage($customTtsMessage);
+            } catch (\Exception $exception) {
+                $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for custom TTS message [' . $exception->getMessage() . ']');
+                $broadcastCustomTts = false; // Ensure we don't attempt to broadcast this during this interval!
+            }
+        }
+
+        if ($broadcastWeather) {
+            try {
+                $customWxFile = $this->announceWeather();
+            } catch (\Exception $exception) {
+                $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for weather announcement [' . $exception->getMessage() . ']');
+                $broadcastWeather = false; // Ensure we don't attempt to broadcast this during this interval!
+            }
+        }
+
 
         while (true) {
 
@@ -90,19 +109,11 @@ class IdentCommand extends AudioCommand implements CommandInterface
             }
 
             if ($broadcastCustomTts) {
-                try {
-                    $this->announceCustomTtsMessage($customTtsMessage);
-                } catch (\Exception $exception) {
-                    $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for custom TTS message [' . $exception->getMessage() . ']');
-                }
+                $this->audioService->playMp3($customTtsFile);
             }
 
             if ($broadcastWeather) {
-                try {
-                    $this->announceWeather();
-                } catch (\Exception $exception) {
-                    $this->writeln($this->getCurrentLogTimestamp() . ' Exception thrown for weather announcement [' . $exception->getMessage() . ']');
-                }
+                $this->audioService->playMp3($customWxFile);
             }
 
             $this->outputPtt->setValue(GPIO::LOW);
@@ -131,6 +142,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * Announces a custom (translatable) repeater/station identification or other message.
      * This could obviously be used for a custom broadcast message (if you didn't care about repeater identification) too!
      * @param string $message The message that should be TTS converted and broadcast.
+     * @return string The generated MP3 file path.
      */
     public function announceCustomTtsMessage($message)
     {
@@ -142,14 +154,13 @@ class IdentCommand extends AudioCommand implements CommandInterface
         $filename = $this->basePath . self::TTS_FILE_PATH . 'cm_' . md5($message) . '.mp3';
 
         if (file_exists($filename)) {
-            $this->audioService->playMp3($filename);
-            return;
+            return $filename;
         }
 
         $output = $ttsService->download($message);
         file_put_contents($filename, $output);
 
-        $this->audioService->playMp3($filename);
+        return $filename;
 
     }
 
@@ -163,17 +174,16 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         $filename = $this->basePath . '/storage/input/custom.mp3';
         if (file_exists($filename)) {
-            $this->audioService->playMp3($filename);
-            return;
+            return $filename;
         }
 
         $this->writeln($this->getCurrentLogTimestamp() . 'Custom recording file was not found at: ' . $filename);
-
+        return null;
     }
 
     /**
      * Announces the current weather conditions
-     * @return void
+     * @return string The generated MP3 file path.
      */
     public function announceWeather()
     {
@@ -201,15 +211,12 @@ class IdentCommand extends AudioCommand implements CommandInterface
         }
 
         if (file_exists($filename)) {
-            $this->audioService->playMp3($filename);
-            return;
+            return $filename;
         }
 
         $output = $ttsService->download($report);
         file_put_contents($filename, $output);
-
-        $this->audioService->playMp3($filename);
-
+        return $filename;
     }
 
 
