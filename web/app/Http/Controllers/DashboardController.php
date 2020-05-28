@@ -9,8 +9,11 @@ class DashboardController extends Controller
 
     public function showDashboardPage()
     {
+
+
         return view('_pages.dashboard')
-            ->with('system', $this->retrieveSystemInformation());
+            ->with('system', $this->retrieveSystemInformation())
+            ->with('version_updates', $this->retrieveUpdateInformation());
     }
 
     public function ajaxGetDashboardStats()
@@ -32,18 +35,39 @@ class DashboardController extends Controller
         }
 
         $systemInfoCache = env('PIRROT_PATH') . '/storage/sysinfo.cache';
-        $versionInfoCache = env('PIRROT_PATH') . '/storage/version.cache';
 
         $systemInfo = [];
         if (file_exists($systemInfoCache)) {
             $systemInfo = file_get_contents($systemInfoCache);
         }
-        if(file_exists($versionInfoCache)){
-            $latest_version = trim(file_get_contents($versionInfoCache));
-            $last_check = date('jS F Y at H:i:s',filemtime($versionInfoCache));
-            $systemInfo = array_merge($systemInfo, ['version_latest' => $latest_version, 'version_checked' => $last_check]);
-        }
         return json_decode($systemInfo);
+    }
+
+    /**
+     * Retrieves that last version check information from the cache or falls back to "safe" defaults.
+     * @return array
+     */
+    private function retrieveUpdateInformation()
+    {
+
+        $versionInfoCache = env('PIRROT_PATH') . '/storage/version.cache';
+        $updates = [
+            'version_update_available' => false,
+            'version_latest' => file_get_contents(env('PIRROT_PATH').'/VERSION'),
+            'version_checked' => 'never',
+        ];
+
+        if (file_exists($versionInfoCache)) {
+            $latest_version = json_decode(trim(file_get_contents($versionInfoCache)));
+            $last_check = date('jS F Y at H:i:s', filemtime($versionInfoCache));
+            $updates = [
+                'version_update_available' => $latest_version->updates_available,
+                'version_latest' => $latest_version->latest_version->number,
+                'version_checked' => $last_check
+            ];
+        }
+
+        return $updates;
     }
 
 }

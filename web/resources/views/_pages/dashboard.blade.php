@@ -41,7 +41,14 @@
                     </tr>
                     <tr>
                         <th>Pirrot</th>
-                        <td><span class="has-text-grey-darker">v{{ $system->version_pirrot }}</span><br><small><span id="s_updates" class="has-text-grey-light">Loading</span></small></td>
+                        <td><span class="has-text-grey-darker">{{ $system->version_pirrot }}</span><br><small><span
+                                    id="s_updates" class="has-text-grey-light">
+                                    @if($version_updates->version_update_available)
+                                        A new version ({{$version_updates->version_latest}}) is available!
+                                    @else
+                                        You are running the latest version!
+                                    @endif
+                                </span></small></td>
                     </tr>
                 </table>
             </article>
@@ -165,7 +172,7 @@
             $("#s_alt").text(result.gps_alt_msl + 'm / ' + result.gps_alt_fsl + 'ft');
             $("#s_spd").text(result.gps_spd_mph + 'mph / ' + result.gps_spd_kph + 'kph');
             $("#s_fix").text(result.gps_fixes);
-            $("#s_updates").text(result.version_latest);
+
 
             // Hide/show map link only if a fix has been established.
             if (result.gps_time) {

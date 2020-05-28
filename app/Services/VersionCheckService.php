@@ -15,12 +15,12 @@ class VersionCheckService
      */
     public function getLatestVersion()
     {
-        $latestVersion = null;
+        $latestVersionInfo = null;
         $meta = trim(system('/opt/pirrot/pirrot version --dump'));
         if ($version = $this->checkWebservice($meta)) {
-            $latestVersion = json_decode($version, true)['latest_version'];
+            $latestVersionInfo = $version;
         }
-        return $latestVersion;
+        return $latestVersionInfo;
     }
 
     /**
