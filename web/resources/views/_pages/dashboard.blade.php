@@ -41,14 +41,13 @@
                     </tr>
                     <tr>
                         <th>Pirrot</th>
-                        <td><span class="has-text-grey-darker">{{ $system->version_pirrot }}</span><br><small><span
-                                    id="s_updates" class="has-text-grey-light">
-                                    @if($version_updates->version_update_available)
-                                        A new version ({{$version_updates->version_latest}}) is available!
-                                    @else
-                                        You are running the latest version!
-                                    @endif
-                                </span></small></td>
+                        <td><span class="has-text-grey-darker">{{ $system->version_pirrot }}</span>
+                            @if($version_updates->version_update_available)
+                                <br><small><span id="s_updates" class="has-text-danger">
+                                        A new version (v{{$version_updates->version_latest}}) is available!
+                                </span></small>
+                            @endif
+                        </td>
                     </tr>
                 </table>
             </article>
