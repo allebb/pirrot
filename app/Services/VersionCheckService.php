@@ -16,8 +16,8 @@ class VersionCheckService
     public function getLatestVersion()
     {
         $latestVersionInfo = null;
-        $meta = trim(system('/opt/pirrot/pirrot version --dump'));
-        if ($version = $this->checkWebservice($meta)) {
+        $meta = shell_exec('/opt/pirrot/pirrot version --dump');
+        if ($version = $this->checkWebservice(trim($meta))) {
             $latestVersionInfo = $version;
         }
         return $latestVersionInfo;

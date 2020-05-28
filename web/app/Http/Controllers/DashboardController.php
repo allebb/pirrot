@@ -45,7 +45,7 @@ class DashboardController extends Controller
 
     /**
      * Retrieves that last version check information from the cache or falls back to "safe" defaults.
-     * @return array
+     * @return \stdClass
      */
     private function retrieveUpdateInformation()
     {
@@ -53,7 +53,7 @@ class DashboardController extends Controller
         $versionInfoCache = env('PIRROT_PATH') . '/storage/version.cache';
         $updates = [
             'version_update_available' => false,
-            'version_latest' => file_get_contents(env('PIRROT_PATH').'/VERSION'),
+            'version_latest' => file_get_contents(env('PIRROT_PATH') . '/VERSION'),
             'version_checked' => 'never',
         ];
 
@@ -67,7 +67,7 @@ class DashboardController extends Controller
             ];
         }
 
-        return $updates;
+        return (object)$updates;
     }
 
 }
