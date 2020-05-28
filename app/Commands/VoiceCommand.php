@@ -246,8 +246,18 @@ class VoiceCommand extends AudioCommand implements CommandInterface
      */
     private function processDuplexCorRecording()
     {
-        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH) && $this->timeoutReset) {
 
+        // Reset the transmitter timeout (only once the COS goes low)
+        if (!$this->timeoutReset) {
+            usleep(10000);
+            if ($this->inputCos->getValue() == GPIO::HIGH) {
+                return;
+            }
+            $this->timeoutReset = true;
+        }
+
+        // Normal operation, process Duplex transmission...
+        if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
             $transmit_timeout = time() + $this->config->get('transmit_timeout', 120);
 
             $this->outputLedRx->setValue(GPIO::HIGH);
@@ -269,8 +279,8 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                 usleep(10000);
                 if ($tor = (time() > $transmit_timeout) || ($timeout < microtime(true))) {
 
-                    if($tor){ // Timeout reached..
-                        $this->writeln($this->getCurrentLogTimestamp(). 'Timeout reached');
+                    if ($tor) { // Timeout reached..
+                        $this->writeln($this->getCurrentLogTimestamp() . 'Timeout reached');
                         $this->timeoutReset = false;
                     }
 
@@ -293,7 +303,6 @@ class VoiceCommand extends AudioCommand implements CommandInterface
             }
         }
         usleep(10000); // Sleep a tenth of a second...
-        $this->timeoutReset = true;
     }
 
     /**
