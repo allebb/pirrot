@@ -195,7 +195,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         
         // If the transmit timeout has been reached, lets monitor until we can reset it.
         if (!$this->timeoutReset) {
-            $this->checkForTimeoutReset();
+            usleep(10000);
+            if ($this->inputCos->getValue() == GPIO::HIGH) {
+                return;
+            }
+            $this->timeoutReset = true;
         }
 
         // Normal operation, process Simplex transmission...
@@ -262,7 +266,11 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         // If the transmit timeout has been reached, lets monitor until we can reset it.
         if (!$this->timeoutReset) {
-            $this->checkForTimeoutReset();
+            usleep(10000);
+            if ($this->inputCos->getValue() == GPIO::HIGH) {
+                return;
+            }
+            $this->timeoutReset = true;
         }
 
         // Normal operation, process Duplex transmission...
@@ -313,18 +321,6 @@ class VoiceCommand extends AudioCommand implements CommandInterface
         }
 
         usleep(10000); // Sleep a tenth of a second...
-    }
-
-    /**
-     * Checks and resets the transmit timeout if the PTT input goes "low".
-     * @return void
-     */
-    private function checkForTimeoutReset(): void
-    {
-        if ($this->inputCos->getValue() == GPIO::HIGH) {
-            return;
-        }
-        $this->timeoutReset = true;
     }
 
     /**
