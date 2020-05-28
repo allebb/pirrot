@@ -119,7 +119,7 @@ echo "blacklist snd_bcm2835" | sudo tee -a /etc/modprobe.d/raspi-blacklist.conf
 
 # Ask if the user wants to enable the web interface
 read -n 1 -p "Do you want to enable the admin web interface? (y/n)? " enableweb
-if [ "$enableweb" == "${enableweb#[Yy]}" ] ;then
+if [ "$enableweb" != "${enableweb#[Yy]}" ] ;then
     sed -i "s|web_interface_enabled = false|web_interface_enabled = true|" /etc/pirrot.conf
     echo ""
     echo " **Web interface has been enabled!**"
