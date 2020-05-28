@@ -10,24 +10,24 @@ You can find a list of user projects to get inspiration from [below](https://git
 
 ## Features
 
-* Operate a Simplex or Duplex repeater system (since version 2.0.0) - By default, Pirrot runs as a Simplex repeater!
+* Operate a Simplex or Duplex repeater system from a Raspberry Pi (Pirrot runs in Simplex mode by default)!
 * Optional web admin interface to update settings, view system resource usage, access (download, play or delete) audio recordings.
 * Optional automatic repeater identification broadcasts (disabled by default).
-* Ability to "speak" the PL/CTCSS tone as part of the repeater identification broadcast.
-* Ability to transmit a custom (MP3 file recording) broadcast or repeater identification message.
-* Ability to broadcast custom Text-to-speech messages.
-* Ability to trigger repeater transmission on VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
-* Optionally enable or disable recordings of received transmissions (disabled by default).
-* Optionally automatically backup and archive audio recordings to a remote server (FTP and FTPS supported).
-* Automatically purge old recording from the SD card (if not using automatic remote archiving).
+* Ability to transmit the PL/CTCSS tone as part of the repeater identification broadcast.
+* Ability to transmit a custom pre-recorded (MP3 file recording) broadcast or custom repeater identification message.
+* Ability to broadcast custom text-to-speech messages.
+* Ability to trigger repeater transmission using VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
+* Optional recording of received transmissions (disabled by default).
+* Optional automatic nightly backups and archiving of audio recordings to a remote server (FTP and FTPS supported).
+* Automatically purge old recording from the SD card (keeping that SD card from getting full).
 * Optional integration with GPS hardware for "field" or "mobile" operations, ensuring the RPi has accurate time (using the atomic clocks from GPS satellites).
 * Optional weather report broadcasts for a specified location (requires an internet connection and a free [OpenWeatherMap account](https://openweathermap.org/) API key)
 * Optional Google Text-To-Speech functionality for translatable broadcasts and generating synthesised weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
-* Ability to dispatch a web hook when the repeater is activated (requires an internet connection)
-* Ability to optionally delay the transmission of simplex messages for a configurable time period.
+* Ability to dispatch a web hook when the repeater is activated (requires an internet connection) - We call this feature "Tripwire".
+* Ability to optionally delay the transmission of a received simplex messages for a configurable time period.
 * Ability to set a custom courtesy tone on end of transmission.
 
-See the full list of configuration items (features) on the [CONFIGURATION page](CONFIGURATION.md).
+See the full list of configuration items on the [CONFIGURATION page](CONFIGURATION.md).
 
 ## Hardware requirements
 
@@ -104,7 +104,7 @@ cd /opt/pirrot
 sudo make uninstall
 ```
 
-# PCB Interface
+# PCB Interface (for Simplex mode)
 
 This PCB interface design and PCB schematic has kindly been designed and contributed by Peter Javorsky ([@tekk](https://github.com/tekk)); and provides a simple interface (if you don't want to build your own circuit) to connect your radio(s) to a Raspberry Pi running Pirrot.
 
@@ -124,6 +124,18 @@ If you use this interface board, you should configure the Pirrot output pin sett
 | RaspberryPi COR pin | ``cos_pin_invert`` | true |
 
 **Remember to restart Pirrot by running ``sudo service pirrot restart`` for the changes to take affect.**
+
+# PCB Interface (for Duplex mode)
+
+**Duplex operation mode is new since v2.0.0 and as such a PCB design is not yet available.**
+
+In Duplex mode, Pirrot provides all the same features (audio recordings, weather reports, web hooks etc.) that Simplex mode does with the exception that VOX triggered transmissions are not supported.
+
+When running in Duplex mode you should create a custom wiring loom between the RX and TX radios, the audio output from the receive radio should be connected to the audio input of the transmit radio in addition to feeding the ``MIC IN`` port on the Raspberry Pi connected USB Audio device. The ``AUDIO OUT`` (Speaker) from the USB Audio device from the Raspberry Pi should also be connected to the transmit radio's audio input; using ``alsamixer`` (more info on this above - see the "Sound adjustment" section) you can then balance the audio levels as desired.
+
+The decision was taken not to use audio loopback in software (alleviating the need for direct connection between the TX and RX radios) given latency issues during testing (hence the need for a custom wiring loom), the result however is that Pirrot can provide all the same functionality as when it is running in Simplex mode whilst ensuring audio latency is not an issue.
+
+We hope to provide a PCB design soon for a Duplex compatible interface.
 
 # The optional web interface
 
