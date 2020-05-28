@@ -19,6 +19,7 @@ class SettingsController extends Controller
         'callsign' => Setting::GROUP_GENERAL,
         'enabled' => Setting::GROUP_GENERAL,
         'transmit_mode' => Setting::GROUP_GENERAL,
+        'transmit_timeout' => Setting::GROUP_GENERAL,
         'courtesy_tone' => Setting::GROUP_GENERAL,
         'auto_ident' => Setting::GROUP_GENERAL,
         'ident_use_custom' => Setting::GROUP_GENERAL,
@@ -195,6 +196,10 @@ class SettingsController extends Controller
             '\'simplex-vox\' = Simplex Mode - Voice Operated (auto-record and then transmit when it "hears" mic input on the USB sound card.)',
             '\'simplex-cor\' = Simplex Mode - Carrier Operated Relay/Switch (record and then transmit when the COR/COS GPIO pin is ON (aka. "high")',
             '\'duplex-cor\' = Duplex Mode - Carrier Operated Relay/Switch (pass-through transmission when the COR/COS GPIO pin is ON (aka. "high")',
+        ],
+        'transmit_timeout' => [
+            'Protects the transmitter by automatically timing out (effectively releasing the PTT) after the specified number of seconds',
+            'Default recommended value is 120 seconds (2 minutes)',
         ],
         'ident_time' => [
             'Transmit the time with the ident message.',

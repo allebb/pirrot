@@ -187,6 +187,9 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function processSimplexCorRecording()
     {
         if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+
+            $transmit_timeout = time() + $this->config->get('transmit_timeout', 120);
+
             $this->outputLedRx->setValue(GPIO::HIGH);
             $pid = system($this->audioService->audioRecordBin . ' -t ' . trim($this->config->get('record_device',
                     'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg > /dev/null & echo $!');
@@ -200,7 +203,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                 }
 
                 usleep(10000);
-                if ($timeout < microtime(true)) {
+                if (($timeout < microtime(true)) || (time() > $transmit_timeout)) {
 
                     $this->outputLedRx->setValue(GPIO::LOW);
 
@@ -238,6 +241,9 @@ class VoiceCommand extends AudioCommand implements CommandInterface
     private function processDuplexCorRecording()
     {
         if (!$this->corRecording && ($this->inputCos->getValue() == GPIO::HIGH)) {
+
+            $transmit_timeout = time() + $this->config->get('transmit_timeout', 120);
+
             $this->outputLedRx->setValue(GPIO::HIGH);
             $this->outputPtt->setValue(GPIO::HIGH);
             $this->outputLedTx->setValue(GPIO::HIGH);
@@ -255,7 +261,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
                 }
 
                 usleep(10000);
-                if ($timeout < microtime(true)) {
+                if (($timeout < microtime(true)) || (time() > $transmit_timeout)) {
 
                     $this->outputLedRx->setValue(GPIO::LOW);
 
