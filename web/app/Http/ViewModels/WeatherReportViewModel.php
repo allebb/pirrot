@@ -48,8 +48,8 @@ class WeatherReportViewModel extends ViewModel
 
         $this->wind_dir_crd = self::degreesToCardinals($report->wind_dir);
         $this->wind_dir_hdg = $report->wind_dir;
-        $this->wind_mph = round($report->wind_spd, 1);
-        $this->wind_kph = round(($report->wind_spd * 1.609), 1);
+        $this->wind_mph = round(($report->wind_spd * 2.237), 1);
+        $this->wind_kph = round(($report->wind_spd * 3.6), 1);
 
         $this->lat = $report->reported_lat;
         $this->lon = $report->reported_lon;

@@ -89,9 +89,9 @@ class WeatherService
         $tempC = $data->main->temp;
         $tempF = ($data->main->temp * 1.8) + 32;
         $windMps = $data->wind->speed;
-        $windMph = $data->wind->speed / 2.23694;
-        $windKph = $data->wind->speed / 3.6;
-        $windKts = $data->wind->speed / 1.9438445;
+        $windMph = $data->wind->speed * 2.23694;
+        $windKph = $data->wind->speed * 3.6;
+        $windKts = $data->wind->speed * 1.9438445;
 
         // Template tags
         $tags = [

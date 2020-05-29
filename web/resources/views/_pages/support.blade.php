@@ -17,8 +17,8 @@
 
     <h2 class="is-size-4">Help and Documentation</h2>
     <p style="margin-bottom: 0.5rem;">
-        Documentation and useful information can be found on the <a href="https://github.com/allebb/pirrot"
-                                                                    target="_blank">GitHub project page</a>.
+        Documentation and useful information can be found on the <a href="https://pirrot.hallinet.com/"
+                                                                    target="_blank">Pirrot project website</a>.
     </p>
     <p style="margin-bottom: 2rem;">
         If you have a specific issue or question please email: <a
