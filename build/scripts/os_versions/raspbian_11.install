@@ -1,5 +1,5 @@
-sudo apt-get install ca-certificates apt-transport-https software-properties-common lsb-release -y
+sudo apt-get install wget ca-certificates apt-transport-https software-properties-common lsb-release -y
 curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x
 sudo apt update && sudo apt upgrade
 
-sudo apt-get install -y sox morse wget lame php8.1-cli php8.1-curl php8.1-mbstring php8.1-sqlite3 php8.1-xml
+sudo apt-get install -y sox morse lame php8.1-cli php8.1-curl php8.1-mbstring php8.1-sqlite3 php8.1-xml
