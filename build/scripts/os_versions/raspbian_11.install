@@ -1,0 +1,1 @@
+sudo apt-get install -y sox morse wget lame php8.0-cli php8.0-curl php8.0-mbstring php8.0-sqlite3

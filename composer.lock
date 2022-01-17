@@ -55,6 +55,11 @@
                 "commands",
                 "console"
             ],
+            "support": {
+                "email": "ballen@bobbyallen.me",
+                "issues": "https://github.com/bobsta63/clip/issues",
+                "source": "https://github.com/allebb/clip/tree/2.2.0"
+            },
             "time": "2016-02-28T16:12:02+00:00"
         },
         {
@@ -101,6 +106,10 @@
                 "collection",
                 "list"
             ],
+            "support": {
+                "issues": "https://github.com/allebb/collection/issues",
+                "source": "https://github.com/allebb/collection/tree/master"
+            },
             "time": "2020-01-30T10:27:22+00:00"
         },
         {
@@ -149,6 +158,10 @@
                 "process",
                 "run"
             ],
+            "support": {
+                "issues": "https://github.com/allebb/executioner/issues",
+                "source": "https://github.com/allebb/executioner/tree/v3.0.x"
+            },
             "time": "2018-03-24T18:05:53+00:00"
         },
         {
@@ -196,6 +209,10 @@
                 "io",
                 "rpi"
             ],
+            "support": {
+                "issues": "https://github.com/allebb/gpio/issues",
+                "source": "https://github.com/allebb/gpio/tree/1.0.8"
+            },
             "time": "2020-01-31T08:04:42+00:00"
         }
     ],
@@ -213,5 +230,6 @@
         "ext-ftp": "*",
         "ext-sqlite3": "*"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
 }
