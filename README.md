@@ -33,8 +33,8 @@ See the full list of configuration items on the [CONFIGURATION page](CONFIGURATI
 
 The simplest hardware/software requirements are:
 
-1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Zero W** but should work on others too!
-2. Raspbian version **9 (stretch)** or **10 (buster)** running on your Pi (___either the "lite" or "desktop" versions___ but I recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
+1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Zero W** but should work on other models too!
+2. Raspbian version **11 (bullseye)** is recommended but older versions of Pirrot will run on Raspbian version **9 (stretch)** and **10 (buster)** too! You can install and use ___either the "lite" or "desktop" versions___ of Raspberian (I would personally recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
 3. **An external USB sound card**.
 
 I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi foundation.
@@ -58,7 +58,7 @@ cd /opt/pirrot
 sudo make install
 ```
 
-Alternatively you can install Pirrot by downloading the latest tarball, **replace the X.X.X.X with the latest version available from the ([releases page](https://github.com/allebb/pirrot/releases))**:
+Alternatively you can install Pirrot by downloading the latest tarball, **replace the X.X.X with the latest version available from the ([releases page](https://github.com/allebb/pirrot/releases))**:
 
 ```shell
 cd ~
