@@ -90,7 +90,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
 
         while (true) {
 
-            // Delay to ensure IO is not confused at daemon start (due to Voice daemon starting too)
+            // Delay ensuring IO is not confused at daemon start (due to Voice daemon starting too)
             if (!$this->isBooted) {
                 sleep(2);
                 $this->setPowerLed();
@@ -100,11 +100,14 @@ class IdentCommand extends AudioCommand implements CommandInterface
             $this->outputPtt->setValue(GPIO::HIGH);
             $this->outputLedTx->setValue(GPIO::HIGH);
 
-            if ($broadcastBasicIdent) {
-                if (!$this->config->get('ident_use_custom')) {
-                    $this->announceBasicIdent();
-                } else {
-                    $this->announceCustomRecording();
+            if ($broadcastBasicIdent && !$this->config->get('ident_use_custom')) {
+                $this->announceBasicIdent();
+            }
+
+            if ($broadcastBasicIdent && $this->config->get('ident_use_custom')) {
+                $customRecordingPath = $this->announceCustomRecording();
+                if ($customRecordingPath) {
+                    $this->audioService->playMp3($this->announceCustomRecording());
                 }
             }
 
@@ -128,7 +131,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * Perfect for offline mode as it does not require Google TTS but is restricted to english spoken identification.
      * @return void
      */
-    public function announceBasicIdent()
+    public
+    function announceBasicIdent()
     {
         $this->audioService->ident(
             $this->config->get('callsign'),
@@ -144,8 +148,10 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * @param string $message The message that should be TTS converted and broadcast.
      * @return string The generated MP3 file path.
      */
-    public function announceCustomTtsMessage($message)
-    {
+    public
+    function announceCustomTtsMessage(
+        $message
+    ) {
 
         $ttsService = new TextToSpeechService($this->config->get('tts_api_key'));
         $ttsService->setLanguage($this->config->get('tts_language', 'en'));
@@ -168,8 +174,10 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * Announces a custom pre-recorded repeater/station identification or other message.
      * This could obviously be used for a custom broadcast message (if you didn't care about repeater identification) too!
      * This will play the custom file uploaded to /opt/pirrot/storage/input/custom.mp3
+     * @return string
      */
-    public function announceCustomRecording()
+    public
+    function announceCustomRecording()
     {
 
         $filename = $this->basePath . '/storage/input/custom.mp3';
@@ -185,7 +193,8 @@ class IdentCommand extends AudioCommand implements CommandInterface
      * Announces the current weather conditions
      * @return string The generated MP3 file path.
      */
-    public function announceWeather()
+    public
+    function announceWeather()
     {
 
         $weatherService = new WeatherService($this->config->get('owm_api_key'));

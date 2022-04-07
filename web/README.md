@@ -1,6 +1,6 @@
 # Pirrot Web Interface Development Notes
 
-This web interface uses [Lumen](https://lumen.laravel.com/) as the light-weight, super fast web framework chosen for this project.
+This web interface uses [Lumen](https://lumen.laravel.com/) as the light-weight, superfast web framework chosen for this project.
 
 ## Enabling the web interface
 
