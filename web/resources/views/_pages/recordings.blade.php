@@ -49,7 +49,7 @@
                                 Download
                             </button>
                         </td>
-                        <td>{{ $audio->round(filesize) }} <small>KB</small></td>
+                        <td>{{ round($audio->filesize) }} <small>KB</small></td>
                         <td>{{ $audio->created_at }}</td>
                         <td>
                             <button class="button is-small is-outlined is-danger btn-delete-audio"
