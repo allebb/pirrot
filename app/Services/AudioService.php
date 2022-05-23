@@ -351,7 +351,7 @@ class AudioService
      */
     public function playMp3($file)
     {
-        system($this->audioLameBin . ' --decode ' . $file . ' - | ' . $this->audioPlayerBin . ' - -t alsa');
+        system($this->audioLameBin . ' --decode ' . $file . ' - | ' . $this->audioPlayerBin . ' --ignore-length - -t alsa');
     }
 
     /**
