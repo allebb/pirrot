@@ -223,6 +223,9 @@ class IdentCommand extends AudioCommand implements CommandInterface
             return $filename;
         }
 
+        $dir = 'opt/pirrot/storage/tts/';
+		array_map('unlink', glob("{$dir}wx_*.mp3"));
+		sleep (1);
         $output = $ttsService->download($report);
         file_put_contents($filename, $output);
         return $filename;
