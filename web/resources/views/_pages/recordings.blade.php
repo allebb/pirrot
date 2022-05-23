@@ -41,19 +41,22 @@
                         <td>{{ $audio->filename }}</td>
                         <td>
                             <button class="button is-small is-outlined btn-play-audio"
-                                    data-filename="{{ $audio->name }}">
+                                    data-filename="{{ $audio->name }}"
+                                    data-createtime="{{ $audio->created_at }}">
                                 Play
                             </button>
                             <button class="button is-small is-outlined btn-download-audio"
-                                    data-filename="{{ $audio->name }}">
+                                    data-filename="{{ $audio->name }}"
+                                    data-createtime="{{ $audio->created_at }}">
                                 Download
                             </button>
                         </td>
-                        <td>{{ $audio->filesize }} <small>KB</small></td>
+                        <td>{{ round($audio->filesize) }} <small>KB</small></td>
                         <td>{{ $audio->created_at }}</td>
                         <td>
                             <button class="button is-small is-outlined is-danger btn-delete-audio"
-                                    data-filename="{{ $audio->name }}">
+                                    data-filename="{{ $audio->name }}"
+                                    data-createtime="{{ $audio->created_at }}">
                                 Delete
                             </button>
                         </td>
@@ -93,7 +96,9 @@
         <div class="modal-content">
             <article class="message">
                 <div class="message-header">
-                    <p>Audio Player</p>
+                    <p>Audio Player
+                       <div id="fileinfo"><span></span></div>
+                    </p>
                     <button id="player-close" class="delete" aria-label="delete"></button>
                 </div>
                 <div class="message-body">
@@ -140,7 +145,9 @@
 
         $('.btn-play-audio').on('click', function (e) {
             var file = $(this).data('filename');
+            var createtime = $(this).data('createtime');
             loadAudioFile('/recordings/' + file + '.ogg');
+            $("#fileinfo span").text(createtime);
             $("#player-modal").addClass('is-active');
             $("#player-modal").addClass('is-clipped');
         });
