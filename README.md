@@ -34,12 +34,12 @@ See the full list of configuration items on the [CONFIGURATION page](CONFIGURATI
 The simplest hardware/software requirements are:
 
 1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Zero W** but should work on other models too!
-2. Raspbian version **11 (bullseye)** is recommended but older versions of Pirrot will run on Raspbian version **9 (stretch)** and **10 (buster)** too! You can install and use ___either the "lite" or "desktop" versions___ of Raspberian (I would personally recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
+2. **RaspberryPi OS 11 (bullseye)** is recommended but older versions of Pirrot will run on Raspbian version **9 (stretch)** and **10 (buster)** too! You can install and use ___either the "lite" or "desktop" versions___ of Raspbian (I would personally recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
 3. **An external USB sound card**.
 
 I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi foundation.
 
-Assuming you wish to use this with a radio transceiver, you will also need to wire up the transceiver's PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the configuration file found at ``/etc/pirrot.conf``).
+Assuming you wish to use this with a radio transceiver and do not wish to use "VOX mode", you will also need to wire up the transceiver's PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the configuration file found at ``/etc/pirrot.conf``).
 
 The audio in (receive) and audio out (transmit) connectors from your radio will need to be connected to the external USB sound card using the Mic Jack (for Transmit) and Speaker Jack (for Receive).
 
