@@ -106,7 +106,7 @@ class VoiceCommand extends AudioCommand implements CommandInterface
 
         while (true) {
             system($this->audioService->audioRecordBin . ' -t ' . trim($this->config->get('record_device',
-                    'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence 1 0.1 5% 1 1.0 5%');
+                    'alsa')) . ' default ' . $this->basePath . '/storage/input/buffer.ogg -V0 silence ' . trim($this->config->get('vox_tuning')));
             $this->storeRecording();
 
             if (!$this->config->get('enabled', false)) {
