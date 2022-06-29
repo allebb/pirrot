@@ -2,6 +2,8 @@
 
 # Pirrot - An Open-source Radio Repeater controller for RaspberryPi
 
+**Big news: Pirrot will soon be renamed to "Pirranha" and the project will be relocated to it's own GitHub org, you'll soon be able to find it here: https://github.com/pirranha/pirranha, we also have a ton of new features and improvements coming soon including a new website (https://pirranha.org) and Discord server!**
+
 The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex or duplex radio repeater controller.
 
 Pirrot also offers other operation modes and features that most off-the-shelf repeater controllers do not come with as standard such as automatic identification, the ability to operate in "surveillance mode" (recording transmissions).
