@@ -20,7 +20,7 @@ class AuthenticatePirrotAdmin
     {
 
         if (env('APP_ENV') == 'local') {
-            // Baypass auth in development mode.
+            // Bypass auth in development mode.
             return $next($request);
         }
 

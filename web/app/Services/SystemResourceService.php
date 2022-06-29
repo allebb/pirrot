@@ -125,12 +125,12 @@ class SystemResourceService
         return $gps;
     }
 
-    private function removeKbSuffix(string $string)
+    private function removeKbSuffix(string $string) : string
     {
         return str_replace(' kB', '', trim($string));
     }
 
-    public function toArray()
+    public function toArray() : array
     {
 
         // If this is running in a "dev" environment, we'll return randomised data instead!
@@ -186,7 +186,7 @@ class SystemResourceService
      * AJAX output to simulate a working Raspberry Pi device..
      * @return array
      */
-    private function randomiseOutput()
+    private function randomiseOutput() : array
     {
 
         $tempDegreesC = rand(32, 43);

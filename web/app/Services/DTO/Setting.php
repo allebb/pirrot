@@ -67,14 +67,7 @@ class Setting
      * @param string $inputType
      * @param array $commentLines
      */
-    public function __construct(
-        string $name,
-        string $label,
-        string $group,
-        $value = null,
-        $inputType = self::TYPE_TEXT,
-        $commentLines = []
-    ) {
+    public function __construct(string $name, string $label, string $group, $value = null, $inputType = self::TYPE_TEXT, $commentLines = []) {
         $this->name = $name;
         $this->label = $label;
         $this->group = $group;

@@ -29,7 +29,7 @@ class ConfManagerService
      * Reads and returns an array of settings and values in the configuration file.
      * @return array
      */
-    public function read()
+    public function read() : array
     {
 
         preg_match_all('/(.*)\s?=\s?(.*)/', $this->configurationContents, $output_array);
@@ -55,7 +55,7 @@ class ConfManagerService
      * @param array $updates
      * @return false|string
      */
-    public function update(array $updates)
+    public function update(array $updates) : string
     {
         $fileLines = explode(PHP_EOL, $this->configurationContents);
 

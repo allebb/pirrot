@@ -2,18 +2,6 @@
 
 use Illuminate\Support\Collection;
 
-$router->get('/testing', function(){
-    //$recordingsPath = app('path') . '/../public/recordings/';
-    $recordingsPath = app('path') . '/../public/test/';
-
-    $audioFiles = new Collection();
-    $filesInDirectory = array_diff(scandir($recordingsPath), array('.', '..'));
-
-    foreach ($filesInDirectory as $file) {
-        $audioFiles->add(new \Illuminate\Support\Facades\File($file));
-    }
-});
-
 $router->get('/', function () {
     return redirect(url('/dashboard'));
 });
