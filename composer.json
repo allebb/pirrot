@@ -1,6 +1,6 @@
 {
   "name": "ballen/pirrot",
-  "description": "A parrot (Simplex) repeater controller for RaspberryPi",
+  "description": "A UHF/VHF radio repeater controller for RaspberryPi",
   "type": "project",
   "keywords": [
     "repeater",
