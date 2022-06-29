@@ -180,7 +180,7 @@ class SettingsController extends Controller
         ],
         'delayed_playback_interval' => [
             'You can optionally add a delay (in seconds) between the received transmission being re-transmitted by Pirrot.',
-            'The default value is "0" (no delay, Pirrot will immediately repeat the transmission)',
+            'The default value is "0.2" (if set to "0" there will be no delay and therefore immediately repeat the transmission which might lead to cut audio recordings)',
         ],
         'courtesy_tone' => [
             'To disable courtesy tones set to: false',
