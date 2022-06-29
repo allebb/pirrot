@@ -139,7 +139,7 @@ class SettingsController extends Controller
         'owm_enabled' => 'Enable Weather Reports',
         'owm_locale' => 'Location Name',
         'owm_template' => 'Text-To-Speech Template',
-        'Vox Tuning' => 'VOX Tuning'
+        'vox_tuning' => 'VOX Tuning'
     ];
 
     /**
