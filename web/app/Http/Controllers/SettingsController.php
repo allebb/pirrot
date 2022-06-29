@@ -185,7 +185,7 @@ class SettingsController extends Controller
         ],
         'vox_tuning' => [
             'You can fine tune your VOX levels if you require without having to adjust your mic/line-in volume. This is considered an advanced setting and one that you should experiment with if the default values do not work for your setup',
-            'Default value: "1 .5 5% 1 1.0 5%" (eg. Wait until it hears activity above the threshold (5%) for half a second (.5) then start recording, stop recording when audible activity falls below the threshold (5%) to zero for one second (1.0).',
+            'Default value: "1 0.5 5% 1 1.0 5%" (eg. Wait until it hears activity above the threshold (5%) for half a second (0.5) then start recording, stop recording when audible activity falls below the threshold (5%) to zero for one second (1.0).',
         ],
         'courtesy_tone' => [
             'To disable courtesy tones set to: false',
