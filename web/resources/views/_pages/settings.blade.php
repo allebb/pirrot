@@ -37,7 +37,7 @@
                                                    value="{{ $value->value }}" required>
                                     @endif
                                     @if($value->commentLines)
-                                        <p>{!! implode('<br>', $value->commentLines) !!}</p>
+                                        <p class="is-size-7">{!! implode('<br>', $value->commentLines) !!}</p>
                                         @endif
                                         </p>
                                 </div>
