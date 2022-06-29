@@ -116,7 +116,7 @@ class IdentCommand extends AudioCommand implements CommandInterface
             }
 
             if ($broadcastWeather) {
-                $this->audioService->playMp3($customWxFile);
+                $this->audioService->playMp3($this->announceWeather());
             }
 
             $this->outputPtt->setValue(GPIO::LOW);
