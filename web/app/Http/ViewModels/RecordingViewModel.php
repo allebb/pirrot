@@ -22,7 +22,7 @@ class RecordingViewModel extends ViewModel
         $this->format($file);
     }
 
-    private function format(\SplFileInfo $file) : RecordingViewModel
+    private function format(\SplFileInfo $file) : void
     {
         $this->name = rtrim($file->getFilename(), '.' . $file->getExtension());
         $this->filename = rtrim($file->getFilename());

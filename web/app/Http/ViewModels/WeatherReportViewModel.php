@@ -38,7 +38,7 @@ class WeatherReportViewModel extends ViewModel
         $this->format($report);
     }
 
-    private function format($report) : WeatherReportViewModel
+    private function format($report) : void
     {
         $this->description = ucfirst($report->description);
         $this->temp_c = round($report->temp, 1);
