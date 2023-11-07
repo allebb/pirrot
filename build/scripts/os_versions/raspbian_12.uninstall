@@ -1,0 +1,1 @@
+sudo apt-get autoremove -y sox morse wget lame php8.2-cli php8.2-curl php8.2-mbstring php8.2-sqlite3 php8.2-xml
