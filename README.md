@@ -2,11 +2,9 @@
 
 # Pirrot - An Open-source Radio Repeater controller for RaspberryPi
 
-**Big news: Pirrot will soon be renamed to "Pirranha" and the project will be relocated to it's own GitHub org, you'll soon be able to find it here: https://github.com/pirranha/pirranha, we also have a ton of new features and improvements coming soon including a new website (https://pirranha.org) and Discord server!**
-
 The Pirrot project exists to offer a cheaper (and fun) alternative to buying a dedicated simplex or duplex radio repeater controller.
 
-Pirrot also offers other operation modes and features that most off-the-shelf repeater controllers do not come with as standard such as automatic identification, the ability to operate in "surveillance mode" (recording transmissions).
+Pirrot also offers other operation modes and features that most off-the-shelf repeater controllers do not come with as standard such as automatic identification, and the ability to operate in "surveillance mode" (recording transmissions).
 
 You can find a list of user projects to get inspiration from [below](https://github.com/allebb/pirrot/blob/master/README.md#pirrot-being-used-in-the-wild).
 
@@ -21,13 +19,13 @@ You can find a list of user projects to get inspiration from [below](https://git
 * Ability to trigger repeater transmission using VOX (voice activation) or COR (carrier signal from radio to trigger a PTT relay).
 * Optional recording of received transmissions (disabled by default).
 * Optional automatic nightly backups and archiving of audio recordings to a remote server (FTP and FTPS supported).
-* Automatically purge old recording from the SD card (keeping that SD card from getting full).
+* Automatically purge old recordings from the SD card (keeping that SD card from getting full).
 * Optional integration with GPS hardware for "field" or "mobile" operations, ensuring the RPi has accurate time (using the atomic clocks from GPS satellites).
 * Optional weather report broadcasts for a specified location (requires an internet connection and a free [OpenWeatherMap account](https://openweathermap.org/) API key)
-* Optional Google Text-To-Speech functionality for translatable broadcasts and generating synthesised weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
-* Ability to dispatch a web hook when the repeater is activated (requires an internet connection) - We call this feature "Tripwire".
-* Ability to optionally delay the transmission of a received simplex messages for a configurable time period.
-* Ability to set a custom courtesy tone on end of transmission.
+* Optional Google Text-To-Speech functionality for translatable broadcasts and generating synthesized weather report broadcasts (requires an internet connection and a [Google Cloud](https://console.cloud.google.com/?pli=1)  API Key)
+* Ability to dispatch a webhook when the repeater is activated (requires an internet connection) - We call this feature "Tripwire".
+* Ability to optionally delay the transmission of received simplex messages for a configurable time period.
+* Ability to set a custom courtesy tone on the end of transmission.
 
 See the full list of configuration items on the [CONFIGURATION page](CONFIGURATION.md).
 
@@ -36,10 +34,10 @@ See the full list of configuration items on the [CONFIGURATION page](CONFIGURATI
 The simplest hardware/software requirements are:
 
 1. **A RaspberryPi** - I test Pirrot on the **RaspberryPi 3, 4 and the Zero W** but should work on other models too!
-2. **RaspberryPi OS 11 (bullseye)** is recommended but older versions of Pirrot will run on Raspbian version **9 (stretch)** and **10 (buster)** too! You can install and use ___either the "lite" or "desktop" versions___ of Raspbian (I would personally recommend the "lite" version as it uses less system resources especially if you intend to run it headless).
+2. **RaspberryPi OS 12 (bookworm)** is recommended but older versions of Pirrot will run on Raspbian version **9 (stretch)**, **10 (buster)**  and **11 (bullseye)** too! You can install and use ___either the "lite" or "desktop" versions___ of Raspbian (I would personally recommend the "lite" version as it uses fewer system resources especially if you intend to run it headless).
 3. **An external USB sound card**.
 
-I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi foundation.
+I will update the installer to support newer versions of Raspbian as and when they are released by the Raspberry Pi Foundation.
 
 Assuming you wish to use this with a radio transceiver and do not wish to use "VOX mode", you will also need to wire up the transceiver's PTT button to the PTT relay pin on your RaspberryPi's GPIO pin (by default this is GPIO Pin #23, although you can adjust as required in the configuration file found at ``/etc/pirrot.conf``).
 
@@ -60,7 +58,7 @@ cd /opt/pirrot
 sudo make install
 ```
 
-Alternatively you can install Pirrot by downloading the latest tarball, **replace the X.X.X with the latest version available from the ([releases page](https://github.com/allebb/pirrot/releases))**:
+Alternatively, you can install Pirrot by downloading the latest tarball, **replace the X.X.X with the latest version available from the ([releases page](https://github.com/allebb/pirrot/releases))**:
 
 ```shell
 cd ~
