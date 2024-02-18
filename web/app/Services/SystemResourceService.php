@@ -46,7 +46,15 @@ class SystemResourceService
 
     public function getDiskUsage(): int
     {
-        $data = shell_exec("df -l | grep '/dev/root' | awk '{print $1,$2,$3,$4,$5}'");
+
+        $rootPartition = '/dev/root';
+
+        if(!file_exists('/dev/root')){
+            // Newer Raspbian images appear to be "/dev/mmcblk0p2" instead.
+            $rootPartition = '/dev/mmcblk0p2';
+        }
+
+        $data = shell_exec("df -l | grep '" .$rootPartition. "' | awk '{print $1,$2,$3,$4,$5}'");
         $parts = explode(' ', $data);
         $this->diskUsed = trim($parts[2]);
         $this->diskTotal = trim($parts[1]);
