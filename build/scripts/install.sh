@@ -102,6 +102,7 @@ echo " - Installing Composer..."
 wget https://getcomposer.org/composer.phar
 sudo mv composer.phar /usr/bin/composer
 sudo chmod +x /usr/bin/composer
+sudo /usr/bin/composer self-update
 
 # Run composer install...
 echo " - Installing Pirrot Dependencies..."
